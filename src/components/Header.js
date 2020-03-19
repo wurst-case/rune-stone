@@ -2,7 +2,8 @@ import React from 'react'
 import styled from '@emotion/styled'
 import Layout from '../constants/layoutConstants'
 
-const TopBar = styled.div`
+const S = {}
+S.Header = styled.div`
   background-color: #222;
   height: ${Layout.HEADER_HEIGHT}px;
   padding: 20px;
@@ -19,9 +20,9 @@ const TopBar = styled.div`
 
 function Header() {
   return (
-    <TopBar>
+    <S.Header>
       <h2>Rune Page</h2>
-    </TopBar>
+    </S.Header>
   )
 }
 

@@ -1,3 +1,10 @@
 export default {
   HEADER_HEIGHT: 120,
+  RUNE_SIZE_KS: 66,
+  RUNE_SIZE_TREE: 50,
+  RUNE_SIZE_MENU: 40,
+  RUNE_BORDER_WIDTH: 2,
+  RUNE_BG_COLOR: '#1d2227',
+  BANDLE_RGB: '255, 0, 0',
+  ATTACK: '200ms',
 }
