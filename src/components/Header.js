@@ -1,25 +1,18 @@
 import React from 'react'
-import logo from '../assets/logo.svg'
 import styled from '@emotion/styled'
-import { keyframes } from '@emotion/core'
-
-const rotate360 = keyframes`
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-`
+import Layout from '../constants/layoutConstants'
 
 const TopBar = styled.div`
   background-color: #222;
-  height: 150px;
+  height: ${Layout.HEADER_HEIGHT}px;
   padding: 20px;
   color: #fff;
+  text-align: center;
+  position: fixed;
+  width: 100vw;
+  box-sizing: border-box;
 
   .redux-logo {
-    animation: ${rotate360} infinite 20s linear;
     height: 80px;
   }
 `
@@ -27,8 +20,7 @@ const TopBar = styled.div`
 function Header() {
   return (
     <TopBar>
-      <img src={logo} className="redux-logo" alt="logo" />
-      <h2>Welcome to Create Redux App</h2>
+      <h2>Rune Page</h2>
     </TopBar>
   )
 }
