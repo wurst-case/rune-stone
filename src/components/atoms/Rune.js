@@ -23,6 +23,8 @@ S.Rune = styled.div`
   height: ${(props) => runeSize(props.type)}px;
 
   background: ${Layout.RUNE_BG_COLOR};
+  box-shadow: inset 0px 0px 12px rgba(0, 0, 0, 1);
+
   cursor: pointer;
 
   border-radius: ${(props) => runeSize(props.type)}px;

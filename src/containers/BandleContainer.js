@@ -2,7 +2,9 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import styled from '@emotion/styled'
 import Layout from '../constants/layoutConstants'
-import Rune from '../components/atoms/Rune'
+import PrimaryTree from '../components/molecules/PrimaryTree'
+import SecondaryTree from '../components/molecules/SecondaryTree'
+import PrimaryMenu from '../components/molecules/PrimaryMenu'
 
 const S = {}
 S.Container = styled.div`
@@ -16,16 +18,17 @@ S.Container = styled.div`
   /* Dev purposes only */
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: start;
 `
 
 export class BandleContainer extends Component {
   render() {
+    let color = Layout.BANDLE_RGB
     return (
       <S.Container>
-        <Rune color={Layout.BANDLE_RGB} type="keystone" />
-        <Rune color={Layout.BANDLE_RGB} type="tree" />
-        <Rune color={Layout.BANDLE_RGB} type="menu" />
+        <PrimaryTree color={color} />
+        <PrimaryMenu color={color} />
+        <SecondaryTree color={color} />
       </S.Container>
     )
   }
