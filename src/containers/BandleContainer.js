@@ -2,10 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import styled from '@emotion/styled'
 import Layout from '../constants/layoutConstants'
-import PrimaryTree from '../components/molecules/PrimaryTree'
-import SecondaryTree from '../components/molecules/SecondaryTree'
-import PrimaryMenu from '../components/molecules/PrimaryMenu'
-import SecondaryMenu from '../components/molecules/SecondaryMenu'
+import CompBuilder from '../components/organisms/CompBuilder'
 
 const S = {}
 S.Container = styled.div`
@@ -23,13 +20,9 @@ S.Container = styled.div`
 
 export class BandleContainer extends Component {
   render() {
-    let color = Layout.BANDLE_RGB
     return (
       <S.Container>
-        <PrimaryTree color={color} />
-        <PrimaryMenu color={color} />
-        <SecondaryTree color={color} />
-        <SecondaryMenu color={color} />
+        <CompBuilder />
       </S.Container>
     )
   }
