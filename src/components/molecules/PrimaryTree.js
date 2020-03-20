@@ -3,8 +3,8 @@ import styled from '@emotion/styled'
 import Rune from '../atoms/Rune'
 import Branch from '../atoms/Branch'
 import FlavorRune from '../atoms/FlavorRune'
-import ability from '../../assets/cheap-shot.webp'
-import ks from '../../assets/electrocute.webp'
+import ability from '../../assets/domination/t1/cheap-shot.webp'
+import ks from '../../assets/domination/keystones/electrocute.webp'
 
 const S = {}
 S.Tree = styled.div`

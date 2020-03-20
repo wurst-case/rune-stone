@@ -2,8 +2,8 @@ import React from 'react'
 import styled from '@emotion/styled'
 import MenuRune from '../atoms/MenuRune'
 import FlavorMenuRune from '../atoms/FlavorMenuRune'
-import ability from '../../assets/cheap-shot.webp'
-import flavor from '../../assets/domination.png'
+import ability from '../../assets/domination/t1/cheap-shot.webp'
+import flavor from '../../assets/domination/domination.png'
 import Layout from '../../constants/layoutConstants'
 
 const S = {}
