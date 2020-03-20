@@ -3,9 +3,14 @@ import styled from '@emotion/styled'
 import Layout from '../../constants/layoutConstants'
 
 const S = {}
+
 S.Rune = styled.div`
   position: relative;
   z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   width: ${Layout.RUNE_SIZE_MENU}px;
   height: ${Layout.RUNE_SIZE_MENU}px;
 
@@ -28,7 +33,8 @@ S.Rune = styled.div`
   }
 
   & > img {
-    width: ${Layout.RUNE_SIZE_MENU}px;
+    /* Image size larger proportionally if keystone rune by 75% and active runes decrease image sixe by 20%*/
+    width: ${(props) => Layout.RUNE_SIZE_MENU * (props.keystone ? 1.75 : 1) * (props.active ? 0.8 : 1)}px;
     filter: ${(props) => (props.disabled ? 'gray' : 'none')};
     -webkit-filter: ${(props) => (props.disabled ? 'grayscale(1)' : 'none')};
     filter: ${(props) => (props.disabled ? 'grayscale(1)' : 'none')};
@@ -57,7 +63,7 @@ S.Highlighter = styled.div`
 
 function Rune(props) {
   return (
-    <S.Rune color={props.color} type={props.type} disabled={props.disabled}>
+    <S.Rune color={props.color} keystone={props.keystone} disabled={props.disabled}>
       <img alt="flavor" src={props.img} />
       <S.Highlighter color={props.color}></S.Highlighter>
     </S.Rune>

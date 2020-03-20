@@ -5,6 +5,7 @@ import FlavorMenuRune from '../atoms/FlavorMenuRune'
 import ability from '../../assets/cheap-shot.webp'
 import flavor from '../../assets/domination.png'
 import Layout from '../../constants/layoutConstants'
+import ks from '../../assets/electrocute.webp'
 
 const S = {}
 S.MenuTree = styled.div`
@@ -34,10 +35,10 @@ function PrimaryMenu(props) {
         <FlavorMenuRune img={flavor} />
       </S.Menu>
       <S.Menu>
-        <MenuRune color={Layout.BANDLE_RGB} img={ability} />
-        <MenuRune color={Layout.BANDLE_RGB} img={ability} disabled />
-        <MenuRune color={Layout.BANDLE_RGB} img={ability} disabled />
-        <MenuRune color={Layout.BANDLE_RGB} img={ability} disabled />
+        <MenuRune color={Layout.BANDLE_RGB} img={ks} keystone />
+        <MenuRune color={Layout.BANDLE_RGB} img={ks} keystone disabled />
+        <MenuRune color={Layout.BANDLE_RGB} img={ks} keystone disabled />
+        <MenuRune color={Layout.BANDLE_RGB} img={ks} keystone disabled />
       </S.Menu>
       <S.Menu>
         <MenuRune color={Layout.BANDLE_RGB} img={ability} disabled />
