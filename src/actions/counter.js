@@ -6,3 +6,44 @@ export function incrementIfOdd() {
   if (counter % 2 === 0) return
   store.dispatch({ type: ActionTypes.INCREMENT_COUNTER })
 }
+
+//Reset Comp
+export const selectPrimaryFlavor = () => ({
+  type: ActionTypes.SELECT_PRIMARY_FLAVOR,
+})
+
+//Primary Comp
+export const selectPrimaryFlavor = (id) => ({
+  type: ActionTypes.SELECT_PRIMARY_FLAVOR,
+  payload: id,
+})
+export const selectKeystone = (id) => ({
+  type: ActionTypes.SELECT_KEYSTONE,
+  payload: id,
+})
+export const selectPrimaryT3 = (id) => ({
+  type: ActionTypes.SELECT_PRIMARY_T1,
+  payload: id,
+})
+export const selectPrimaryT3 = (id) => ({
+  type: ActionTypes.SELECT_PRIMARY_T2,
+  payload: id,
+})
+export const selectPrimaryT3 = (id) => ({
+  type: ActionTypes.SELECT_PRIMARY_T3,
+  payload: id,
+})
+
+//Secondary Comp
+export const selectSecondaryFlavor = (id) => ({
+  type: ActionTypes.SELECT_SECONDARY_FLAVOR,
+  payload: id,
+})
+export const selectPrimaryT3 = (id) => ({
+  type: ActionTypes.SELECT_SECONDARY_T1,
+  payload: id,
+})
+export const selectPrimaryT3 = (id) => ({
+  type: ActionTypes.SELECT_SECONDARY_T2,
+  payload: id,
+})
