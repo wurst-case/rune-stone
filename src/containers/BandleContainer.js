@@ -5,19 +5,19 @@ import Layout from '../constants/layoutConstants'
 import PrimaryTree from '../components/molecules/PrimaryTree'
 import SecondaryTree from '../components/molecules/SecondaryTree'
 import PrimaryMenu from '../components/molecules/PrimaryMenu'
+import SecondaryMenu from '../components/molecules/SecondaryMenu'
 
 const S = {}
 S.Container = styled.div`
   background-color: #000;
   padding: 20px;
-  padding-top: ${Layout.HEADER_HEIGHT + 20}px;
+  padding-top: ${Layout.HEADER_HEIGHT * 2}px;
   color: #fff;
   text-align: center;
   height: 100vh;
   box-sizing: border-box;
-  /* Dev purposes only */
   display: flex;
-  justify-content: center;
+  justify-content: start;
   align-items: start;
 `
 
@@ -29,6 +29,7 @@ export class BandleContainer extends Component {
         <PrimaryTree color={color} />
         <PrimaryMenu color={color} />
         <SecondaryTree color={color} />
+        <SecondaryMenu color={color} />
       </S.Container>
     )
   }

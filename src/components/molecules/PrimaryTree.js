@@ -2,7 +2,7 @@ import React from 'react'
 import styled from '@emotion/styled'
 import Rune from '../atoms/Rune'
 import Branch from '../atoms/Branch'
-import PathRune from '../atoms/PathRune'
+import FlavorRune from '../atoms/FlavorRune'
 
 const S = {}
 S.Tree = styled.div`
@@ -16,7 +16,7 @@ S.Tree = styled.div`
 function PrimaryTree(props) {
   return (
     <S.Tree>
-      <PathRune color={props.color} />
+      <FlavorRune color={props.color} />
       <Branch color={props.color} padding={4} />
       <Rune color={props.color} type="keystone" />
       <Branch color={props.color} padding={-16} />

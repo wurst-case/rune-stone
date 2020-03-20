@@ -24,7 +24,7 @@ S.Menu = styled.div`
   width: 200px;
 `
 
-function PrimaryMenu(props) {
+function SecondaryMenu(props) {
   return (
     <S.MenuTree>
       <S.Menu>
@@ -44,18 +44,8 @@ function PrimaryMenu(props) {
         <MenuRune color={Layout.BANDLE_RGB} img={ability} disabled />
         <MenuRune color={Layout.BANDLE_RGB} img={ability} />
       </S.Menu>
-      <S.Menu>
-        <MenuRune color={Layout.BANDLE_RGB} img={ability} disabled />
-        <MenuRune color={Layout.BANDLE_RGB} img={ability} />
-        <MenuRune color={Layout.BANDLE_RGB} img={ability} disabled />
-      </S.Menu>
-      <S.Menu>
-        <MenuRune color={Layout.BANDLE_RGB} img={ability} />
-        <MenuRune color={Layout.BANDLE_RGB} img={ability} />
-        <MenuRune color={Layout.BANDLE_RGB} img={ability} />
-      </S.Menu>
     </S.MenuTree>
   )
 }
 
-export default PrimaryMenu
+export default SecondaryMenu

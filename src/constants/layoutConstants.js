@@ -1,11 +1,17 @@
 export default {
+  //Lengths
   HEADER_HEIGHT: 120,
   RUNE_SIZE_KS: 62,
-  RUNE_SIZE_TREE: 46,
+  RUNE_SIZE_REG: 46,
   RUNE_SIZE_MENU: 36,
-  RUNE_SIZE_PATH: 46,
+  RUNE_SIZE_FLAVOR: 46,
+  RUNE_SIZE_FLAVOR_MENU: 44,
   RUNE_BORDER_WIDTH: 2,
+  //Animations
+  ATTACK: '200ms',
+  //Colors
   RUNE_BG_COLOR: '#1d2227',
   BANDLE_RGB: '255, 0, 0',
-  ATTACK: '200ms',
+  GREY: '50, 50, 50',
+  GOLD: '230, 211, 160',
 }

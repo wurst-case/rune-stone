@@ -3,9 +3,9 @@ import styled from '@emotion/styled'
 import Layout from '../../constants/layoutConstants'
 
 const S = {}
-S.PathRune = styled.div`
-  width: ${Layout.RUNE_SIZE_PATH}px;
-  height: ${Layout.RUNE_SIZE_PATH}px;
+S.FlavorRune = styled.div`
+  width: ${Layout.RUNE_SIZE_FLAVOR}px;
+  height: ${Layout.RUNE_SIZE_FLAVOR}px;
 
   border-radius: 100%;
   background-color: transparent;
@@ -16,8 +16,8 @@ S.PathRune = styled.div`
   border-color: rgba(${(props) => props.color}, 0.5);
 `
 
-function PathRune(props) {
-  return <S.PathRune color={props.color} />
+function FlavorRune(props) {
+  return <S.FlavorRune color={props.color} />
 }
 
-export default PathRune
+export default FlavorRune
