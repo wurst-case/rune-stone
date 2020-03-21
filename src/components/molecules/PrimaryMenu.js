@@ -2,10 +2,7 @@ import React from 'react'
 import styled from '@emotion/styled'
 import MenuRune from '../atoms/MenuRune'
 import FlavorMenuRune from '../atoms/FlavorMenuRune'
-import ability from '../../assets/domination/t1/cheap-shot.webp'
-import ks from '../../assets/domination/keystones/electrocute.webp'
-import flavor from '../../assets/domination/domination.png'
-import Layout from '../../constants/layoutConstants'
+import flavors from '../../constants/assetsMap'
 
 const S = {}
 S.Menus = styled.div`
@@ -23,7 +20,7 @@ S.Menu = styled.div`
 
   margin: 2px;
   height: 100px;
-  width: 200px;
+  width: 300px;
 
   /* DEV PURPOSES ONLY */
   background-color: #222;
@@ -40,34 +37,37 @@ function PrimaryMenu(props) {
   return (
     <S.Menus>
       <S.Menu open>
-        <FlavorMenuRune img={flavor} />
-        <FlavorMenuRune picked img={flavor} />
-        <FlavorMenuRune img={flavor} />
-        <FlavorMenuRune img={flavor} />
+        {flavors.map((flavor, id) => {
+          //add "picked" logic
+          return <FlavorMenuRune img={flavor.src} onClick={props.onClick} id={id} />
+        })}
       </S.Menu>
       <S.TierTitle open>
         <h4>Domination</h4>
       </S.TierTitle>
       <S.Menu open>
-        <MenuRune color={Layout.BANDLE_RGB} img={ks} keystone />
-        <MenuRune color={Layout.BANDLE_RGB} img={ks} keystone disabled />
-        <MenuRune color={Layout.BANDLE_RGB} img={ks} keystone disabled />
-        <MenuRune color={Layout.BANDLE_RGB} img={ks} keystone disabled />
+        {props.flavor.keystones.map((keystone) => (
+          //TODO: add "disabled" logic
+          <MenuRune keystone color={props.color} img={keystone.src} />
+        ))}
       </S.Menu>
       <S.Menu open>
-        <MenuRune color={Layout.BANDLE_RGB} img={ability} disabled />
-        <MenuRune color={Layout.BANDLE_RGB} img={ability} disabled />
-        <MenuRune color={Layout.BANDLE_RGB} img={ability} />
+        {props.flavor.tier1.map((rune) => (
+          //TODO: add "disabled" logic
+          <MenuRune color={props.color} img={rune.src} />
+        ))}
       </S.Menu>
       <S.Menu open>
-        <MenuRune color={Layout.BANDLE_RGB} img={ability} disabled />
-        <MenuRune color={Layout.BANDLE_RGB} img={ability} />
-        <MenuRune color={Layout.BANDLE_RGB} img={ability} disabled />
+        {props.flavor.tier2.map((rune) => (
+          //TODO: add "disabled" logic
+          <MenuRune color={props.color} img={rune.src} />
+        ))}
       </S.Menu>
       <S.Menu open>
-        <MenuRune color={Layout.BANDLE_RGB} img={ability} />
-        <MenuRune color={Layout.BANDLE_RGB} img={ability} />
-        <MenuRune color={Layout.BANDLE_RGB} img={ability} />
+        {props.flavor.tier3.map((rune) => (
+          //TODO: add "disabled" logic
+          <MenuRune color={props.color} img={rune.src} />
+        ))}
       </S.Menu>
     </S.Menus>
   )

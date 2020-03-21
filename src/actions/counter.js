@@ -8,24 +8,27 @@ export function incrementIfOdd() {
 }
 
 //Reset Comp
-export const selectPrimaryFlavor = () => ({
-  type: ActionTypes.SELECT_PRIMARY_FLAVOR,
+export const resetFlavor = () => ({
+  type: ActionTypes.RESET,
 })
 
 //Primary Comp
-export const selectPrimaryFlavor = (id) => ({
-  type: ActionTypes.SELECT_PRIMARY_FLAVOR,
-  payload: id,
-})
+export const selectPrimaryFlavor = (id) => {
+  console.log('...reducing ' + id)
+  return {
+    type: ActionTypes.SELECT_PRIMARY_FLAVOR,
+    payload: id,
+  }
+}
 export const selectKeystone = (id) => ({
   type: ActionTypes.SELECT_KEYSTONE,
   payload: id,
 })
-export const selectPrimaryT3 = (id) => ({
+export const selectPrimaryT1 = (id) => ({
   type: ActionTypes.SELECT_PRIMARY_T1,
   payload: id,
 })
-export const selectPrimaryT3 = (id) => ({
+export const selectPrimaryT2 = (id) => ({
   type: ActionTypes.SELECT_PRIMARY_T2,
   payload: id,
 })
@@ -39,11 +42,11 @@ export const selectSecondaryFlavor = (id) => ({
   type: ActionTypes.SELECT_SECONDARY_FLAVOR,
   payload: id,
 })
-export const selectPrimaryT3 = (id) => ({
+export const selectSecondaryT1 = (id) => ({
   type: ActionTypes.SELECT_SECONDARY_T1,
   payload: id,
 })
-export const selectPrimaryT3 = (id) => ({
+export const selectSecondaryT2 = (id) => ({
   type: ActionTypes.SELECT_SECONDARY_T2,
   payload: id,
 })

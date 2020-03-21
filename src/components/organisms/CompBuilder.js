@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import styled from '@emotion/styled'
-import Layout from '../../constants/layoutConstants'
 import PrimaryTree from '../../components/molecules/PrimaryTree'
 import SecondaryTree from '../../components/molecules/SecondaryTree'
 import PrimaryMenu from '../../components/molecules/PrimaryMenu'
 import SecondaryMenu from '../../components/molecules/SecondaryMenu'
+import flavors from '../../constants/assetsMap'
+import { selectPrimaryFlavor } from '../../actions/counter'
 
 const S = {}
 S.CompBuilder = styled.div`
@@ -17,22 +18,37 @@ S.CompBuilder = styled.div`
   width: 100%;
 `
 
-export class CompBuilder extends Component {
+const mapStateToProps = (state) => {
+  return {
+    flavor: state.composition.PRIMARY_FLAVOR,
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onSelectPrimaryFlavor: (id) => dispatch(selectPrimaryFlavor(id)),
+  }
+}
+
+class CompBuilder extends Component {
   render() {
-    let color = Layout.BANDLE_RGB
+    const { flavor, onSelectPrimaryFlavor } = this.props
+    const selectedFlavor = flavors[flavor]
     return (
       <S.CompBuilder>
-        <PrimaryTree color={color} />
-        <PrimaryMenu color={color} />
-        <SecondaryTree color={color} />
-        <SecondaryMenu color={color} />
+        <PrimaryTree color={selectedFlavor.colorRGB} />
+        <PrimaryMenu
+          color={selectedFlavor.colorRGB}
+          flavor={selectedFlavor}
+          onClick={(id) => {
+            onSelectPrimaryFlavor(id)
+          }}
+        />
+        {/* <SecondaryTree color={color} />
+        <SecondaryMenu color={color} /> */}
       </S.CompBuilder>
     )
   }
 }
-
-const mapStateToProps = (state) => ({})
-
-const mapDispatchToProps = {}
 
 export default connect(mapStateToProps, mapDispatchToProps)(CompBuilder)

@@ -15,7 +15,7 @@ export function counter(state = initCounterState, action) {
 }
 
 const initialState = {
-  PRIMARY_FLAVOR: null,
+  PRIMARY_FLAVOR: 0,
   KEYSTONE: null,
   PRIMARY_T1: null,
   PRIMARY_T2: null,
@@ -26,10 +26,12 @@ const initialState = {
 }
 
 export default function composition(state = initialState, action) {
+  console.log('...activating switcher')
   switch (action.type) {
     case ActionTypes.RESET:
       return initialState
     case ActionTypes.SELECT_PRIMARY_FLAVOR:
+      console.log('...actioning ' + action.payload)
       return { ...state, PRIMARY_FLAVOR: action.payload }
     case ActionTypes.SELECT_KEYSTONE:
       return { ...state, KEYSTONE: action.payload }
