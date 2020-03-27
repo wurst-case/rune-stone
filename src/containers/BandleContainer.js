@@ -3,10 +3,12 @@ import { connect } from 'react-redux'
 import styled from '@emotion/styled'
 import Layout from '../constants/layoutConstants'
 import CompBuilder from '../components/organisms/CompBuilder'
+import bandleBG from '../assets/bandle/bg.png'
 
 const S = {}
 S.Container = styled.div`
-  background-color: #000;
+  background: url(${bandleBG}) no-repeat center center fixed;
+  background-size: cover;
   padding: 20px;
   padding-top: ${Layout.HEADER_HEIGHT * 2}px;
   color: #fff;
