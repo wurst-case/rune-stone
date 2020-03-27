@@ -23,7 +23,7 @@ S.Menu = styled.div`
   width: 300px;
 
   /* DEV PURPOSES ONLY */
-  background-color: #222;
+  /* background-color: #222; */
 `
 S.TierTitle = styled.div`
   display: ${(props) => (props.open ? 'none' : '')};
