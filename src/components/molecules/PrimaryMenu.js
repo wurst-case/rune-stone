@@ -25,6 +25,7 @@ S.Menu = styled.div`
   /* DEV PURPOSES ONLY */
   /* background-color: #222; */
 `
+
 S.TierTitle = styled.div`
   display: ${(props) => (props.open ? 'none' : '')};
 
@@ -39,34 +40,38 @@ function PrimaryMenu(props) {
       <S.Menu open>
         {flavors.map((flavor, id) => {
           //add "picked" logic
-          return <FlavorMenuRune img={flavor.src} onClick={props.onClick} id={id} />
+          return <FlavorMenuRune img={flavor.src} onClick={props.onSelectFlavor} id={id} key={'primeflavor' + id} />
         })}
       </S.Menu>
-      <S.TierTitle open>
-        <h4>Domination</h4>
-      </S.TierTitle>
       <S.Menu open>
-        {props.flavor.keystones.map((keystone) => (
+        {props.flavor.keystones.map((keystone, id) => (
           //TODO: add "disabled" logic
-          <MenuRune keystone color={props.color} img={keystone.src} />
+          <MenuRune
+            keystone
+            color={props.color}
+            img={keystone.src}
+            onClick={props.onSelectKeystone}
+            id={id}
+            key={'keystone' + id}
+          />
         ))}
       </S.Menu>
       <S.Menu open>
-        {props.flavor.tier1.map((rune) => (
+        {props.flavor.tier1.map((rune, id) => (
           //TODO: add "disabled" logic
-          <MenuRune color={props.color} img={rune.src} />
+          <MenuRune color={props.color} img={rune.src} onClick={props.onSelectT1} id={id} key={'t1' + id} />
         ))}
       </S.Menu>
       <S.Menu open>
-        {props.flavor.tier2.map((rune) => (
+        {props.flavor.tier2.map((rune, id) => (
           //TODO: add "disabled" logic
-          <MenuRune color={props.color} img={rune.src} />
+          <MenuRune color={props.color} img={rune.src} onClick={props.onSelectT2} id={id} key={'t2' + id} />
         ))}
       </S.Menu>
       <S.Menu open>
-        {props.flavor.tier3.map((rune) => (
+        {props.flavor.tier3.map((rune, id) => (
           //TODO: add "disabled" logic
-          <MenuRune color={props.color} img={rune.src} />
+          <MenuRune color={props.color} img={rune.src} onClick={props.onSelectT3} id={id} key={'t3' + id} />
         ))}
       </S.Menu>
     </S.Menus>

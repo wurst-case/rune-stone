@@ -14,7 +14,6 @@ export const resetFlavor = () => ({
 
 //Primary Comp
 export const selectPrimaryFlavor = (id) => {
-  console.log('...reducing ' + id)
   return {
     type: ActionTypes.SELECT_PRIMARY_FLAVOR,
     payload: id,

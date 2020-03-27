@@ -71,11 +71,13 @@ S.Spark = styled.img`
 `
 
 function Rune(props) {
+  var img
+  if (props.img != null) img = <img className="graphic" alt={props.keystone ? 'keystone' : 'rune'} src={props.img} />
   return (
     <div>
       <S.Rune color={props.color} keystone={props.keystone} active={props.active}>
         <S.Spark src={spark} keystone={props.keystone} active={props.active} />
-        <img className="graphic" alt={props.keystone ? 'keystone' : 'rune'} src={props.img} />
+        {img}
         <S.Highlighter color={props.color} />
       </S.Rune>
     </div>

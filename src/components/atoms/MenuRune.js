@@ -63,7 +63,12 @@ S.Highlighter = styled.div`
 
 function Rune(props) {
   return (
-    <S.Rune color={props.color} keystone={props.keystone} disabled={props.disabled}>
+    <S.Rune
+      color={props.color}
+      keystone={props.keystone}
+      disabled={props.disabled}
+      onClick={(e) => props.onClick(props.id)}
+    >
       <img alt="flavor" src={props.img} />
       <S.Highlighter color={props.color}></S.Highlighter>
     </S.Rune>

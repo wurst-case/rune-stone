@@ -3,7 +3,6 @@ import styled from '@emotion/styled'
 import Rune from '../atoms/Rune'
 import Branch from '../atoms/Branch'
 import FlavorRune from '../atoms/FlavorRune'
-import ability from '../../assets/domination/t1/cheap-shot.webp'
 
 const S = {}
 S.Tree = styled.div`
@@ -15,13 +14,14 @@ S.Tree = styled.div`
 `
 
 function PrimaryTree(props) {
+  let { color, t1, t2 } = props
   return (
     <S.Tree>
       <FlavorRune color={props.color} />
       <Branch color={props.color} padding={4} />
-      <Rune color={props.color} img={ability} />
-      <Branch color={props.color} />
-      <Rune color={props.color} img={ability} active />
+      <Rune color={color} img={t1 ? t1.src : null} />
+      <Branch color={color} />
+      <Rune color={color} img={t2 ? t2.src : null} />
     </S.Tree>
   )
 }
