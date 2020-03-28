@@ -14,18 +14,25 @@ S.Tree = styled.div`
 `
 
 function PrimaryTree(props) {
-  let { color, keystone, t1, t2, t3 } = props
+  let { color, keystone, t1, t2, t3, onToggle, openMenus } = props
+  // console.log('keystone menu is open: ' + openMenus)
   return (
     <S.Tree>
-      <FlavorRune color={color} />
+      <FlavorRune color={color} onClick={() => onToggle({ tier: 'FLAVOR' })} />
       <Branch color={color} padding={4} />
-      <Rune color={color} keystone img={keystone ? keystone.src : null} />
-      <Branch color={color} padding={-16} />
-      <Rune color={color} img={t1 ? t1.src : null} />
+      <Rune
+        color={color}
+        keystone
+        img={keystone ? keystone.src : null}
+        onClick={() => onToggle({ tier: 'KEYSTONE' })}
+        active={openMenus.KEYSTONE}
+      />
+      <Branch color={color} padding={-16} onClick={onToggle} />
+      <Rune color={color} img={t1 ? t1.src : null} onClick={() => onToggle({ tier: 'T1' })} active={openMenus.T1} />
       <Branch color={color} />
-      <Rune color={color} img={t2 ? t2.src : null} />
+      <Rune color={color} img={t2 ? t2.src : null} onClick={() => onToggle({ tier: 'T2' })} active={openMenus.T2} />
       <Branch color={color} />
-      <Rune color={color} img={t3 ? t3.src : null} active />
+      <Rune color={color} img={t3 ? t3.src : null} onClick={() => onToggle({ tier: 'T3' })} active={openMenus.T3} />
     </S.Tree>
   )
 }

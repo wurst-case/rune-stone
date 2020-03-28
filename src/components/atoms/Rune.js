@@ -75,7 +75,13 @@ function Rune(props) {
   if (props.img != null) img = <img className="graphic" alt={props.keystone ? 'keystone' : 'rune'} src={props.img} />
   return (
     <div>
-      <S.Rune color={props.color} keystone={props.keystone} active={props.active}>
+      <S.Rune
+        color={props.color}
+        keystone={props.keystone}
+        active={props.active}
+        // onClick={(e) => props.onToggle(props.location)}
+        onClick={props.onClick}
+      >
         <S.Spark src={spark} keystone={props.keystone} active={props.active} />
         {img}
         <S.Highlighter color={props.color} />

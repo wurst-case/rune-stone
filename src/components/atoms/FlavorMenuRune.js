@@ -14,7 +14,7 @@ S.FlavorMenuRune = styled.div`
   height: ${Layout.RUNE_SIZE_FLAVOR_MENU}px;
 
   background: transparent;
-  box-shadow: inset 0px 0px 12px rgba(0, 0, 0, 1);
+  /* box-shadow: inset 0px 0px 12px rgba(0, 0, 0, 1); */
 
   cursor: pointer;
 
@@ -31,7 +31,7 @@ S.FlavorMenuRune = styled.div`
   }
 
   & > img {
-    width: ${Layout.RUNE_SIZE_FLAVOR_MENU - 24}px;
+    width: ${Layout.RUNE_SIZE_FLAVOR_MENU - 12}px;
     filter: brightness(50%);
   }
 `

@@ -7,10 +7,17 @@ export function incrementIfOdd() {
   store.dispatch({ type: ActionTypes.INCREMENT_COUNTER })
 }
 
-//Reset Comp
+//Comp Utilities
 export const resetFlavor = () => ({
   type: ActionTypes.RESET,
 })
+export const toggleMenu = (menu) => {
+  const { composition } = store.getState()
+  return {
+    type: ActionTypes.TOGGLE_MENU,
+    payload: { ...menu, value: composition['OPEN'][menu.tree][menu.tier] === true ? false : true },
+  }
+}
 
 //Primary Comp
 export const selectPrimaryFlavor = (id) => {

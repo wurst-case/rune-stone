@@ -67,7 +67,88 @@ import CosmicInsight from '../assets/inspiration/t3/cosmic-insight.webp'
 import ApproachVelocity from '../assets/inspiration/t3/approach-velocity.webp'
 import TimeWarpTonic from '../assets/inspiration/t3/time-warp-tonic.webp'
 
+import Bandle from '../assets/bandle/bandle.png'
+
 export default [
+  {
+    name: 'Bandle',
+    src: Bandle,
+    colorHex: '#EA781E',
+    colorRGB: '234,120,30',
+    keystones: [
+      {
+        name: 'Press the Attack',
+        details: '',
+        src: PresstheAttack,
+      },
+      {
+        name: 'Lethal Tempo',
+        details: '',
+        src: LethalTempo,
+      },
+      {
+        name: 'Fleet Footwork',
+        details: '',
+        src: FleetFootwork,
+      },
+      {
+        name: 'Conqueror',
+        details: '',
+        src: Conqueror,
+      },
+    ],
+    tier1: [
+      {
+        name: 'Overheal',
+        details: '',
+        src: Overheal,
+      },
+      {
+        name: 'Triumph',
+        details: '',
+        src: Triumph,
+      },
+      {
+        name: 'Presence of Mind',
+        details: '',
+        src: PresenceofMind,
+      },
+    ],
+    tier2: [
+      {
+        name: 'Legend: Alacrity',
+        details: '',
+        src: LegendAlacrity,
+      },
+      {
+        name: 'Legend: Tenacity',
+        details: '',
+        src: LegendTenacity,
+      },
+      {
+        name: 'Legend Bloodline',
+        details: '',
+        src: LegendBloodline,
+      },
+    ],
+    tier3: [
+      {
+        name: 'Coup de Grace',
+        details: '',
+        src: CoupdeGrace,
+      },
+      {
+        name: 'Cut Down',
+        details: '',
+        src: CutDown,
+      },
+      {
+        name: 'Last Stand',
+        details: '',
+        src: LastStand,
+      },
+    ],
+  },
   {
     name: 'Precision',
     src: Precision,

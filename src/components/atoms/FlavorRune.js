@@ -17,7 +17,7 @@ S.FlavorRune = styled.div`
 `
 
 function FlavorRune(props) {
-  return <S.FlavorRune color={props.color} />
+  return <S.FlavorRune color={props.color} onClick={(_) => props.onClick()} />
 }
 
 export default FlavorRune
