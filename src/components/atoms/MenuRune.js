@@ -35,9 +35,9 @@ S.Rune = styled.div`
   & > img {
     /* Image size larger proportionally if keystone rune by 75% and active runes decrease image sixe by 20%*/
     width: ${(props) => Layout.RUNE_SIZE_MENU * (props.keystone ? 1.75 : 1) * (props.active ? 0.8 : 1)}px;
-    filter: ${(props) => (props.disabled ? 'gray' : 'none')};
-    -webkit-filter: ${(props) => (props.disabled ? 'grayscale(1)' : 'none')};
-    filter: ${(props) => (props.disabled ? 'grayscale(1)' : 'none')};
+    filter: ${(props) => (props.disabled ? 'gray brightness(0.5) contrast(75%)' : 'none')};
+    -webkit-filter: ${(props) => (props.disabled ? 'grayscale(1) brightness(0.5) contrast(75%)' : 'none')};
+    filter: ${(props) => (props.disabled ? 'grayscale(1) brightness(0.5) contrast(75%)' : 'none')};
   }
 `
 S.Highlighter = styled.div`

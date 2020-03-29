@@ -75,76 +75,88 @@ export default [
     src: Bandle,
     colorHex: '#EA781E',
     colorRGB: '234,120,30',
+    tierNames: ['Enchantments', 'Scoops', 'Tactics'],
     keystones: [
       {
-        name: 'Press the Attack',
-        details: '',
+        name: '[W]-ray',
+        details:
+          'Damaging or debuffing an enemy champion with your champion’s [W] (i.e. second ability) applies an additional 10 − 40 (based on level) (based on [W] level) (+ 15% bonus AD) (+ 10% AP) damage. Healing or shielding yourself or an allied champion with your champion’s [W] applies an additional 35 − 80 (based on level) (based on [W] level) (+ 40% bonus AD) (+ 25% AP) healing or shielding. Damaging, healing, and shielding over time effects cannot activate [W]-ray more than once every 0.5 seconds.',
         src: PresstheAttack,
       },
       {
-        name: 'Lethal Tempo',
-        details: '',
+        name: 'Very Stable Errant Electromagikinetic Ion-Emitter',
+        details:
+          'Every second, you have a 1.67% chance to emit a pulse that Ionizes all Enemy and Allied champions in range for 4 seconds. Ionized Enemy champions lose 20% decaying movement speed, except while moving towards Allied champions, and receive 10% more damage from all sources. Ionized Allied champions gain 20% decaying movement speed, while moving away from Enemy champions, and receive 10% less damage from all sources. The Very Stable Errant Electromagikinetic Ion-Emitter can only activate while at least one Enemy champion is in range. Range: 1001',
         src: LethalTempo,
       },
       {
-        name: 'Fleet Footwork',
-        details: '',
+        name: 'Behold Yjolldrhorn, and Tremble',
+        details:
+          'Whenever a friendly Yordle champion reaches level 6, 11, or 16, you sound Yjolldrhorn. Each blast of Yjolldrhorn permanently grants 0.6% dodge and 0.2 magic resistance to allied champions for the remainder of the game. Yordles receive two stacks per blast. Additionally, Yjolldrhorn stacks apply to all living, friendly non-champion units (including minions and summoned units) but only last until their deaths. ',
         src: FleetFootwork,
-      },
-      {
-        name: 'Conqueror',
-        details: '',
-        src: Conqueror,
       },
     ],
     tier1: [
       {
-        name: 'Overheal',
-        details: '',
+        name: '(Un)lucky 7s',
+        details: 'Reduces your death timer by up to 7 seconds.',
         src: Overheal,
       },
       {
-        name: 'Triumph',
-        details: '',
+        name: 'No Place Like Home',
+        details: 'Reduces Recall’s cast time by 1 second.',
         src: Triumph,
       },
       {
-        name: 'Presence of Mind',
-        details: '',
+        name: 'Port-a-Portal',
+        details:
+          'Reduces Recall’s cast time by 5.5 seconds.  Receiving damage, dealing damage or debuffing units will put you in-combat, disabling Recall for 5 seconds.',
         src: PresenceofMind,
+      },
+      {
+        name: 'Forgotten Trunk of Fulfilled Wishes',
+        details:
+          'Receive a Forgotten Trunk of Fulfilled WIshes at 4 minutes. When opened, the Forgotten Trunk of Fulfilled Wishes inflicts 125 true damage divided between all living enemy champions. One use. “The initials G.D.R. are etched on the bottom.”',
+        src: EyeballCollection,
       },
     ],
     tier2: [
       {
-        name: 'Legend: Alacrity',
-        details: '',
+        name: 'Finders, Keepers',
+        details:
+          'Find an extra 90 gold at the start of the game...somewhere in your team’s base. “Au: a piece of candy!”',
         src: LegendAlacrity,
       },
       {
-        name: 'Legend: Tenacity',
-        details: '',
+        name: 'DISCOUNTCODE:HEX',
+        details:
+          'Start the game with a Hextech Discount Code that replaces one Amplifying Tome when crafting a Hextech Revolver.  Hurry!  After 3:30, the deal begins to expire, increasing the crafting cost of Hextech Revolver by 1 gold each second, up to 435 gold. “Limited time offer. Sponsored by EMCA Co.”',
         src: LegendTenacity,
       },
       {
-        name: 'Legend Bloodline',
-        details: '',
+        name: 'Doran’s Delivery, Off-Site',
+        details:
+          'Subscribe to Doran’s Delivery by purchasing Doran’s Shield, Doran’s Ring, or Doran’s Blade at the start of the game.  Subscribers will receive an off-site delivery that contains one of the other Doran’s items after 11 minutes, and again after 22 minutes.  Items delivered by this service are combined with the existing Doran’s item and therefore do not occupy additional inventory space.  Doran’s Delivery subscribers cannot purchase any additional Doran’s items from the shopkeeper after the initial purchase.',
         src: LegendBloodline,
       },
     ],
     tier3: [
       {
-        name: 'Coup de Grace',
-        details: '',
+        name: 'Sneak Attack',
+        details:
+          'While your champion is not visible to the enemy team, your non-ultimate spells that damage enemy champions will refund 20%-33% (based on spell level) of their cooldowns and 90% of their mana or energy costs but will deal 20%-33% (based on spell level) reduced damage.',
         src: CoupdeGrace,
       },
       {
-        name: 'Cut Down',
-        details: '',
+        name: 'Big Things; Small Packages',
+        details:
+          'Empowers the passive on-hit bonuses granted by finished items, causing them to inflict true damage instead of physical or magic damage.',
         src: CutDown,
       },
       {
-        name: 'Last Stand',
-        details: '',
+        name: 'Zim’s Magical Rune Randomization Machine',
+        details:
+          'Each time Zim’s Magical Rune Randomization Machine is selected, this rune is replaced with a non-keystone rune from an unselected row in any rune tree after a three-second delay.  Good luck!',
         src: LastStand,
       },
     ],
@@ -154,6 +166,7 @@ export default [
     src: Precision,
     colorHex: '#BDA878',
     colorRGB: '189,168,120',
+    tierNames: ['Heroism', 'Legend', 'Combat'],
     keystones: [
       {
         name: 'Press the Attack',
@@ -233,6 +246,7 @@ export default [
     src: Domination,
     colorHex: '#D74444',
     colorRGB: '215,68,68',
+    tierNames: ['Malice', 'Tracking', 'Hunter'],
     keystones: [
       {
         name: 'Electrocute',
@@ -317,6 +331,7 @@ export default [
     src: Sorcery,
     colorHex: '#D74444',
     colorRGB: '113,122,245',
+    tierNames: ['Artifact', 'Excellence', 'Power'],
     keystones: [
       {
         name: 'Summon Aery',
@@ -391,6 +406,7 @@ export default [
     src: Resolve,
     colorHex: '#A1D287',
     colorRGB: '161,210,135',
+    tierNames: ['Strength', 'Resistance', 'Vitality'],
     keystones: [
       {
         name: 'Grasp of the Undying',
@@ -465,6 +481,7 @@ export default [
     src: Inspiration,
     colorHex: '##47AFBB',
     colorRGB: '71,175,187',
+    tierNames: ['Contraptions', 'Tomorrow', 'Beyond'],
     keystones: [
       {
         name: 'Glacial Augment',

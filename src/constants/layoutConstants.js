@@ -12,6 +12,6 @@ export default {
   //Colors
   RUNE_BG_COLOR: '#1d2227',
   BANDLE_RGB: '255, 0, 0',
-  GREY: '50, 50, 50',
+  GREY: '120, 120, 120',
   GOLD: '230, 211, 160',
 }
