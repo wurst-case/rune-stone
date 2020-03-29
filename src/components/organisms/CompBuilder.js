@@ -112,6 +112,10 @@ class CompBuilder extends Component {
         />
         <PrimaryMenu
           color={selectedFlavor1.colorRGB}
+          keystone={selectedFlavor1.keystones[keystone]}
+          t1={selectedFlavor1.tier1[primeT1]}
+          t2={selectedFlavor1.tier2[primeT2]}
+          t3={selectedFlavor1.tier3[primeT3]}
           flavor={selectedFlavor1}
           onSelectFlavor={(id) => {
             onSelectPrimaryFlavor(id)
