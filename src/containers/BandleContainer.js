@@ -9,6 +9,7 @@ const S = {}
 S.Container = styled.div`
   background: url(${bandleBG}) no-repeat center center fixed;
   background-size: cover;
+  background-color: ${Layout.GREY};
   padding: 20px;
   padding-top: ${Layout.HEADER_HEIGHT * 2}px;
   color: #fff;

@@ -69,15 +69,17 @@ function PrimaryMenu({
     <S.Menus>
       <S.Menu open>
         {flavors.map((rune, id) => {
-          //add "picked" logic
-          return (
-            <FlavorMenuRune
-              img={rune.src}
-              onClick={flavor ? (rune.name === flavor.name ? () => {} : onSelectFlavor) : onSelectFlavor}
-              id={id}
-              key={'primeflavor' + id}
-            />
-          )
+          if (id !== 0)
+            return (
+              <FlavorMenuRune
+                img={rune.src}
+                onClick={flavor ? (rune.name === flavor.name ? () => {} : onSelectFlavor) : onSelectFlavor}
+                id={id}
+                key={'primeflavor' + id}
+                picked={rune.name === flavor.name}
+              />
+            )
+          else return <></>
         })}
       </S.Menu>
       <S.Menu open={openMenus.KEYSTONE}>

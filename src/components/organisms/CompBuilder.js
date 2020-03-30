@@ -6,6 +6,7 @@ import SecondaryTree from '../../components/molecules/SecondaryTree'
 import PrimaryMenu from '../../components/molecules/PrimaryMenu'
 import SecondaryMenu from '../../components/molecules/SecondaryMenu'
 import flavors from '../../constants/assetsMap'
+import Layout from '../../constants/layoutConstants'
 import {
   selectPrimaryFlavor,
   selectKeystone,
@@ -100,7 +101,7 @@ class CompBuilder extends Component {
     return (
       <S.CompBuilder>
         <PrimaryTree
-          color={selectedFlavor1.colorRGB}
+          color={primeFlavor === null ? Layout.GOLD : selectedFlavor1.colorRGB}
           keystone={selectedFlavor1.keystones[keystone]}
           t1={selectedFlavor1.tier1[primeT1]}
           t2={selectedFlavor1.tier2[primeT2]}
@@ -156,6 +157,7 @@ class CompBuilder extends Component {
             onSelectSecondaryT2(id)
           }}
           openMenus={open.SECONDARY}
+          primeFlavor={selectedFlavor1}
         />
       </S.CompBuilder>
     )

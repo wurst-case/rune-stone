@@ -15,7 +15,7 @@ export function counter(state = initCounterState, action) {
 }
 
 const initialState = {
-  PRIMARY_FLAVOR: 0,
+  PRIMARY_FLAVOR: 1,
   KEYSTONE: null,
   PRIMARY_T1: null,
   PRIMARY_T2: null,
@@ -45,6 +45,8 @@ export default function composition(state = initialState, action) {
       return initialState
     case ActionTypes.SELECT_PRIMARY_FLAVOR:
       state['OPEN']['PRIMARY']['FLAVOR'] = false
+      state.SECONDARY_FLAVOR =
+        state.SECONDARY_FLAVOR === 0 ? 0 : action.payload === state.SECONDARY_FLAVOR ? 0 : state.SECONDARY_FLAVOR
       return {
         ...state,
         PRIMARY_FLAVOR: action.payload,
@@ -75,10 +77,8 @@ export default function composition(state = initialState, action) {
       state['OPEN']['SECONDARY']['T2'] = false
       return { ...state, SECONDARY_T2: action.payload }
     case ActionTypes.TOGGLE_MENU:
-      // state['OPEN'][action.payload.tree][action.payload.tier] = state['OPEN'][action.payload.tree][action.payload.tier]
-      //   ? false
-      //   : true
-      state['OPEN'][action.payload.tree][action.payload.tier] = action.payload.value
+      if (action.payload.tree === 'PRIMARY' || state.SECONDARY_FLAVOR !== 0)
+        state['OPEN'][action.payload.tree][action.payload.tier] = action.payload.value
       return { ...state }
     default:
       return state

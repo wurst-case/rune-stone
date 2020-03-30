@@ -71,6 +71,17 @@ import Bandle from '../assets/bandle/bandle.png'
 
 export default [
   {
+    name: 'Secondary Path',
+    src: '',
+    colorHex: '#E6D3A0',
+    colorRGB: '230, 211, 160',
+    tierNames: ['Secondary', 'Secondary', 'Secondary'],
+    keystones: [],
+    tier1: [],
+    tier2: [],
+    tier3: [],
+  },
+  {
     name: 'Bandle',
     src: Bandle,
     colorHex: '#EA781E',

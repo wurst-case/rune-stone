@@ -30,6 +30,10 @@ S.Rune = styled.div`
       -webkit-filter: grayscale(0);
       filter: grayscale(0);
     }
+
+    & > div {
+      display: flex;
+    }
   }
 
   & > img {
@@ -61,6 +65,17 @@ S.Highlighter = styled.div`
   }
 `
 
+S.Details = styled.div`
+  /* background: black;
+  border: 1px solid gold;
+  width: 300px;
+  height: 300px;
+  z-index: 10000000;
+  position: absolute;
+  top: ${Layout.RUNE_SIZE_MENU + 8}px;
+  display: none; */
+`
+
 function Rune(props) {
   return (
     <S.Rune
@@ -69,8 +84,9 @@ function Rune(props) {
       disabled={props.disabled}
       onClick={(e) => props.onClick(props.id)}
     >
+      <S.Details />
       <img alt="flavor" src={props.img} />
-      <S.Highlighter color={props.color}></S.Highlighter>
+      <S.Highlighter color={props.color} />
     </S.Rune>
   )
 }
