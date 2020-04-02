@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from '@emotion/styled'
 import Layout from '../../constants/layoutConstants'
+import ReactMarkdown from 'react-markdown/with-html'
 
 const S = {}
 
@@ -119,7 +120,7 @@ function Rune({ color, keystone, disabled, onClick, img, title, description }) {
       </S.Rune>
       <div className="tooltiptext">
         <h4>{title}</h4>
-        <p>{description}</p>
+        <ReactMarkdown source={description} escapeHtml={false} skipHtml={false} />
       </div>
     </S.Tooltip>
   )
