@@ -90,15 +90,19 @@ export default function composition(state = initialState, action) {
           // If the active slot is sent the middle row rune and the nonacitve already has it then
           if (state.SECONDARY_T2_ROW === 1 && action.payload.ROW === 1)
             // OPTION 1: Erase non-active slot and give rune to active slot
+            // return {
+            //   ...state,
+            //   SECONDARY_T1_ROW: action.payload.ROW,
+            //   SECONDARY_T1_ID: action.payload.ID,
+            //   SECONDARY_T2_ROW: null,
+            //   SECONDARY_T2_ID: null,
+            // }
+            // OPTION 2: Give rune to non-active slot
             return {
               ...state,
-              SECONDARY_T1_ROW: action.payload.ROW,
-              SECONDARY_T1_ID: action.payload.ID,
-              SECONDARY_T2_ROW: null,
-              SECONDARY_T2_ID: null,
+              SECONDARY_T2_ROW: action.payload.ROW,
+              SECONDARY_T2_ID: action.payload.ID,
             }
-          // OPTION 2: Give rune to non-active slot
-          // return { ...state, SECONDARY_T2: action.payload }
           else
             return {
               ...state,
@@ -116,15 +120,19 @@ export default function composition(state = initialState, action) {
           // If the active slot is sent the middle row rune and the nonacitve already has it then
           if (state.SECONDARY_T1_ROW === 1 && action.payload.ROW === 1)
             // OPTION 1: Erase non-active slot and give rune to active slot
+            // return {
+            //   ...state,
+            //   SECONDARY_T2_ROW: action.payload.ROW,
+            //   SECONDARY_T2_ID: action.payload.ID,
+            //   SECONDARY_T1_ROW: null,
+            //   SECONDARY_T1_ID: null,
+            // }
+            // OPTION 2: Give rune to non-active slot
             return {
               ...state,
-              SECONDARY_T2_ROW: action.payload.ROW,
-              SECONDARY_T2_ID: action.payload.ID,
-              SECONDARY_T1_ROW: null,
-              SECONDARY_T1_ID: null,
+              SECONDARY_T1_ROW: action.payload.ROW,
+              SECONDARY_T1_ID: action.payload.ID,
             }
-          // OPTION 2: Give rune to non-active slot
-          // return { ...state, SECONDARY_T2: action.payload }
           else
             return {
               ...state,
