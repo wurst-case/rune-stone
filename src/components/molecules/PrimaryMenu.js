@@ -89,8 +89,10 @@ function PrimaryMenu({
             keystone
             color={color}
             img={rune.src}
+            title={rune.name}
+            description={rune.details}
             onClick={() => onSelectKeystone(id)}
-            key={'keystone' + id}
+            key={'keystone' + id + rune.name}
             disabled={keystone ? rune.name !== keystone.name : false}
           />
         ))}
@@ -104,8 +106,10 @@ function PrimaryMenu({
           <MenuRune
             color={color}
             img={rune.src}
+            title={rune.name}
+            description={rune.details}
             onClick={() => onSelectT1(id)}
-            key={'t1' + id}
+            key={'t1' + id + rune.name}
             disabled={t1 ? rune.name !== t1.name : false}
           />
         ))}
@@ -119,8 +123,10 @@ function PrimaryMenu({
           <MenuRune
             color={color}
             img={rune.src}
+            title={rune.name}
+            description={rune.details}
             onClick={() => onSelectT2(id)}
-            key={'t2' + id}
+            key={'t2' + id + rune.name}
             disabled={t2 ? rune.name !== t2.name : false}
           />
         ))}
@@ -134,8 +140,10 @@ function PrimaryMenu({
           <MenuRune
             color={color}
             img={rune.src}
+            title={rune.name}
+            description={rune.details}
             onClick={() => onSelectT3(id)}
-            key={'t3' + id}
+            key={'t3' + id + rune.name}
             disabled={t3 ? rune.name !== t3.name : false}
           />
         ))}

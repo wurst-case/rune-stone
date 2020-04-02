@@ -14,4 +14,6 @@ export default {
   BANDLE_RGB: '255, 0, 0',
   GREY: '120, 120, 120',
   GOLD: '230, 211, 160',
+  DARK: '#000A13',
+  BRONZE: '#614924',
 }

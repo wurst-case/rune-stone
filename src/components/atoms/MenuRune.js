@@ -65,24 +65,63 @@ S.Highlighter = styled.div`
   }
 `
 
-S.Details = styled.div`
-  /* background: black;
-  border: 1px solid gold;
-  width: 300px;
-  height: 300px;
-  z-index: 10000000;
-  position: absolute;
-  top: ${Layout.RUNE_SIZE_MENU + 8}px;
-  display: none; */
+S.Tooltip = styled.div`
+  position: relative;
+
+  & .tooltiptext {
+    visibility: hidden;
+    width: 300px;
+    background-color: ${Layout.DARK};
+    text-align: left;
+    border-radius: 6px;
+    padding: 16px;
+    box-sizing: border-box;
+    position: absolute;
+    z-index: 100;
+    bottom: 150%;
+    left: 50%;
+    margin-left: -150px;
+    border: 2px solid ${Layout.BRONZE};
+
+    h4 {
+      color: rgba(${Layout.GOLD});
+      margin: 0;
+    }
+
+    p {
+      font-size: 0.75rem;
+      color: white;
+    }
+  }
+
+  & .tooltiptext::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -8px;
+    border-width: 8px;
+    border-style: solid;
+    border-color: ${Layout.BRONZE} transparent transparent transparent;
+  }
+
+  &:hover .tooltiptext {
+    visibility: visible;
+  }
 `
 
-function Rune({ color, keystone, disabled, onClick, img }) {
+function Rune({ color, keystone, disabled, onClick, img, title, description }) {
   return (
-    <S.Rune color={color} keystone={keystone} disabled={disabled} onClick={(_) => onClick()}>
-      <S.Details />
-      <img alt="flavor" src={img} />
-      <S.Highlighter color={color} />
-    </S.Rune>
+    <S.Tooltip>
+      <S.Rune color={color} keystone={keystone} disabled={disabled} onClick={(_) => onClick()}>
+        <img alt="flavor" src={img} />
+        <S.Highlighter color={color} />
+      </S.Rune>
+      <div className="tooltiptext">
+        <h4>{title}</h4>
+        <p>{description}</p>
+      </div>
+    </S.Tooltip>
   )
 }
 
