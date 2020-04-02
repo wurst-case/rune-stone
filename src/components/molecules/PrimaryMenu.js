@@ -21,9 +21,6 @@ S.Menu = styled.div`
   margin: 2px;
   height: 100px;
   width: 300px;
-
-  /* DEV PURPOSES ONLY */
-  /* background-color: #222; */
 `
 
 S.Description = styled.div`
@@ -34,6 +31,10 @@ S.Description = styled.div`
   width: 300px;
 
   text-align: left;
+
+  &.flavors {
+    padding-top: 30px;
+  }
 
   & > h4 {
     margin-bottom: 8px;
@@ -67,7 +68,7 @@ function PrimaryMenu({
 }) {
   return (
     <S.Menus>
-      <S.Menu open>
+      <S.Menu open className="flavors">
         {flavors.map((rune, id) => {
           if (id !== 0)
             return (
@@ -84,13 +85,11 @@ function PrimaryMenu({
       </S.Menu>
       <S.Menu open={openMenus.KEYSTONE}>
         {flavor.keystones.map((rune, id) => (
-          //TODO: add "disabled" logic
           <MenuRune
             keystone
             color={color}
             img={rune.src}
-            onClick={onSelectKeystone}
-            id={id}
+            onClick={() => onSelectKeystone(id)}
             key={'keystone' + id}
             disabled={keystone ? rune.name !== keystone.name : false}
           />
@@ -102,12 +101,10 @@ function PrimaryMenu({
       </S.Description>
       <S.Menu open={openMenus.T1}>
         {flavor.tier1.map((rune, id) => (
-          //TODO: add "disabled" logic
           <MenuRune
             color={color}
             img={rune.src}
-            onClick={onSelectT1}
-            id={id}
+            onClick={() => onSelectT1(id)}
             key={'t1' + id}
             disabled={t1 ? rune.name !== t1.name : false}
           />
@@ -119,12 +116,10 @@ function PrimaryMenu({
       </S.Description>
       <S.Menu open={openMenus.T2}>
         {flavor.tier2.map((rune, id) => (
-          //TODO: add "disabled" logic
           <MenuRune
             color={color}
             img={rune.src}
-            onClick={onSelectT2}
-            id={id}
+            onClick={() => onSelectT2(id)}
             key={'t2' + id}
             disabled={t2 ? rune.name !== t2.name : false}
           />
@@ -136,12 +131,10 @@ function PrimaryMenu({
       </S.Description>
       <S.Menu open={openMenus.T3}>
         {flavor.tier3.map((rune, id) => (
-          //TODO: add "disabled" logic
           <MenuRune
             color={color}
             img={rune.src}
-            onClick={onSelectT3}
-            id={id}
+            onClick={() => onSelectT3(id)}
             key={'t3' + id}
             disabled={t3 ? rune.name !== t3.name : false}
           />

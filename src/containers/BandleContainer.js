@@ -4,11 +4,14 @@ import styled from '@emotion/styled'
 import Layout from '../constants/layoutConstants'
 import CompBuilder from '../components/organisms/CompBuilder'
 import bandleBG from '../assets/bandle/bg.png'
+import bandleFG from '../assets/bandle/fg.png'
 
 const S = {}
 S.Container = styled.div`
-  background: url(${bandleBG}) no-repeat center center fixed;
-  background-size: cover;
+  background-image: url(${bandleFG}), url(${bandleBG});
+  background-position: 130% bottom, 25% center;
+  background-repeat: no-repeat, repeat;
+  background-size: 75%, cover;
   background-color: ${Layout.GREY};
   padding: 20px;
   padding-top: ${Layout.HEADER_HEIGHT * 2}px;

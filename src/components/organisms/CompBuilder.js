@@ -13,8 +13,7 @@ import {
   selectPrimaryT1,
   selectPrimaryT2,
   selectPrimaryT3,
-  selectSecondaryT1,
-  selectSecondaryT2,
+  selectSecondaryRunes,
   selectSecondaryFlavor,
   toggleMenu,
 } from '../../actions/counter'
@@ -30,15 +29,25 @@ S.CompBuilder = styled.div`
 `
 
 const mapStateToProps = (state) => {
+  var primeFlavor = flavors[state.composition.PRIMARY_FLAVOR]
+  var keystone = primeFlavor.keystones[state.composition.KEYSTONE]
+  var primeT1 = primeFlavor.tier1[state.composition.PRIMARY_T1]
+  var primeT2 = primeFlavor.tier2[state.composition.PRIMARY_T2]
+  var primeT3 = primeFlavor.tier3[state.composition.PRIMARY_T3]
+
+  var secondFlavor = flavors[state.composition.SECONDARY_FLAVOR]
+  var secondT1 = secondFlavor['tier' + (state.composition.SECONDARY_T1_ROW + 1)][state.composition.SECONDARY_T1_ID]
+  var secondT2 = secondFlavor['tier' + (state.composition.SECONDARY_T2_ROW + 1)][state.composition.SECONDARY_T2_ID]
+
   return {
-    primeFlavor: state.composition.PRIMARY_FLAVOR,
-    keystone: state.composition.KEYSTONE,
-    primeT1: state.composition.PRIMARY_T1,
-    primeT2: state.composition.PRIMARY_T2,
-    primeT3: state.composition.PRIMARY_T3,
-    secondFlavor: state.composition.SECONDARY_FLAVOR,
-    secondT1: state.composition.SECONDARY_T1,
-    secondT2: state.composition.SECONDARY_T2,
+    primeFlavor: primeFlavor,
+    keystone: keystone,
+    primeT1: primeT1,
+    primeT2: primeT2,
+    primeT3: primeT3,
+    secondFlavor: secondFlavor,
+    secondT1: secondT1,
+    secondT2: secondT2,
     open: {
       PRIMARY: {
         FLAVOR: state.composition.OPEN.PRIMARY.FLAVOR,
@@ -64,15 +73,12 @@ const mapDispatchToProps = (dispatch) => {
     onSelectPrimaryT2: (id) => dispatch(selectPrimaryT2(id)),
     onSelectPrimaryT3: (id) => dispatch(selectPrimaryT3(id)),
     onSelectSecondaryFlavor: (id) => dispatch(selectSecondaryFlavor(id)),
-    onSelectSecondaryT1: (id) => dispatch(selectSecondaryT1(id)),
-    onSelectSecondaryT2: (id) => dispatch(selectSecondaryT2(id)),
+    onSelectSecondaryRunes: (row, id) => {
+      dispatch(selectSecondaryRunes(row, id))
+    },
     toggleMenu: (menu) => dispatch(toggleMenu(menu)),
   }
 }
-
-// function toggleMenu(menu) {
-//   console.log(menu)
-// }
 
 class CompBuilder extends Component {
   render() {
@@ -90,34 +96,31 @@ class CompBuilder extends Component {
       secondFlavor,
       onSelectSecondaryFlavor,
       secondT1,
-      onSelectSecondaryT1,
       secondT2,
-      onSelectSecondaryT2,
+      onSelectSecondaryRunes,
       toggleMenu,
       open,
     } = this.props
-    const selectedFlavor1 = flavors[primeFlavor]
-    const selectedFlavor2 = flavors[secondFlavor]
     return (
       <S.CompBuilder>
         <PrimaryTree
-          color={primeFlavor === null ? Layout.GOLD : selectedFlavor1.colorRGB}
-          keystone={selectedFlavor1.keystones[keystone]}
-          t1={selectedFlavor1.tier1[primeT1]}
-          t2={selectedFlavor1.tier2[primeT2]}
-          t3={selectedFlavor1.tier3[primeT3]}
+          color={primeFlavor === null ? Layout.GOLD : primeFlavor.colorRGB}
+          keystone={keystone}
+          t1={primeT1}
+          t2={primeT2}
+          t3={primeT3}
           onToggle={(menu) => {
             toggleMenu({ tree: 'PRIMARY', ...menu })
           }}
           openMenus={open.PRIMARY}
         />
         <PrimaryMenu
-          color={selectedFlavor1.colorRGB}
-          keystone={selectedFlavor1.keystones[keystone]}
-          t1={selectedFlavor1.tier1[primeT1]}
-          t2={selectedFlavor1.tier2[primeT2]}
-          t3={selectedFlavor1.tier3[primeT3]}
-          flavor={selectedFlavor1}
+          color={primeFlavor.colorRGB}
+          keystone={keystone}
+          t1={primeT1}
+          t2={primeT2}
+          t3={primeT3}
+          flavor={primeFlavor}
           onSelectFlavor={(id) => {
             onSelectPrimaryFlavor(id)
           }}
@@ -136,28 +139,28 @@ class CompBuilder extends Component {
           openMenus={open.PRIMARY}
         />
         <SecondaryTree
-          color={selectedFlavor2.colorRGB}
-          t1={selectedFlavor2.tier1[secondT1]}
-          t2={selectedFlavor2.tier2[secondT2]}
+          color={secondFlavor.colorRGB}
+          t1={secondT1}
+          t2={secondT2}
           onToggle={(menu) => {
             toggleMenu({ tree: 'SECONDARY', ...menu })
           }}
           openMenus={open.SECONDARY}
         />
         <SecondaryMenu
-          color={selectedFlavor2.colorRGB}
-          flavor={selectedFlavor2}
+          color={secondFlavor.colorRGB}
+          flavor={secondFlavor}
           onSelectFlavor={(id) => {
             onSelectSecondaryFlavor(id)
           }}
-          onSelectT1={(id) => {
-            onSelectSecondaryT1(id)
-          }}
-          onSelectT2={(id) => {
-            onSelectSecondaryT2(id)
+          onSelectRunes={(row, id) => {
+            onSelectSecondaryRunes(row, id)
           }}
           openMenus={open.SECONDARY}
-          primeFlavor={selectedFlavor1}
+          primeFlavor={primeFlavor}
+          runes={[secondFlavor.tier1, secondFlavor.tier2, secondFlavor.tier3]}
+          t1={secondT1}
+          t2={secondT2}
         />
       </S.CompBuilder>
     )

@@ -48,11 +48,9 @@ export const selectSecondaryFlavor = (id) => ({
   type: ActionTypes.SELECT_SECONDARY_FLAVOR,
   payload: id,
 })
-export const selectSecondaryT1 = (id) => ({
-  type: ActionTypes.SELECT_SECONDARY_T1,
-  payload: id,
-})
-export const selectSecondaryT2 = (id) => ({
-  type: ActionTypes.SELECT_SECONDARY_T2,
-  payload: id,
-})
+export const selectSecondaryRunes = (row, id) => {
+  return {
+    type: ActionTypes.SELECT_SECONDARY_RUNES,
+    payload: { ROW: row, ID: id },
+  }
+}

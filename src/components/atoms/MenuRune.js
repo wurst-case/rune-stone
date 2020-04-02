@@ -76,17 +76,12 @@ S.Details = styled.div`
   display: none; */
 `
 
-function Rune(props) {
+function Rune({ color, keystone, disabled, onClick, img }) {
   return (
-    <S.Rune
-      color={props.color}
-      keystone={props.keystone}
-      disabled={props.disabled}
-      onClick={(e) => props.onClick(props.id)}
-    >
+    <S.Rune color={color} keystone={keystone} disabled={disabled} onClick={(_) => onClick()}>
       <S.Details />
-      <img alt="flavor" src={props.img} />
-      <S.Highlighter color={props.color} />
+      <img alt="flavor" src={img} />
+      <S.Highlighter color={color} />
     </S.Rune>
   )
 }

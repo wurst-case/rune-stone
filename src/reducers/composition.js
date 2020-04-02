@@ -21,8 +21,10 @@ const initialState = {
   PRIMARY_T2: null,
   PRIMARY_T3: null,
   SECONDARY_FLAVOR: 0,
-  SECONDARY_T1: null,
-  SECONDARY_T2: null,
+  SECONDARY_T1_ROW: null,
+  SECONDARY_T1_ID: null,
+  SECONDARY_T2_ROW: null,
+  SECONDARY_T2_ID: null,
   OPEN: {
     PRIMARY: {
       FLAVOR: null,
@@ -69,16 +71,79 @@ export default function composition(state = initialState, action) {
       return { ...state, PRIMARY_T3: action.payload }
     case ActionTypes.SELECT_SECONDARY_FLAVOR:
       state['OPEN']['SECONDARY']['FLAVOR'] = false
-      return { ...state, SECONDARY_FLAVOR: action.payload, SECONDARY_T1: null, SECONDARY_T2: null }
-    case ActionTypes.SELECT_SECONDARY_T1:
-      state['OPEN']['SECONDARY']['T1'] = false
-      return { ...state, SECONDARY_T1: action.payload }
-    case ActionTypes.SELECT_SECONDARY_T2:
-      state['OPEN']['SECONDARY']['T2'] = false
-      return { ...state, SECONDARY_T2: action.payload }
+      return {
+        ...state,
+        SECONDARY_FLAVOR: action.payload,
+        SECONDARY_T1_ROW: null,
+        SECONDARY_T1_ID: null,
+        SECONDARY_T2_ROW: null,
+        SECONDARY_T2_ID: null,
+      }
+
+    case ActionTypes.SELECT_SECONDARY_RUNES:
+      // Is the first slot active?
+      if (state['OPEN']['SECONDARY']['T1'] === true) {
+        // No picking from the last row
+        if (action.payload.ROW !== 2) {
+          //Close menu and deactivate rune
+          state['OPEN']['SECONDARY']['T1'] = false
+          // If the active slot is sent the middle row rune and the nonacitve already has it then
+          if (state.SECONDARY_T2_ROW === 1 && action.payload.ROW === 1)
+            // OPTION 1: Erase non-active slot and give rune to active slot
+            return {
+              ...state,
+              SECONDARY_T1_ROW: action.payload.ROW,
+              SECONDARY_T1_ID: action.payload.ID,
+              SECONDARY_T2_ROW: null,
+              SECONDARY_T2_ID: null,
+            }
+          // OPTION 2: Give rune to non-active slot
+          // return { ...state, SECONDARY_T2: action.payload }
+          else
+            return {
+              ...state,
+              SECONDARY_T1_ROW: action.payload.ROW,
+              SECONDARY_T1_ID: action.payload.ID,
+            }
+        } else return { ...state }
+      }
+      // Is the second slot active?
+      else {
+        // No picking from the first row
+        if (action.payload.ROW !== 0) {
+          //Close menu and deactivate rune
+          state['OPEN']['SECONDARY']['T2'] = false
+          // If the active slot is sent the middle row rune and the nonacitve already has it then
+          if (state.SECONDARY_T1_ROW === 1 && action.payload.ROW === 1)
+            // OPTION 1: Erase non-active slot and give rune to active slot
+            return {
+              ...state,
+              SECONDARY_T2_ROW: action.payload.ROW,
+              SECONDARY_T2_ID: action.payload.ID,
+              SECONDARY_T1_ROW: null,
+              SECONDARY_T1_ID: null,
+            }
+          // OPTION 2: Give rune to non-active slot
+          // return { ...state, SECONDARY_T2: action.payload }
+          else
+            return {
+              ...state,
+              SECONDARY_T2_ROW: action.payload.ROW,
+              SECONDARY_T2_ID: action.payload.ID,
+            }
+        } else return { ...state }
+      }
+
     case ActionTypes.TOGGLE_MENU:
-      if (action.payload.tree === 'PRIMARY' || state.SECONDARY_FLAVOR !== 0)
-        state['OPEN'][action.payload.tree][action.payload.tier] = action.payload.value
+      if (action.payload.tree === 'SECONDARY') {
+        //Logic for default flavor in second menu
+        if (state.SECONDARY_FLAVOR === 0) state['OPEN']['SECONDARY'][action.payload.tier] = false
+        else {
+          //Logic for secondary tree opening and closing together
+          state['OPEN']['SECONDARY'][action.payload.tier] = action.payload.value
+          state['OPEN']['SECONDARY'][action.payload.tier === 'T1' ? 'T2' : 'T1'] = false
+        }
+      } else state['OPEN']['PRIMARY'][action.payload.tier] = action.payload.value
       return { ...state }
     default:
       return state
