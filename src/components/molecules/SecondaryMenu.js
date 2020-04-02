@@ -65,6 +65,8 @@ function SecondaryMenu({ openMenus, color, onSelectFlavor, flavor, onSelectRunes
           <MenuRune
             color={color}
             img={rune.src}
+            title={rune.name}
+            description={rune.details}
             onClick={() => onSelectRunes(rowNumber, id)}
             key={'secondary' + row + ',' + id}
             // disabled={t1 ? rune.name !== t1.name : false}
