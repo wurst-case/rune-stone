@@ -38,6 +38,10 @@ const mapStateToProps = (state) => {
   var secondFlavor = flavors[state.composition.SECONDARY_FLAVOR]
   var secondT1 = secondFlavor['tier' + (state.composition.SECONDARY_T1_ROW + 1)][state.composition.SECONDARY_T1_ID]
   var secondT2 = secondFlavor['tier' + (state.composition.SECONDARY_T2_ROW + 1)][state.composition.SECONDARY_T2_ID]
+  var runeMatrixIndex = [
+    [state.composition.SECONDARY_T1_ROW, state.composition.SECONDARY_T1_ID],
+    [state.composition.SECONDARY_T2_ROW, state.composition.SECONDARY_T2_ID],
+  ]
 
   return {
     primeFlavor: primeFlavor,
@@ -48,6 +52,7 @@ const mapStateToProps = (state) => {
     secondFlavor: secondFlavor,
     secondT1: secondT1,
     secondT2: secondT2,
+    runeMatrixIndex: runeMatrixIndex,
     open: {
       PRIMARY: {
         FLAVOR: state.composition.OPEN.PRIMARY.FLAVOR,
@@ -96,6 +101,7 @@ class CompBuilder extends Component {
       onSelectSecondaryFlavor,
       secondT1,
       secondT2,
+      runeMatrixIndex,
       onSelectSecondaryRunes,
       toggleMenu,
       open,
@@ -160,6 +166,7 @@ class CompBuilder extends Component {
           runes={[secondFlavor.tier1, secondFlavor.tier2, secondFlavor.tier3]}
           t1={secondT1}
           t2={secondT2}
+          index={runeMatrixIndex}
         />
       </S.CompBuilder>
     )

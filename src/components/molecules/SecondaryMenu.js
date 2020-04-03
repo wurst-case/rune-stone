@@ -56,22 +56,27 @@ S.Description = styled.div`
   }
 `
 
-function SecondaryMenu({ openMenus, color, onSelectFlavor, flavor, onSelectRunes, t1, runes, t2, primeFlavor }) {
+function SecondaryMenu({ openMenus, color, onSelectFlavor, flavor, onSelectRunes, t1, runes, t2, primeFlavor, index }) {
   var runeMatrix = []
   runes.forEach((row, rowNumber) =>
     runeMatrix.push(
       <S.Menu open={openMenus.RUNES}>
-        {row.map((rune, id) => (
-          <MenuRune
-            color={color}
-            img={rune.src}
-            title={rune.name}
-            description={rune.details}
-            onClick={() => onSelectRunes(rowNumber, id)}
-            key={'secondary' + row + ',' + id}
-            // disabled={t1 ? rune.name !== t1.name : false}
-          />
-        ))}
+        {row.map((rune, id) => {
+          var disabled =
+            (index[0][0] === rowNumber && index[0][1] !== id) || (index[1][0] === rowNumber && index[1][1] !== id)
+
+          return (
+            <MenuRune
+              color={color}
+              img={rune.src}
+              title={rune.name}
+              description={rune.details}
+              onClick={() => onSelectRunes(rowNumber, id)}
+              key={'secondary' + row + ',' + id}
+              disabled={disabled}
+            />
+          )
+        })}
       </S.Menu>,
     ),
   )
