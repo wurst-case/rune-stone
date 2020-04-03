@@ -38,12 +38,7 @@ S.FlavorMenuRune = styled.div`
 
 function FlavorMenuRune(props) {
   return (
-    <S.FlavorMenuRune
-      color={props.color}
-      type={props.type}
-      picked={props.picked}
-      onClick={(e) => props.onClick(props.id)}
-    >
+    <S.FlavorMenuRune color={props.color} type={props.type} picked={props.picked} onClick={(_) => props.onClick()}>
       <img alt="flavor" src={props.img} />
     </S.FlavorMenuRune>
   )

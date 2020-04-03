@@ -68,14 +68,13 @@ function PrimaryMenu({
 }) {
   return (
     <S.Menus>
-      <S.Menu open className="flavors">
+      <S.Menu open={openMenus.FLAVOR} className="flavors">
         {flavors.map((rune, id) => {
           if (id !== 0)
             return (
               <FlavorMenuRune
                 img={rune.src}
-                onClick={flavor ? (rune.name === flavor.name ? () => {} : onSelectFlavor) : onSelectFlavor}
-                id={id}
+                onClick={() => onSelectFlavor(id)}
                 key={'primeflavor' + id}
                 picked={rune.name === flavor.name}
               />
@@ -83,6 +82,18 @@ function PrimaryMenu({
           else return <div key={'primeflavor' + id}></div>
         })}
       </S.Menu>
+      <S.Description open={openMenus.FLAVOR} color={color}>
+        <h4>{flavor ? flavor.name : 'Choose a path.'}</h4>
+        {flavor ? (
+          <p>
+            {flavor.subtitle}
+            <br />
+            {flavor.details}
+          </p>
+        ) : (
+          <p>Select a rune</p>
+        )}
+      </S.Description>
       <S.Menu open={openMenus.KEYSTONE}>
         {flavor.keystones.map((rune, id) => (
           <MenuRune

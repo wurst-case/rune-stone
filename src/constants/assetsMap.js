@@ -83,6 +83,8 @@ export default [
   },
   {
     name: 'Bandle',
+    subtitle: 'Subtittle goes here',
+    details: 'A short one sentance summary of path',
     src: Bandle,
     colorHex: '#EA781E',
     colorRGB: '234,120,30',
@@ -174,6 +176,8 @@ export default [
   },
   {
     name: 'Precision',
+    subtitle: 'Become a legend',
+    details: 'Improved attacks andustained damage',
     src: Precision,
     colorHex: '#BDA878',
     colorRGB: '189,168,120',
@@ -254,6 +258,8 @@ export default [
   },
   {
     name: 'Domination',
+    subtitle: 'Hunt and eliminate prey',
+    details: 'Burst damage and target access',
     src: Domination,
     colorHex: '#D74444',
     colorRGB: '215,68,68',
@@ -339,6 +345,8 @@ export default [
   },
   {
     name: 'Sorcery',
+    subtitle: 'Unleash destruction',
+    details: 'Empowered abilities and resource manipulation',
     src: Sorcery,
     colorHex: '#D74444',
     colorRGB: '113,122,245',
@@ -414,6 +422,8 @@ export default [
   },
   {
     name: 'Resolve',
+    subtitle: 'Live forever',
+    details: 'Durability and crowd control',
     src: Resolve,
     colorHex: '#A1D287',
     colorRGB: '161,210,135',
@@ -489,6 +499,8 @@ export default [
   },
   {
     name: 'Inspiration',
+    subtitle: 'Outwit mere mortals',
+    details: 'Creative tools and rule bending',
     src: Inspiration,
     colorHex: '##47AFBB',
     colorRGB: '71,175,187',

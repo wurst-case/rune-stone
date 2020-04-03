@@ -47,7 +47,7 @@ export default function composition(state = initialState, action) {
     case ActionTypes.SELECT_PRIMARY_FLAVOR:
       // Close menu, open next menu
       state.OPEN.PRIMARY.FLAVOR = false
-      state.OPEN.PRIMARY.KEYSTONE = true
+      if (state.KEYSTONE === null) state.OPEN.PRIMARY.KEYSTONE = true
       state.SECONDARY_FLAVOR =
         state.SECONDARY_FLAVOR === 0 ? 0 : action.payload === state.SECONDARY_FLAVOR ? 0 : state.SECONDARY_FLAVOR
       return {
@@ -61,27 +61,27 @@ export default function composition(state = initialState, action) {
     case ActionTypes.SELECT_KEYSTONE:
       // Close menu, open next menu
       state.OPEN.PRIMARY.KEYSTONE = false
-      state.OPEN.PRIMARY.T1 = true
+      if (state.PRIMARY_T1 === null) state.OPEN.PRIMARY.T1 = true
       return { ...state, KEYSTONE: action.payload }
     case ActionTypes.SELECT_PRIMARY_T1:
       // Close menu, open next menu
       state.OPEN.PRIMARY.T1 = false
-      state.OPEN.PRIMARY.T2 = true
+      if (state.PRIMARY_T2 === null) state.OPEN.PRIMARY.T2 = true
       return { ...state, PRIMARY_T1: action.payload }
     case ActionTypes.SELECT_PRIMARY_T2:
       // Close menu, open next menu
       state.OPEN.PRIMARY.T2 = false
-      state.OPEN.PRIMARY.T3 = true
+      if (state.PRIMARY_T3 === null) state.OPEN.PRIMARY.T3 = true
       return { ...state, PRIMARY_T2: action.payload }
     case ActionTypes.SELECT_PRIMARY_T3:
       // Close menu, open next menu
       state.OPEN.PRIMARY.T3 = false
-      state.OPEN.SECONDARY.FLAVOR = true
+      if (state.SECONDARY_FLAVOR === 0) state.OPEN.SECONDARY.FLAVOR = true
       return { ...state, PRIMARY_T3: action.payload }
     case ActionTypes.SELECT_SECONDARY_FLAVOR:
       // Close menu, open next menu
       state.OPEN.SECONDARY.FLAVOR = false
-      state.OPEN.SECONDARY.RUNES = true
+      if (state.SECONDARY_T1_ROW === null) state.OPEN.SECONDARY.RUNES = true
       return {
         ...state,
         SECONDARY_FLAVOR: action.payload,
@@ -120,8 +120,10 @@ export default function composition(state = initialState, action) {
 
     case ActionTypes.TOGGLE_MENU:
       if (action.payload.tree === 'SECONDARY') {
+        // Normal toggle for flavor
+        if (action.payload.tier === 'FLAVOR') state.OPEN.SECONDARY.FLAVOR = action.payload.value
         //Logic for default flavor in second menu
-        if (state.SECONDARY_FLAVOR === 0) state.OPEN.SECONDARY.RUNES = false
+        else if (state.SECONDARY_FLAVOR === 0) state.OPEN.SECONDARY.RUNES = false
         else if (state.SECONDARY_T1_ROW === null || state.SECONDARY_T2_ROW === null) {
           // If either secondary runes are null forbid closing the menu otherwise open and close on command
           state.OPEN.SECONDARY.RUNES = true
