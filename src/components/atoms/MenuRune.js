@@ -76,6 +76,7 @@ S.Tooltip = styled.div`
     text-align: left;
     border-radius: 6px;
     padding: 16px;
+    margin-bottom: 8px;
     box-sizing: border-box;
     position: absolute;
     z-index: 100;
