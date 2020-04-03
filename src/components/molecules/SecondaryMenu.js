@@ -36,14 +36,17 @@ S.Description = styled.div`
 
   text-align: left;
 
-  &.flavors {
+  &.first {
     padding-top: 30px;
   }
 
   & > h4 {
+    text-transform: uppercase;
+    font-size: 0.9rem;
     margin-bottom: 8px;
     margin-top: 0;
     color: rgba(${(props) => props.color}, 1);
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
   }
 
   & > p {
@@ -53,6 +56,7 @@ S.Description = styled.div`
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
   }
 `
 
@@ -98,14 +102,14 @@ function SecondaryMenu({ openMenus, color, onSelectFlavor, flavor, onSelectRunes
       </S.Menu>
       <S.Description open={openMenus.FLAVOR} color={color}>
         <h4>{flavor ? flavor.name : 'Choose a path.'}</h4>
-        {flavor ? (
+        {flavor === 0 ? (
           <p>
             {flavor.subtitle}
             <br />
             {flavor.details}
           </p>
         ) : (
-          <p>Select a rune</p>
+          <p>Select a secondary path</p>
         )}
       </S.Description>
       {runeMatrix}

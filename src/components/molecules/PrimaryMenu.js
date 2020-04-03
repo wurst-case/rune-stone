@@ -37,9 +37,12 @@ S.Description = styled.div`
   }
 
   & > h4 {
+    text-transform: uppercase;
+    font-size: 0.9rem;
     margin-bottom: 8px;
     margin-top: 0;
     color: rgba(${(props) => props.color}, 1);
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
   }
 
   & > p {
@@ -49,6 +52,7 @@ S.Description = styled.div`
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
   }
 `
 

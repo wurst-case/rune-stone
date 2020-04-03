@@ -7,13 +7,27 @@ html {
 body {
   margin: 0;
   padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
-    'Helvetica Neue', sans-serif;
+  font-family: 'Beaufort W01 Bold1339640', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Oxygen', 'Ubuntu',
+    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   user-select: none;
 }
 
+p {
+  font-family: 'Roboto';
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
+
+@font-face {
+  font-family: 'Beaufort W01 Bold1339640';
+  src: url('../assets/Fonts/1339640/de0c3102-6880-4403-9f57-b10402305c4d.woff2') format('woff2'),
+    url('../assets/Fonts/1339640/db16c1ca-02e1-440f-ba47-2e52b0f4c580.woff') format('woff');
+}
+
+/*
+        This CSS resource incorporates links to font software which is the valuable copyrighted property of Monotype and/or its suppliers. You may not attempt to copy, install, redistribute, convert, modify or reverse engineer this font software. Please contact Monotype with any questions regarding Web Fonts:  http://www.fonts.com
+        */
