@@ -28,7 +28,7 @@ const initialState = {
   OPEN: {
     PRIMARY: {
       FLAVOR: true,
-      KEYSTONE: true,
+      KEYSTONE: null,
       T1: null,
       T2: null,
       T3: null,
