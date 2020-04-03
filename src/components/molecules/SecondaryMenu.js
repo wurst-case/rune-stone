@@ -60,7 +60,7 @@ function SecondaryMenu({ openMenus, color, onSelectFlavor, flavor, onSelectRunes
   var runeMatrix = []
   runes.forEach((row, rowNumber) =>
     runeMatrix.push(
-      <S.Menu open={openMenus.RUNES}>
+      <S.Menu open={openMenus.RUNES} key={'secondaryRuneMenuRow' + rowNumber}>
         {row.map((rune, id) => {
           var disabled =
             (index[0][0] === rowNumber && index[0][1] !== id) || (index[1][0] === rowNumber && index[1][1] !== id)
@@ -72,7 +72,7 @@ function SecondaryMenu({ openMenus, color, onSelectFlavor, flavor, onSelectRunes
               title={rune.name}
               description={rune.details}
               onClick={() => onSelectRunes(rowNumber, id)}
-              key={'secondary' + row + ',' + id}
+              key={'secondary' + rowNumber + '-' + id}
               disabled={disabled}
             />
           )
@@ -94,7 +94,7 @@ function SecondaryMenu({ openMenus, color, onSelectFlavor, flavor, onSelectRunes
                 picked={flavor ? rune.name === flavor.name : null}
               />
             )
-          else return <></>
+          else return <div key={'secondflavors' + id}></div>
         })}
       </S.Menu>
       {runeMatrix}

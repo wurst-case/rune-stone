@@ -80,7 +80,7 @@ function PrimaryMenu({
                 picked={rune.name === flavor.name}
               />
             )
-          else return <></>
+          else return <div key={'primeflavor' + id}></div>
         })}
       </S.Menu>
       <S.Menu open={openMenus.KEYSTONE}>
