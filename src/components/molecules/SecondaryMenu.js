@@ -36,8 +36,8 @@ S.Description = styled.div`
 
   text-align: left;
 
-  &.first {
-    margin-top: 40px;
+  &.flavors {
+    padding-top: 30px;
   }
 
   & > h4 {
@@ -46,7 +46,7 @@ S.Description = styled.div`
     color: rgba(${(props) => props.color}, 1);
   }
 
-  & > .description {
+  & > p {
     font-size: 0.8rem;
     overflow: hidden;
     text-overflow: ellipsis;
