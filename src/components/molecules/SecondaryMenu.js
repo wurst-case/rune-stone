@@ -46,7 +46,7 @@ S.Description = styled.div`
     color: rgba(${(props) => props.color}, 1);
   }
 
-  & > p {
+  & > .description {
     font-size: 0.8rem;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -99,12 +99,22 @@ function SecondaryMenu({ openMenus, color, onSelectFlavor, flavor, onSelectRunes
       </S.Menu>
       {runeMatrix}
       <S.Description open={openMenus.RUNES} color={color} className="first">
-        <h4>Secondary</h4>
-        <p>{t1 ? t1.details : `Select two runes from your secondary path`}</p>
+        <h4>{t1 ? t1.name : 'Secondary'}</h4>
+        {t1 ? (
+          // Strip away all html tags from description
+          <p className="description">{t1.details.replace(/<\/?[^>]+(>|$)/g, '')}</p>
+        ) : (
+          <p className="description">Select two runes from your secondary path</p>
+        )}
       </S.Description>
       <S.Description open={openMenus.RUNES} color={color}>
-        <h4>Secondary</h4>
-        <p>{t2 ? t2.details : `Select two runes from your secondary path`}</p>
+        <h4>{t2 ? t2.name : 'Secondary'}</h4>
+        {t2 ? (
+          // Strip away all html tags from description
+          <p className="description">{t2.details.replace(/<\/?[^>]+(>|$)/g, '')}</p>
+        ) : (
+          <p className="description">Select two runes from your secondary path</p>
+        )}
       </S.Description>
     </S.Menus>
   )

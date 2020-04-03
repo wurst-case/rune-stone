@@ -116,7 +116,8 @@ function PrimaryMenu({
       </S.Menu>
       <S.Description open={openMenus.T1} color={color}>
         <h4>{t1 ? t1.name : flavor.tierNames[0]}</h4>
-        <p>{t1 ? t1.details : `Select a rune`}</p>
+        {/* Strip away all html tags from description */}
+        <p>{t1 ? t1.details.replace(/<\/?[^>]+(>|$)/g, '') : `Select a rune`}</p>
       </S.Description>
       <S.Menu open={openMenus.T2}>
         {flavor.tier2.map((rune, id) => (
@@ -133,7 +134,8 @@ function PrimaryMenu({
       </S.Menu>
       <S.Description open={openMenus.T2} color={color}>
         <h4>{t2 ? t2.name : flavor.tierNames[1]}</h4>
-        <p>{t2 ? t2.details : `Select a rune`}</p>
+        {/* Strip away all html tags from description */}
+        <p>{t2 ? t2.details.replace(/<\/?[^>]+(>|$)/g, '') : `Select a rune`}</p>
       </S.Description>
       <S.Menu open={openMenus.T3}>
         {flavor.tier3.map((rune, id) => (
@@ -150,7 +152,8 @@ function PrimaryMenu({
       </S.Menu>
       <S.Description open={openMenus.T3} color={color}>
         <h4>{t3 ? t3.name : flavor.tierNames[2]}</h4>
-        <p>{t3 ? t3.details : `Select a rune`}</p>
+        {/* Strip away all html tags from description */}
+        <p>{t3 ? t3.details.replace(/<\/?[^>]+(>|$)/g, '') : `Select a rune`}</p>
       </S.Description>
     </S.Menus>
   )
