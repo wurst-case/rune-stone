@@ -99,7 +99,8 @@ function PrimaryMenu({
       </S.Menu>
       <S.Description open={openMenus.KEYSTONE} color={color}>
         <h4>{keystone ? keystone.name : 'Keystone'}</h4>
-        <p>{keystone ? keystone.details : `Select a keystone`}</p>
+        {/* Strip away all html tags from description */}
+        <p>{keystone ? keystone.details.replace(/<\/?[^>]+(>|$)/g, '') : `Select a keystone`}</p>
       </S.Description>
       <S.Menu open={openMenus.T1}>
         {flavor.tier1.map((rune, id) => (
