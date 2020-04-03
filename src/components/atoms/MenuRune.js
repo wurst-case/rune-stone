@@ -88,6 +88,8 @@ S.Tooltip = styled.div`
     h4 {
       color: rgba(${Layout.GOLD});
       margin: 0;
+      text-transform: uppercase;
+      font-size: 0.9rem;
     }
 
     p {
