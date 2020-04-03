@@ -58,8 +58,7 @@ const mapStateToProps = (state) => {
       },
       SECONDARY: {
         FLAVOR: state.composition.OPEN.SECONDARY.FLAVOR,
-        T1: state.composition.OPEN.SECONDARY.T1,
-        T2: state.composition.OPEN.SECONDARY.T2,
+        RUNES: state.composition.OPEN.SECONDARY.RUNES,
       },
     },
   }

@@ -35,8 +35,7 @@ const initialState = {
     },
     SECONDARY: {
       FLAVOR: null,
-      T1: null,
-      T2: null,
+      RUNES: null,
     },
   },
 }
@@ -81,75 +80,49 @@ export default function composition(state = initialState, action) {
       }
 
     case ActionTypes.SELECT_SECONDARY_RUNES:
-      // Is the first slot active?
-      if (state['OPEN']['SECONDARY']['T1'] === true) {
-        // No picking from the last row
-        if (action.payload.ROW !== 2) {
-          //Close menu and deactivate rune
-          state['OPEN']['SECONDARY']['T1'] = false
-          // If the active slot is sent the middle row rune and the nonacitve already has it then
-          if (state.SECONDARY_T2_ROW === 1 && action.payload.ROW === 1)
-            // OPTION 1: Erase non-active slot and give rune to active slot
-            // return {
-            //   ...state,
-            //   SECONDARY_T1_ROW: action.payload.ROW,
-            //   SECONDARY_T1_ID: action.payload.ID,
-            //   SECONDARY_T2_ROW: null,
-            //   SECONDARY_T2_ID: null,
-            // }
-            // OPTION 2: Give rune to non-active slot
-            return {
-              ...state,
-              SECONDARY_T2_ROW: action.payload.ROW,
-              SECONDARY_T2_ID: action.payload.ID,
-            }
-          else
-            return {
-              ...state,
-              SECONDARY_T1_ROW: action.payload.ROW,
-              SECONDARY_T1_ID: action.payload.ID,
-            }
-        } else return { ...state }
-      }
-      // Is the second slot active?
-      else {
-        // No picking from the first row
-        if (action.payload.ROW !== 0) {
-          //Close menu and deactivate rune
-          state['OPEN']['SECONDARY']['T2'] = false
-          // If the active slot is sent the middle row rune and the nonacitve already has it then
-          if (state.SECONDARY_T1_ROW === 1 && action.payload.ROW === 1)
-            // OPTION 1: Erase non-active slot and give rune to active slot
-            // return {
-            //   ...state,
-            //   SECONDARY_T2_ROW: action.payload.ROW,
-            //   SECONDARY_T2_ID: action.payload.ID,
-            //   SECONDARY_T1_ROW: null,
-            //   SECONDARY_T1_ID: null,
-            // }
-            // OPTION 2: Give rune to non-active slot
-            return {
-              ...state,
-              SECONDARY_T1_ROW: action.payload.ROW,
-              SECONDARY_T1_ID: action.payload.ID,
-            }
-          else
-            return {
-              ...state,
-              SECONDARY_T2_ROW: action.payload.ROW,
-              SECONDARY_T2_ID: action.payload.ID,
-            }
-        } else return { ...state }
-      }
+      if (state.SECONDARY_T1_ROW === null && state.SECONDARY_T1_ROW === null) {
+        // If both slots are empty give the selection to the first slot no matter what
+        return { ...state, SECONDARY_T1_ROW: action.payload.ROW, SECONDARY_T1_ID: action.payload.ID }
+      } else if (action.payload.ROW > state.SECONDARY_T1_ROW) {
+        // If the second selection's row is greater than the first selection's row, give it to the second slot and close menu
+        state.OPEN.SECONDARY.RUNES = false
+        return { ...state, SECONDARY_T2_ROW: action.payload.ROW, SECONDARY_T2_ID: action.payload.ID }
+      } else if (action.payload.ROW < state.SECONDARY_T1_ROW) {
+        // If the second selection's row is less than the first selection's row, give it to the first slot
+        // and shuffle the first slot's previous selection to the second slot and close menu
+        state.OPEN.SECONDARY.RUNES = false
+        return {
+          ...state,
+          SECONDARY_T1_ROW: action.payload.ROW,
+          SECONDARY_T1_ID: action.payload.ID,
+          SECONDARY_T2_ROW: state.SECONDARY_T1_ROW,
+          SECONDARY_T2_ID: state.SECONDARY_T1_ID,
+        }
+      } else if (action.payload.ROW === state.SECONDARY_T1_ROW) {
+        // If the selection's row is equal to the first slot's row, give it to the first slot
+        return { ...state, SECONDARY_T1_ROW: action.payload.ROW, SECONDARY_T1_ID: action.payload.ID }
+      } else if (action.payload.ROW === state.SECONDARY_T2_ROW) {
+        // If the selection's row is equal to the second slot's row, give it to the second slot
+        return { ...state, SECONDARY_T2_ROW: action.payload.ROW, SECONDARY_T2_ID: action.payload.ID }
+      } else return { ...state }
 
     case ActionTypes.TOGGLE_MENU:
       if (action.payload.tree === 'SECONDARY') {
         //Logic for default flavor in second menu
-        if (state.SECONDARY_FLAVOR === 0) state['OPEN']['SECONDARY'][action.payload.tier] = false
-        else {
-          //Logic for secondary tree opening and closing together
-          state['OPEN']['SECONDARY'][action.payload.tier] = action.payload.value
-          state['OPEN']['SECONDARY'][action.payload.tier === 'T1' ? 'T2' : 'T1'] = false
+        if (state.SECONDARY_FLAVOR === 0) state.OPEN.SECONDARY.RUNES = false
+        else if (state.SECONDARY_T1_ROW === null || state.SECONDARY_T2_ROW === null) {
+          // If either secondary runes are null forbid closing the menu otherwise open and close on command
+          state.OPEN.SECONDARY.RUNES = true
+        } else {
+          // otherwise open and clear rune selection, menu only closes when both have been selected
+          state.OPEN.SECONDARY.RUNES = true
+          return {
+            ...state,
+            SECONDARY_T1_ROW: null,
+            SECONDARY_T1_ID: null,
+            SECONDARY_T2_ROW: null,
+            SECONDARY_T2_ID: null,
+          }
         }
       } else state['OPEN']['PRIMARY'][action.payload.tier] = action.payload.value
       return { ...state }

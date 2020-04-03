@@ -60,7 +60,7 @@ function SecondaryMenu({ openMenus, color, onSelectFlavor, flavor, onSelectRunes
   var runeMatrix = []
   runes.forEach((row, rowNumber) =>
     runeMatrix.push(
-      <S.Menu open={openMenus.T1 || openMenus.T2}>
+      <S.Menu open={openMenus.RUNES}>
         {row.map((rune, id) => (
           <MenuRune
             color={color}
@@ -93,11 +93,11 @@ function SecondaryMenu({ openMenus, color, onSelectFlavor, flavor, onSelectRunes
         })}
       </S.Menu>
       {runeMatrix}
-      <S.Description open={openMenus.T1 || openMenus.T2} color={color} className="first">
+      <S.Description open={openMenus.RUNES} color={color} className="first">
         <h4>Secondary</h4>
         <p>{t1 ? t1.details : `Select two runes from your secondary path`}</p>
       </S.Description>
-      <S.Description open={openMenus.T1 || openMenus.T2} color={color}>
+      <S.Description open={openMenus.RUNES} color={color}>
         <h4>Secondary</h4>
         <p>{t2 ? t2.details : `Select two runes from your secondary path`}</p>
       </S.Description>

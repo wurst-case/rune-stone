@@ -15,7 +15,7 @@ export const toggleMenu = (menu) => {
   const { composition } = store.getState()
   return {
     type: ActionTypes.TOGGLE_MENU,
-    payload: { ...menu, value: composition['OPEN'][menu.tree][menu.tier] === true ? false : true },
+    payload: { ...menu, value: !composition['OPEN'][menu.tree][menu.tier] },
   }
 }
 
