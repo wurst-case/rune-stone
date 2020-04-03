@@ -27,8 +27,8 @@ const initialState = {
   SECONDARY_T2_ID: null,
   OPEN: {
     PRIMARY: {
-      FLAVOR: null,
-      KEYSTONE: null,
+      FLAVOR: true,
+      KEYSTONE: true,
       T1: null,
       T2: null,
       T3: null,
@@ -45,7 +45,9 @@ export default function composition(state = initialState, action) {
     case ActionTypes.RESET:
       return initialState
     case ActionTypes.SELECT_PRIMARY_FLAVOR:
-      state['OPEN']['PRIMARY']['FLAVOR'] = false
+      // Close menu, open next menu
+      state.OPEN.PRIMARY.FLAVOR = false
+      state.OPEN.PRIMARY.KEYSTONE = true
       state.SECONDARY_FLAVOR =
         state.SECONDARY_FLAVOR === 0 ? 0 : action.payload === state.SECONDARY_FLAVOR ? 0 : state.SECONDARY_FLAVOR
       return {
@@ -57,19 +59,29 @@ export default function composition(state = initialState, action) {
         PRIMARY_T3: null,
       }
     case ActionTypes.SELECT_KEYSTONE:
-      state['OPEN']['PRIMARY']['KEYSTONE'] = false
+      // Close menu, open next menu
+      state.OPEN.PRIMARY.KEYSTONE = false
+      state.OPEN.PRIMARY.T1 = true
       return { ...state, KEYSTONE: action.payload }
     case ActionTypes.SELECT_PRIMARY_T1:
-      state['OPEN']['PRIMARY']['T1'] = false
+      // Close menu, open next menu
+      state.OPEN.PRIMARY.T1 = false
+      state.OPEN.PRIMARY.T2 = true
       return { ...state, PRIMARY_T1: action.payload }
     case ActionTypes.SELECT_PRIMARY_T2:
-      state['OPEN']['PRIMARY']['T2'] = false
+      // Close menu, open next menu
+      state.OPEN.PRIMARY.T2 = false
+      state.OPEN.PRIMARY.T3 = true
       return { ...state, PRIMARY_T2: action.payload }
     case ActionTypes.SELECT_PRIMARY_T3:
-      state['OPEN']['PRIMARY']['T3'] = false
+      // Close menu, open next menu
+      state.OPEN.PRIMARY.T3 = false
+      state.OPEN.SECONDARY.FLAVOR = true
       return { ...state, PRIMARY_T3: action.payload }
     case ActionTypes.SELECT_SECONDARY_FLAVOR:
-      state['OPEN']['SECONDARY']['FLAVOR'] = false
+      // Close menu, open next menu
+      state.OPEN.SECONDARY.FLAVOR = false
+      state.OPEN.SECONDARY.RUNES = true
       return {
         ...state,
         SECONDARY_FLAVOR: action.payload,
