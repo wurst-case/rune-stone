@@ -19,7 +19,7 @@ function PrimaryTree(props) {
   return (
     <S.Tree>
       <FlavorRune color={color} onClick={() => onToggle({ tier: 'FLAVOR' })} />
-      <Branch color={color} padding={4} />
+      <Branch color={color} padding={4} active={openMenus.KEYSTONE || openMenus.T1 || openMenus.T2 || openMenus.T3} />
       <Rune
         color={color}
         keystone
@@ -27,11 +27,11 @@ function PrimaryTree(props) {
         onClick={() => onToggle({ tier: 'KEYSTONE' })}
         active={openMenus.KEYSTONE}
       />
-      <Branch color={color} padding={-16} onClick={onToggle} />
+      <Branch color={color} padding={-16} onClick={onToggle} active={openMenus.T1 || openMenus.T2 || openMenus.T3} />
       <Rune color={color} img={t1 ? t1.src : null} onClick={() => onToggle({ tier: 'T1' })} active={openMenus.T1} />
-      <Branch color={color} />
+      <Branch color={color} active={openMenus.T2 || openMenus.T3} />
       <Rune color={color} img={t2 ? t2.src : null} onClick={() => onToggle({ tier: 'T2' })} active={openMenus.T2} />
-      <Branch color={color} />
+      <Branch color={color} active={openMenus.T3} />
       <Rune color={color} img={t3 ? t3.src : null} onClick={() => onToggle({ tier: 'T3' })} active={openMenus.T3} />
     </S.Tree>
   )
