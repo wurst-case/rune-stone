@@ -66,6 +66,12 @@ import BiscuitDelivery from '../assets/inspiration/t2/biscuit-delivery.webp'
 import CosmicInsight from '../assets/inspiration/t3/cosmic-insight.webp'
 import ApproachVelocity from '../assets/inspiration/t3/approach-velocity.webp'
 import TimeWarpTonic from '../assets/inspiration/t3/time-warp-tonic.webp'
+import PrecisionBg from '../assets/precision/bg.png'
+import SorceryBg from '../assets/sorcery/bg.png'
+import DominationBg from '../assets/domination/bg.png'
+import InspirationBg from '../assets/inspiration/bg.png'
+import ResolveBg from '../assets/resolve/bg.png'
+import BandleBg from '../assets/bandle/bg.png'
 
 import Bandle from '../assets/bandle/bandle.png'
 
@@ -86,6 +92,7 @@ export default [
     subtitle: 'Subtittle goes here',
     details: 'A short one sentance summary of path',
     src: Bandle,
+    bg: BandleBg,
     colorHex: '#EA781E',
     colorRGB: '234,120,30',
     tierNames: ['Enchantments', 'Scoops', 'Tactics'],
@@ -179,6 +186,7 @@ export default [
     subtitle: 'Become a legend',
     details: 'Improved attacks andustained damage',
     src: Precision,
+    bg: PrecisionBg,
     colorHex: '#BDA878',
     colorRGB: '189,168,120',
     tierNames: ['Heroism', 'Legend', 'Combat'],
@@ -261,6 +269,7 @@ export default [
     subtitle: 'Hunt and eliminate prey',
     details: 'Burst damage and target access',
     src: Domination,
+    bg: DominationBg,
     colorHex: '#D74444',
     colorRGB: '215,68,68',
     tierNames: ['Malice', 'Tracking', 'Hunter'],
@@ -348,6 +357,7 @@ export default [
     subtitle: 'Unleash destruction',
     details: 'Empowered abilities and resource manipulation',
     src: Sorcery,
+    bg: SorceryBg,
     colorHex: '#D74444',
     colorRGB: '113,122,245',
     tierNames: ['Artifact', 'Excellence', 'Power'],
@@ -425,6 +435,7 @@ export default [
     subtitle: 'Live forever',
     details: 'Durability and crowd control',
     src: Resolve,
+    bg: ResolveBg,
     colorHex: '#A1D287',
     colorRGB: '161,210,135',
     tierNames: ['Strength', 'Resistance', 'Vitality'],
@@ -502,6 +513,7 @@ export default [
     subtitle: 'Outwit mere mortals',
     details: 'Creative tools and rule bending',
     src: Inspiration,
+    bg: InspirationBg,
     colorHex: '##47AFBB',
     colorRGB: '71,175,187',
     tierNames: ['Contraptions', 'Tomorrow', 'Beyond'],

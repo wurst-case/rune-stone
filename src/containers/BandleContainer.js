@@ -3,15 +3,14 @@ import { connect } from 'react-redux'
 import styled from '@emotion/styled'
 import Layout from '../constants/layoutConstants'
 import CompBuilder from '../components/organisms/CompBuilder'
-import bandleBG from '../assets/bandle/bg.png'
-import bandleFG from '../assets/bandle/fg.png'
+import flavors from '../constants/assetsMap'
 
 const S = {}
 S.Container = styled.div`
-  background-image: url(${bandleFG}), url(${bandleBG});
-  background-position: 130% bottom, 25% center;
-  background-repeat: no-repeat, repeat;
-  background-size: 75%, cover;
+  background-image: url(${(props) => props.bg});
+  background-position: bottom right;
+  background-repeat: no-repeat;
+  background-size: cover;
   background-color: ${Layout.GREY};
   padding: 20px;
   padding-top: ${Layout.HEADER_HEIGHT * 2}px;
@@ -24,17 +23,20 @@ S.Container = styled.div`
   align-items: start;
 `
 
+const mapStateToProps = (state) => ({
+  bgImage: flavors[state.composition.PRIMARY_FLAVOR].bg,
+})
+
 export class BandleContainer extends Component {
   render() {
+    const { bgImage } = this.props
     return (
-      <S.Container>
+      <S.Container bg={bgImage ? bgImage : null}>
         <CompBuilder />
       </S.Container>
     )
   }
 }
-
-const mapStateToProps = (state) => ({})
 
 const mapDispatchToProps = {}
 
