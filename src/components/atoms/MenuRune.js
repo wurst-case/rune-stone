@@ -118,7 +118,7 @@ function Rune({ color, keystone, disabled, onClick, img, title, description }) {
   return (
     <S.Tooltip>
       <S.Rune color={color} keystone={keystone} disabled={disabled} onClick={(_) => onClick()}>
-        <img alt="flavor" src={img} />
+        <img alt="rune" src={img} />
         <S.Highlighter color={color} />
       </S.Rune>
       <div className="tooltiptext">
