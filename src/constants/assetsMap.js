@@ -66,6 +66,7 @@ import BiscuitDelivery from '../assets/inspiration/t2/biscuit-delivery.png'
 import CosmicInsight from '../assets/inspiration/t3/cosmic-insight.png'
 import ApproachVelocity from '../assets/inspiration/t3/approach-velocity.png'
 import TimeWarpTonic from '../assets/inspiration/t3/time-warp-tonic.png'
+
 import PrecisionBg from '../assets/precision/bg.png'
 import SorceryBg from '../assets/sorcery/bg.png'
 import DominationBg from '../assets/domination/bg.png'
@@ -74,6 +75,13 @@ import ResolveBg from '../assets/resolve/bg.png'
 import BandleBg from '../assets/bandle/bg.png'
 
 import Bandle from '../assets/bandle/bandle.png'
+import WRay from '../assets/bandle/keystones/wray.png'
+import Magnet from '../assets/bandle/keystones/magnet.png'
+import Horn from '../assets/bandle/keystones/horn.png'
+import Unlucky7s from '../assets/bandle/t1/unlucky7s.png'
+import NoPlaceHome from '../assets/bandle/t1/home.png'
+import Portal from '../assets/bandle/t1/portal.png'
+import Chest from '../assets/bandle/t1/chest.png'
 
 export default [
   {
@@ -101,43 +109,43 @@ export default [
         name: '[W]-ray',
         details:
           'Damaging or debuffing an enemy champion with your champion’s [W] (i.e. second ability) applies an additional 10 − 40 (based on level) (based on [W] level) (+ 15% bonus AD) (+ 10% AP) damage. Healing or shielding yourself or an allied champion with your champion’s [W] applies an additional 35 − 80 (based on level) (based on [W] level) (+ 40% bonus AD) (+ 25% AP) healing or shielding. Damaging, healing, and shielding over time effects cannot activate [W]-ray more than once every 0.5 seconds.',
-        src: PresstheAttack,
+        src: WRay,
       },
       {
         name: 'Very Stable Errant Electromagikinetic Ion-Emitter',
         details:
           'Every second, you have a 1.67% chance to emit a pulse that Ionizes all Enemy and Allied champions in range for 4 seconds. Ionized Enemy champions lose 20% decaying movement speed, except while moving towards Allied champions, and receive 10% more damage from all sources. Ionized Allied champions gain 20% decaying movement speed, while moving away from Enemy champions, and receive 10% less damage from all sources. The Very Stable Errant Electromagikinetic Ion-Emitter can only activate while at least one Enemy champion is in range. Range: 1001',
-        src: LethalTempo,
+        src: Magnet,
       },
       {
         name: 'Behold Yjolldrhorn, and Tremble',
         details:
           'Whenever a friendly Yordle champion reaches level 6, 11, or 16, you sound Yjolldrhorn. Each blast of Yjolldrhorn permanently grants 0.6% dodge and 0.2 magic resistance to allied champions for the remainder of the game. Yordles receive two stacks per blast. Additionally, Yjolldrhorn stacks apply to all living, friendly non-champion units (including minions and summoned units) but only last until their deaths. ',
-        src: FleetFootwork,
+        src: Horn,
       },
     ],
     tier1: [
       {
         name: '(Un)lucky 7s',
         details: 'Reduces your death timer by up to 7 seconds.',
-        src: Overheal,
+        src: Unlucky7s,
       },
       {
         name: 'No Place Like Home',
         details: 'Reduces Recall’s cast time by 1 second.',
-        src: Triumph,
+        src: NoPlaceHome,
       },
       {
         name: 'Port-a-Portal',
         details:
           'Reduces Recall’s cast time by 5.5 seconds.  Receiving damage, dealing damage or debuffing units will put you in-combat, disabling Recall for 5 seconds.',
-        src: PresenceofMind,
+        src: Portal,
       },
       {
         name: 'Forgotten Trunk of Fulfilled Wishes',
         details:
           'Receive a Forgotten Trunk of Fulfilled WIshes at 4 minutes. When opened, the Forgotten Trunk of Fulfilled Wishes inflicts 125 true damage divided between all living enemy champions. One use. “The initials G.D.R. are etched on the bottom.”',
-        src: EyeballCollection,
+        src: Chest,
       },
     ],
     tier2: [
