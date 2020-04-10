@@ -8,19 +8,20 @@ import flavors from '../constants/assetsMap'
 const S = {}
 S.Container = styled.div`
   background-image: url(${(props) => props.bg});
-  background-position: bottom right;
+  background-position: top right;
   background-repeat: no-repeat;
   background-size: cover;
   background-color: ${Layout.GREY};
   padding: 20px;
-  padding-top: ${Layout.HEADER_HEIGHT * 2}px;
+  /* padding-top: ${Layout.HEADER_HEIGHT * 2}px; */
   color: #fff;
   text-align: center;
   height: 100vh;
+  width: 100%;
   box-sizing: border-box;
   display: flex;
-  justify-content: start;
-  align-items: start;
+  justify-content: flex-start;
+  align-items: center;
 `
 
 const mapStateToProps = (state) => ({

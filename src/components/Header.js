@@ -4,24 +4,36 @@ import Layout from '../constants/layoutConstants'
 
 const S = {}
 S.Header = styled.div`
-  background-color: #222;
-  height: ${Layout.HEADER_HEIGHT}px;
-  padding: 20px;
-  color: #fff;
+  background-color: ${Layout.DARK};
+  padding: 16px;
+  color: rgba(${Layout.GOLD}, 1);
   text-align: center;
-  position: fixed;
-  width: 100vw;
+  width: 15vw;
+  height: 100vh;
   box-sizing: border-box;
 
-  .redux-logo {
-    height: 80px;
+  h1,
+  h4 {
+    background-color: rgba(${Layout.GOLD}, 1);
+    color: transparent;
+    text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    background-clip: text;
+  }
+
+  h1,
+  h4 {
+    margin: 0;
+    margin-top: 8px;
   }
 `
 
 function Header() {
   return (
     <S.Header>
-      <h2>Rune Page</h2>
+      <h1>Rune Stone</h1>
+      <h5>Build your own paths or experiment with ones made by the community.</h5>
     </S.Header>
   )
 }
