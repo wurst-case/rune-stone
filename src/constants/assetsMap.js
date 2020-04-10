@@ -101,8 +101,10 @@ export default [
     details: 'A short one sentance summary of path',
     src: Bandle,
     bg: BandleBg,
-    colorHex: '#EA781E',
-    colorRGB: '234,120,30',
+    // colorHex: '#EA781E',
+    // colorRGB: '234,120,30',
+    colorHex: '#11aeff',
+    colorRGB: '17,174,255',
     tierNames: ['Enchantments', 'Scoops', 'Tactics'],
     keystones: [
       {
