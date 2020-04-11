@@ -70,21 +70,13 @@ S.Spark = styled.img`
   animation: ${S.spin} 2s linear infinite;
 `
 
-function Rune(props) {
-  var img
-  if (props.img != null) img = <img className="graphic" alt={props.keystone ? 'keystone' : 'rune'} src={props.img} />
+function Rune({ color, keystone, active, onClick, img }) {
   return (
     <div>
-      <S.Rune
-        color={props.color}
-        keystone={props.keystone}
-        active={props.active}
-        // onClick={(e) => props.onToggle(props.location)}
-        onClick={props.onClick}
-      >
-        <S.Spark src={spark} keystone={props.keystone} active={props.active} />
-        {img}
-        <S.Highlighter color={props.color} />
+      <S.Rune color={color} keystone={keystone} active={active} onClick={onClick}>
+        <S.Spark src={spark} keystone={keystone} active={active} />
+        {img != null ? <img className="graphic" alt={keystone ? 'keystone' : 'rune'} src={img} /> : <div />}
+        <S.Highlighter color={color} />
       </S.Rune>
     </div>
   )

@@ -10,7 +10,7 @@ S.FlavorMenuRune = styled.div`
   justify-content: center;
   align-items: center;
 
-  width: ${Layout.RUNE_SIZE_FLAVOR_MENU}px;
+  min-width: ${Layout.RUNE_SIZE_FLAVOR_MENU}px;
   height: ${Layout.RUNE_SIZE_FLAVOR_MENU}px;
 
   background: transparent;
@@ -33,13 +33,17 @@ S.FlavorMenuRune = styled.div`
   & > img {
     width: ${Layout.RUNE_SIZE_FLAVOR_MENU - 12}px;
     filter: brightness(50%);
+
+    @media only screen and (max-width: 600px) {
+      filter: brightness(100%);
+    }
   }
 `
 
-function FlavorMenuRune(props) {
+function FlavorMenuRune({ color, picked, onClick, img }) {
   return (
-    <S.FlavorMenuRune color={props.color} type={props.type} picked={props.picked} onClick={(_) => props.onClick()}>
-      <img alt="flavor" src={props.img} />
+    <S.FlavorMenuRune color={color} picked={picked} onClick={(_) => onClick()}>
+      <img alt="flavor" src={img} />
     </S.FlavorMenuRune>
   )
 }

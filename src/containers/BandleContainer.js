@@ -4,6 +4,7 @@ import styled from '@emotion/styled'
 import Layout from '../constants/layoutConstants'
 import CompBuilder from '../components/organisms/CompBuilder'
 import flavors from '../constants/assetsMap'
+import MobilePathBuilder from '../components/organisms/MobilePathBuilder'
 
 const S = {}
 S.Container = styled.div`
@@ -11,7 +12,7 @@ S.Container = styled.div`
   background-position: top right;
   background-repeat: no-repeat;
   background-size: cover;
-  background-color: ${Layout.GREY};
+  background-color: ${Layout.DARK};
   padding: 20px;
   /* padding-top: ${Layout.HEADER_HEIGHT * 2}px; */
   color: #fff;
@@ -22,6 +23,18 @@ S.Container = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
+
+  @media only screen and (max-width: 600px) {
+    background: ${Layout.DARK};
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    min-height: 100vh;
+    height: 100%;
+    width: 100vw;
+    padding: 0;
+  margin: 0;
+  }
 `
 
 const mapStateToProps = (state) => ({
@@ -34,6 +47,7 @@ export class BandleContainer extends Component {
     return (
       <S.Container bg={bgImage ? bgImage : null}>
         <CompBuilder />
+        <MobilePathBuilder />
       </S.Container>
     )
   }

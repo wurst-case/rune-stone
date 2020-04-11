@@ -4,7 +4,7 @@ import Layout from '../constants/layoutConstants'
 
 const S = {}
 S.Header = styled.div`
-  background-color: ${Layout.DARK};
+  background-color: ${Layout.BRONZE};
   padding: 16px;
   color: rgba(${Layout.GOLD}, 1);
   text-align: center;
@@ -27,13 +27,17 @@ S.Header = styled.div`
     margin: 0;
     margin-top: 8px;
   }
+
+  @media only screen and (max-width: 600px) {
+    display: none;
+  }
 `
 
 function Header() {
   return (
     <S.Header>
-      <h1>Rune Stone</h1>
-      <h5>Build your own paths or experiment with ones made by the community.</h5>
+      {/* <h1>Rune Stone</h1>
+      <h5>Build your own paths or experiment with ones made by the community.</h5> */}
     </S.Header>
   )
 }
