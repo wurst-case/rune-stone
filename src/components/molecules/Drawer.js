@@ -12,7 +12,6 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import Rune from '../atoms/Rune'
 import MenuRune from '../atoms/MenuRune'
 import FlavorMenuRune from '../atoms/FlavorMenuRune'
-import flavors from '../../constants/assetsMap'
 
 const S = {}
 S.Drawer = styled.div`
@@ -48,46 +47,59 @@ S.Drawer = styled.div`
     margin: 0;
     padding-left: 8px;
   }
+
+  .title {
+    padding-left: 8px;
+    font-family: 'Beaufort W01 Bold1339640';
+  }
 `
 
-export const Drawer = ({ color, open, onToggle, flavor, runes, selected, onSelect, keystone }) => {
+export const Drawer = ({ color, open, onToggle, isFlavor, flavor, runes, selected, onSelect, keystone, tier }) => {
   return (
     <S.Drawer color={color}>
       <ListItem button onClick={onToggle}>
-        <Rune keystone={keystone} active={open} img={selected ? selected.src : null} />
-        <ListItemText primary={selected ? selected.name : null} />
+        <Rune active={open} img={selected ? selected.src : null} color={color} />
+        <ListItemText>
+          <h4>{selected ? selected.name : flavor ? (keystone ? 'Keystone' : flavor.tierNames[tier - 1]) : ''}</h4>
+          <p>
+            {selected ? selected.details.replace(/<\/?[^>]+(>|$)/g, '') : isFlavor ? `Select a path` : `Select a rune`}
+          </p>
+        </ListItemText>
         {open ? <ExpandLessIcon /> : <ExpandMoreIcon />}
       </ListItem>
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
           {runes ? (
-            runes.map((rune, id) => (
-              <ListItem button onClick={() => onSelect(id)} key={rune.name + id + 'LI'}>
-                {flavor ? (
-                  <FlavorMenuRune
-                    img={rune.src}
-                    onClick={() => {}}
-                    picked={selected ? rune.name === selected.name : false}
-                    key={rune.name + id + 'RUNE'}
-                  />
-                ) : (
-                  <MenuRune
-                    img={rune.src}
-                    onClick={() => {}}
-                    picked={selected ? rune.name === selected.name : false}
-                    key={rune.name + id + 'RUNE'}
-                  />
-                )}
-                <ListItemText>
-                  <h4>{rune ? rune.name : flavor.tierNames[0]}</h4>
-                  {/* Strip away all html tags from description */}
-                  <p>{rune ? rune.details.replace(/<\/?[^>]+(>|$)/g, '') : `Select a rune`}</p>
-                </ListItemText>
-                <ListItemIcon key={rune.name + id + 'ICON'}>
-                  <InfoIcon htmlColor="white" key={rune.name + id + 'INFO'} />
-                </ListItemIcon>
-              </ListItem>
-            ))
+            runes.map((rune, id) => {
+              if (flavor ? rune.name !== flavor.name : true)
+                return (
+                  <ListItem button onClick={() => onSelect(id)} key={rune.name + id + 'LI'}>
+                    {isFlavor ? (
+                      <FlavorMenuRune
+                        img={rune.src}
+                        onClick={() => {}}
+                        picked={selected ? rune.name === selected.name : false}
+                        key={rune.name + id + 'RUNE'}
+                      />
+                    ) : (
+                      <MenuRune
+                        img={rune.src}
+                        onClick={() => {}}
+                        picked={selected ? rune.name === selected.name : false}
+                        key={rune.name + id + 'RUNE'}
+                      />
+                    )}
+                    <ListItemText>
+                      <h4>{rune.name}</h4>
+                      {/* Strip away all html tags from description */}
+                      <p>{rune ? rune.details.replace(/<\/?[^>]+(>|$)/g, '') : `Select a rune`}</p>
+                    </ListItemText>
+                    <ListItemIcon key={rune.name + id + 'ICON'}>
+                      <InfoIcon htmlColor="white" key={rune.name + id + 'INFO'} />
+                    </ListItemIcon>
+                  </ListItem>
+                )
+            })
           ) : (
             <div />
           )}

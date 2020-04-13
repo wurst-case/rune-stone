@@ -38,7 +38,7 @@ const mapStateToProps = (state) => {
   var primeT2 = primeFlavor.tier2[state.composition.PRIMARY_T2]
   var primeT3 = primeFlavor.tier3[state.composition.PRIMARY_T3]
 
-  var secondFlavor = flavors[state.composition.SECONDARY_FLAVOR]
+  var secondFlavor = flavors[state.composition.SECONDARY_FLAVOR || 0]
   var secondT1 = secondFlavor['tier' + (state.composition.SECONDARY_T1_ROW + 1)][state.composition.SECONDARY_T1_ID]
   var secondT2 = secondFlavor['tier' + (state.composition.SECONDARY_T2_ROW + 1)][state.composition.SECONDARY_T2_ID]
   var runeMatrixIndex = [

@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import styled from '@emotion/styled'
 import { connect } from 'react-redux'
 import List from '@material-ui/core/List'
-import ListSubheader from '@material-ui/core/ListSubheader'
 
 import flavors from '../../constants/assetsMap'
 import {
@@ -17,6 +16,7 @@ import {
 } from '../../actions/counter'
 
 import Drawer from '../molecules/Drawer'
+import DoubleDrawer from '../molecules/DoubleDrawer'
 import Layout from '../../constants/layoutConstants'
 
 const S = {}
@@ -42,7 +42,12 @@ S.Path = styled.div`
   }
 
   .MuiList-root {
-    background: rgba(80, 80, 80, 0.25);
+    background: rgba(80, 80, 80, 0.15);
+  }
+
+  #nested-list-subheader {
+    color: white;
+    font-size: 0.75rem;
   }
 `
 
@@ -73,22 +78,14 @@ class MobilePathBuilder extends Component {
       <S.Path>
         <img src={bgImage} alt="" />
 
-        <List
-          component="nav"
-          aria-labelledby="nested-list-subheader"
-          subheader={
-            <ListSubheader component="div" id="nested-list-subheader">
-              Choose your secondary path
-            </ListSubheader>
-          }
-        >
+        <List component="nav" aria-labelledby="nested-list-subheader">
           <Drawer
             open={open.PRIMARY.FLAVOR}
             onToggle={() => toggleMenu({ tree: 'PRIMARY', tier: 'FLAVOR' })}
             onSelect={(id) => onSelectPrimaryFlavor(id + 1)}
             runes={flavors.slice(1)}
             selected={primeFlavor}
-            flavor
+            isFlavor
             color={primeFlavor.colorRGB}
           />
           <Drawer
@@ -97,7 +94,9 @@ class MobilePathBuilder extends Component {
             onSelect={onSelectKeystone}
             runes={primeFlavor.keystones}
             selected={keystone}
+            flavor={primeFlavor}
             color={primeFlavor.colorRGB}
+            keystone
           />
           <Drawer
             open={open.PRIMARY.T1}
@@ -105,7 +104,9 @@ class MobilePathBuilder extends Component {
             onSelect={onSelectPrimaryT1}
             runes={primeFlavor.tier1}
             selected={primeT1}
+            flavor={primeFlavor}
             color={primeFlavor.colorRGB}
+            tier={1}
           />
           <Drawer
             open={open.PRIMARY.T2}
@@ -113,7 +114,9 @@ class MobilePathBuilder extends Component {
             onSelect={onSelectPrimaryT2}
             runes={primeFlavor.tier2}
             selected={primeT2}
+            flavor={primeFlavor}
             color={primeFlavor.colorRGB}
+            tier={2}
           />
           <Drawer
             open={open.PRIMARY.T3}
@@ -121,35 +124,34 @@ class MobilePathBuilder extends Component {
             onSelect={onSelectPrimaryT3}
             runes={primeFlavor.tier3}
             selected={primeT3}
+            flavor={primeFlavor}
             color={primeFlavor.colorRGB}
+            tier={3}
           />
         </List>
-        <List
-          component="nav"
-          aria-labelledby="nested-list-subheader"
-          subheader={
-            <ListSubheader component="div" id="nested-list-subheader">
-              Choose your primary path
-            </ListSubheader>
-          }
-        >
-          {/* <Drawer
+        <List component="nav" aria-labelledby="nested-list-subheader">
+          <Drawer
             open={open.SECONDARY.FLAVOR}
             onToggle={() => toggleMenu({ tree: 'SECONDARY', tier: 'FLAVOR' })}
-            onSelect={onSelectSecondaryFlavor}
-            runes={flavors.map((flavor) => {
-              if (flavor.name !== primeFlavor.name) return flavor
-            })}
+            onSelect={(id) => onSelectSecondaryFlavor(id + 1)}
+            runes={flavors.slice(1)}
             selected={secondFlavor}
-            flavor
-          /> */}
-          {/* <Drawer
-            open={open.SECONDARY.T1}
-            onToggle={() => toggleMenu({ tree: 'SECONDARY', tier: 'T1' })}
-            onSelect={onSelectSecondaryT1}
-            runes={secondFlavor.tier1}
-            selected={secondT1}
-          /> */}
+            isFlavor
+            flavor={primeFlavor}
+            color={secondFlavor ? secondFlavor.colorRGB : Layout.GOLD}
+          />
+          <DoubleDrawer
+            open={open.SECONDARY.RUNES}
+            onToggle={() => toggleMenu({ tree: 'SECONDARY', tier: 'RUNES' })}
+            onSelect={(row, id) => {
+              onSelectSecondaryRunes(row, id)
+            }}
+            runes={secondFlavor ? [].concat(secondFlavor.tier1, secondFlavor.tier2, secondFlavor.tier3) : []}
+            selected1={secondT1}
+            selected2={secondT2}
+            color={secondFlavor ? secondFlavor.colorRGB : Layout.GOLD}
+            index={runeMatrixIndex}
+          />
         </List>
       </S.Path>
     )
@@ -163,13 +165,19 @@ const mapStateToProps = (state) => {
   var primeT2 = primeFlavor.tier2[state.composition.PRIMARY_T2]
   var primeT3 = primeFlavor.tier3[state.composition.PRIMARY_T3]
 
-  var secondFlavor = flavors[state.composition.SECONDARY_FLAVOR]
-  var secondT1 = secondFlavor['tier' + (state.composition.SECONDARY_T1_ROW + 1)][state.composition.SECONDARY_T1_ID]
-  var secondT2 = secondFlavor['tier' + (state.composition.SECONDARY_T2_ROW + 1)][state.composition.SECONDARY_T2_ID]
-  var runeMatrixIndex = [
-    [state.composition.SECONDARY_T1_ROW, state.composition.SECONDARY_T1_ID],
-    [state.composition.SECONDARY_T2_ROW, state.composition.SECONDARY_T2_ID],
-  ]
+  var secondFlavor = state.composition.SECONDARY_FLAVOR ? flavors[state.composition.SECONDARY_FLAVOR] : null
+  var secondT1 = secondFlavor
+    ? secondFlavor['tier' + (state.composition.SECONDARY_T1_ROW + 1)][state.composition.SECONDARY_T1_ID]
+    : null
+  var secondT2 = secondFlavor
+    ? secondFlavor['tier' + (state.composition.SECONDARY_T2_ROW + 1)][state.composition.SECONDARY_T2_ID]
+    : null
+  var runeMatrixIndex = secondFlavor
+    ? [
+        [state.composition.SECONDARY_T1_ROW, state.composition.SECONDARY_T1_ID],
+        [state.composition.SECONDARY_T2_ROW, state.composition.SECONDARY_T2_ID],
+      ]
+    : null
 
   return {
     primeFlavor: primeFlavor,

@@ -20,7 +20,7 @@ const initialState = {
   PRIMARY_T1: null,
   PRIMARY_T2: null,
   PRIMARY_T3: null,
-  SECONDARY_FLAVOR: 0,
+  SECONDARY_FLAVOR: null,
   SECONDARY_T1_ROW: null,
   SECONDARY_T1_ID: null,
   SECONDARY_T2_ROW: null,
