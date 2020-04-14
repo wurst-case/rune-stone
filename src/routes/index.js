@@ -4,6 +4,8 @@ import Header from '../components/molecules/Header'
 import { Router, Route, Switch } from 'react-router-dom'
 import { createBrowserHistory } from 'history'
 import styled from '@emotion/styled'
+import EditorContainer from '../containers/EditorContainer'
+import Footer from '../components/molecules/Footer'
 
 export const history = createBrowserHistory()
 
@@ -24,9 +26,11 @@ function Routes() {
       <S.Container>
         <Header />
         <Switch>
+          <Route path="/editor" component={EditorContainer} />
           <Route path="/" component={BandleContainer} />
         </Switch>
       </S.Container>
+      <Footer />
     </Router>
   )
 }
