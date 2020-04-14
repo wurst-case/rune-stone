@@ -4,17 +4,19 @@ import Layout from '../constants/layoutConstants'
 
 const S = {}
 S.Header = styled.div`
-  background-color: ${Layout.BRONZE};
+  background-color: ${Layout.DARK};
   padding: 16px;
   color: rgba(${Layout.GOLD}, 1);
   text-align: center;
   width: 15vw;
   height: 100vh;
   box-sizing: border-box;
+  border: solid 1px ${Layout.BRONZE};
+  z-index: 100;
 
   h1,
   h4 {
-    background-color: rgba(${Layout.GOLD}, 1);
+    /* background-color: rgba(${Layout.GOLD}, 1); */
     color: transparent;
     text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
     -webkit-background-clip: text;
@@ -29,7 +31,9 @@ S.Header = styled.div`
   }
 
   @media only screen and (max-width: 600px) {
-    display: none;
+    width: 100vw;
+    height: 60px;
+    box-shadow: 0 5px 6px rgba(0, 0, 0, 0.5)
   }
 `
 

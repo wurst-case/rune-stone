@@ -12,6 +12,10 @@ S.Container = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
+
+  @media only screen and (max-width: 600px) {
+    flex-direction: column;
+  }
 `
 
 function Routes() {
