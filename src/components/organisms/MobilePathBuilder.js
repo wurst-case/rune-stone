@@ -38,7 +38,7 @@ S.Path = styled.div`
     min-height: 180px;
     width: 100%;
     object-fit: cover;
-    object-position: top right;
+    object-position: center right;
   }
 
   .MuiList-root {
@@ -146,7 +146,7 @@ class MobilePathBuilder extends Component {
             onSelect={(row, id) => {
               onSelectSecondaryRunes(row, id)
             }}
-            runes={secondFlavor ? [].concat(secondFlavor.tier1, secondFlavor.tier2, secondFlavor.tier3) : []}
+            runes={secondFlavor ? [secondFlavor.tier1, secondFlavor.tier2, secondFlavor.tier3] : []}
             selected1={secondT1}
             selected2={secondT2}
             color={secondFlavor ? secondFlavor.colorRGB : Layout.GOLD}

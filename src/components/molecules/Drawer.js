@@ -95,7 +95,7 @@ export const Drawer = ({ color, open, onToggle, isFlavor, flavor, runes, selecte
                     color={color}
                   />
                 )}
-                <ListItemText button onClick={() => onSelect(id)}>
+                <ListItemText onClick={() => onSelect(id)}>
                   <h4>{rune.name}</h4>
                   {/* Strip away all html tags from description */}
                   <p>{rune ? rune.details.replace(/<\/?[^>]+(>|$)/g, '') : `Select a rune`}</p>
