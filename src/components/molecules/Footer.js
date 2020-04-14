@@ -7,7 +7,7 @@ const S = {}
 S.Footer = styled.div`
   min-height: 60px;
   width: 100vw;
-  padding: 16px;
+  padding: 32px 16px;
   box-sizing: border-box;
   background-color: ${Layout.DARK};
 
