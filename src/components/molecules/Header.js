@@ -33,12 +33,19 @@ S.Header = styled.div`
 
   .logo  {
     fill: rgba(${Layout.GOLD}, 1);
+    max-height: 60px;
   }
 
   @media only screen and (max-width: 600px) {
     width: 100vw;
     height: 60px;
-    box-shadow: 0 5px 6px rgba(0, 0, 0, 0.5)
+    box-shadow: 0 5px 6px rgba(0, 0, 0, 0.5);
+    padding: 16px 8px;
+
+    .logo  {
+    fill: rgba(${Layout.GOLD}, 1);
+    height: 100%;
+    }
   }
 `
 
