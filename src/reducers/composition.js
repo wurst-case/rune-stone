@@ -38,6 +38,7 @@ const initialState = {
       RUNES: null,
     },
   },
+  RUNE_INFO: null,
 }
 
 export default function composition(state = initialState, action) {
@@ -140,6 +141,10 @@ export default function composition(state = initialState, action) {
         }
       } else state['OPEN']['PRIMARY'][action.payload.tier] = action.payload.value
       return { ...state }
+
+    case ActionTypes.TOGGLE_INFO_DISPLAY:
+      // Either will be a rune object if open or null if closed
+      return { ...state, RUNE_INFO: action.payload }
     default:
       return state
   }

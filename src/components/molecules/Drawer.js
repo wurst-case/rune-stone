@@ -57,7 +57,19 @@ S.Drawer = styled.div`
   }
 `
 
-export const Drawer = ({ color, open, onToggle, isFlavor, flavor, runes, selected, onSelect, keystone, tier }) => {
+export const Drawer = ({
+  color,
+  open,
+  onToggle,
+  isFlavor,
+  flavor,
+  runes,
+  selected,
+  onSelect,
+  keystone,
+  tier,
+  moreInfo,
+}) => {
   return (
     <S.Drawer color={color}>
       <ListItem button onClick={onToggle}>
@@ -100,7 +112,7 @@ export const Drawer = ({ color, open, onToggle, isFlavor, flavor, runes, selecte
                   {/* Strip away all html tags from description */}
                   <p>{rune ? rune.details.replace(/<\/?[^>]+(>|$)/g, '') : `Select a rune`}</p>
                 </ListItemText>
-                <ListItemIcon key={rune.name + id + 'ICON'} onClick={() => console.log(id)}>
+                <ListItemIcon key={rune.name + id + 'ICON'} onClick={() => moreInfo({ rune: rune, color: color })}>
                   <InfoIcon htmlColor="white" key={rune.name + id + 'INFO'} />
                 </ListItemIcon>
               </ListItem>

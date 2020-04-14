@@ -54,3 +54,11 @@ export const selectSecondaryRunes = (row, id) => {
     payload: { ROW: row, ID: id },
   }
 }
+
+//Layout
+export const toggleInfoDisplay = (rune) => {
+  return {
+    type: ActionTypes.TOGGLE_INFO_DISPLAY,
+    payload: rune || null,
+  }
+}

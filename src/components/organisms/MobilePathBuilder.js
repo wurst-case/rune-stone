@@ -13,11 +13,13 @@ import {
   selectSecondaryRunes,
   selectSecondaryFlavor,
   toggleMenu,
+  toggleInfoDisplay,
 } from '../../actions/counter'
 
 import Drawer from '../molecules/Drawer'
 import DoubleDrawer from '../molecules/DoubleDrawer'
 import Layout from '../../constants/layoutConstants'
+import InfoDisplay from '../molecules/InfoDisplay'
 
 const S = {}
 S.Path = styled.div`
@@ -73,9 +75,33 @@ class MobilePathBuilder extends Component {
       toggleMenu,
       open,
       bgImage,
+      runeInfo,
+      toggleInfoDisplay,
     } = this.props
+
+    function closeInfoDisplay() {
+      const scrollY = document.body.style.top
+      document.body.style.position = ''
+      document.body.style.top = ''
+      window.scrollTo(0, parseInt(scrollY || '0') * -1)
+      toggleInfoDisplay()
+    }
+
+    function openInfoDisplay(rune) {
+      const scrollY = document.documentElement.style.getPropertyValue('--scroll-y')
+      const body = document.body
+      body.style.position = 'fixed'
+      body.style.top = `-${scrollY}`
+      toggleInfoDisplay(rune)
+    }
+
+    window.addEventListener('scroll', () => {
+      document.documentElement.style.setProperty('--scroll-y', `${window.scrollY}px`)
+    })
+
     return (
       <S.Path>
+        <InfoDisplay open={runeInfo || false} onClose={closeInfoDisplay} rune={runeInfo && runeInfo.rune} />
         <img src={bgImage} alt="" />
 
         <List component="nav" aria-labelledby="nested-list-subheader">
@@ -87,6 +113,7 @@ class MobilePathBuilder extends Component {
             selected={primeFlavor}
             isFlavor
             color={primeFlavor.colorRGB}
+            moreInfo={openInfoDisplay}
           />
           <Drawer
             open={open.PRIMARY.KEYSTONE}
@@ -97,6 +124,7 @@ class MobilePathBuilder extends Component {
             flavor={primeFlavor}
             color={primeFlavor.colorRGB}
             keystone
+            moreInfo={openInfoDisplay}
           />
           <Drawer
             open={open.PRIMARY.T1}
@@ -107,6 +135,7 @@ class MobilePathBuilder extends Component {
             flavor={primeFlavor}
             color={primeFlavor.colorRGB}
             tier={1}
+            moreInfo={openInfoDisplay}
           />
           <Drawer
             open={open.PRIMARY.T2}
@@ -117,6 +146,7 @@ class MobilePathBuilder extends Component {
             flavor={primeFlavor}
             color={primeFlavor.colorRGB}
             tier={2}
+            moreInfo={openInfoDisplay}
           />
           <Drawer
             open={open.PRIMARY.T3}
@@ -127,6 +157,7 @@ class MobilePathBuilder extends Component {
             flavor={primeFlavor}
             color={primeFlavor.colorRGB}
             tier={3}
+            moreInfo={openInfoDisplay}
           />
         </List>
         <List component="nav" aria-labelledby="nested-list-subheader">
@@ -139,6 +170,7 @@ class MobilePathBuilder extends Component {
             isFlavor
             flavor={primeFlavor}
             color={secondFlavor ? secondFlavor.colorRGB : Layout.GOLD}
+            moreInfo={openInfoDisplay}
           />
           <DoubleDrawer
             open={open.SECONDARY.RUNES}
@@ -151,6 +183,7 @@ class MobilePathBuilder extends Component {
             selected2={secondT2}
             color={secondFlavor ? secondFlavor.colorRGB : Layout.GOLD}
             index={runeMatrixIndex}
+            moreInfo={openInfoDisplay}
           />
         </List>
       </S.Path>
@@ -203,6 +236,7 @@ const mapStateToProps = (state) => {
       },
     },
     bgImage: flavors[state.composition.PRIMARY_FLAVOR].bg,
+    runeInfo: state.composition.RUNE_INFO,
   }
 }
 
@@ -218,6 +252,7 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(selectSecondaryRunes(row, id))
     },
     toggleMenu: (menu) => dispatch(toggleMenu(menu)),
+    toggleInfoDisplay: (rune) => dispatch(toggleInfoDisplay(rune)),
   }
 }
 
