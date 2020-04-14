@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from '@emotion/styled'
-import Layout from '../constants/layoutConstants'
+import Layout from '../../constants/layoutConstants'
 
 const S = {}
 S.Header = styled.div`

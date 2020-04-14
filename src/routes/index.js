@@ -1,6 +1,6 @@
 import React from 'react'
 import BandleContainer from '../containers/BandleContainer'
-import Header from '../components/Header'
+import Header from '../components/molecules/Header'
 import { Router, Route, Switch } from 'react-router-dom'
 import { createBrowserHistory } from 'history'
 import styled from '@emotion/styled'
