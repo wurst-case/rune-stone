@@ -82,6 +82,8 @@ import Unlucky7s from '../assets/bandle/t1/unlucky7s.png'
 import NoPlaceHome from '../assets/bandle/t1/home.png'
 import Portal from '../assets/bandle/t1/portal.png'
 import Chest from '../assets/bandle/t1/chest.png'
+import Hex from '../assets/bandle/t2/hex.png'
+import Delivery from '../assets/bandle/t2/delivery.png'
 
 export default [
   {
@@ -161,13 +163,13 @@ export default [
         name: 'DISCOUNTCODE:HEX',
         details:
           'Start the game with a Hextech Discount Code that replaces one Amplifying Tome when crafting a Hextech Revolver.  Hurry!  After 3:30, the deal begins to expire, increasing the crafting cost of Hextech Revolver by 1 gold each second, up to 435 gold. “Limited time offer. Sponsored by EMCA Co.”',
-        src: LegendTenacity,
+        src: Hex,
       },
       {
         name: 'Doran’s Delivery, Off-Site',
         details:
           'Subscribe to Doran’s Delivery by purchasing Doran’s Shield, Doran’s Ring, or Doran’s Blade at the start of the game.  Subscribers will receive an off-site delivery that contains one of the other Doran’s items after 11 minutes, and again after 22 minutes.  Items delivered by this service are combined with the existing Doran’s item and therefore do not occupy additional inventory space.  Doran’s Delivery subscribers cannot purchase any additional Doran’s items from the shopkeeper after the initial purchase.',
-        src: LegendBloodline,
+        src: Delivery,
       },
     ],
     tier3: [
