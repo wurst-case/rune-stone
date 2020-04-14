@@ -42,7 +42,7 @@ S.Path = styled.div`
   }
 
   .MuiList-root {
-    background: rgba(80, 80, 80, 0.15);
+    background: rgba(80, 80, 80, 0);
   }
 
   #nested-list-subheader {

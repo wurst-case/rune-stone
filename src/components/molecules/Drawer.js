@@ -15,7 +15,6 @@ import FlavorMenuRune from '../atoms/FlavorMenuRune'
 
 const S = {}
 S.Drawer = styled.div`
-  background: rgba(80, 80, 80, 0.25);
   border-bottom: solid 1px grey;
   min-height: 60px;
 
@@ -52,6 +51,10 @@ S.Drawer = styled.div`
     padding-left: 8px;
     font-family: 'Beaufort W01 Bold1339640';
   }
+
+  #runeMenu {
+    background-color: rgba(255, 255, 255, 0.05);
+  }
 `
 
 export const Drawer = ({ color, open, onToggle, isFlavor, flavor, runes, selected, onSelect, keystone, tier }) => {
@@ -68,40 +71,42 @@ export const Drawer = ({ color, open, onToggle, isFlavor, flavor, runes, selecte
         {open ? <ExpandLessIcon /> : <ExpandMoreIcon />}
       </ListItem>
       <Collapse in={open} timeout="auto" unmountOnExit>
-        <List component="div" disablePadding>
-          {runes ? (
-            runes.map((rune, id) => {
-              if (flavor ? rune.name !== flavor.name : true)
-                return (
-                  <ListItem button onClick={() => onSelect(id)} key={rune.name + id + 'LI'}>
-                    {isFlavor ? (
-                      <FlavorMenuRune
-                        img={rune.src}
-                        onClick={() => {}}
-                        picked={selected ? rune.name === selected.name : false}
-                        key={rune.name + id + 'RUNE'}
-                      />
-                    ) : (
-                      <MenuRune
-                        img={rune.src}
-                        onClick={() => {}}
-                        picked={selected ? rune.name === selected.name : false}
-                        key={rune.name + id + 'RUNE'}
-                      />
-                    )}
-                    <ListItemText>
-                      <h4>{rune.name}</h4>
-                      {/* Strip away all html tags from description */}
-                      <p>{rune ? rune.details.replace(/<\/?[^>]+(>|$)/g, '') : `Select a rune`}</p>
-                    </ListItemText>
-                    <ListItemIcon key={rune.name + id + 'ICON'}>
-                      <InfoIcon htmlColor="white" key={rune.name + id + 'INFO'} />
-                    </ListItemIcon>
-                  </ListItem>
-                )
-            })
-          ) : (
-            <div />
+        <List component="div" disablePadding id="runeMenu">
+          {runes.map((rune, id) =>
+            (flavor ? (
+              rune.name !== flavor.name
+            ) : (
+              true
+            )) ? (
+              <ListItem button key={rune.name + id + 'LI'}>
+                {isFlavor ? (
+                  <FlavorMenuRune
+                    img={rune.src}
+                    picked={selected ? rune.name === selected.name : false}
+                    key={rune.name + id + 'RUNE'}
+                    onClick={() => onSelect(id)}
+                  />
+                ) : (
+                  <MenuRune
+                    img={rune.src}
+                    onClick={() => onSelect(id)}
+                    disabled={selected ? rune.name !== selected.name : false}
+                    key={rune.name + id + 'RUNE'}
+                    color={color}
+                  />
+                )}
+                <ListItemText button onClick={() => onSelect(id)}>
+                  <h4>{rune.name}</h4>
+                  {/* Strip away all html tags from description */}
+                  <p>{rune ? rune.details.replace(/<\/?[^>]+(>|$)/g, '') : `Select a rune`}</p>
+                </ListItemText>
+                <ListItemIcon key={rune.name + id + 'ICON'} onClick={() => console.log(id)}>
+                  <InfoIcon htmlColor="white" key={rune.name + id + 'INFO'} />
+                </ListItemIcon>
+              </ListItem>
+            ) : (
+              []
+            ),
           )}
         </List>
       </Collapse>
