@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from '@emotion/styled'
 import Layout from '../../constants/layoutConstants'
+import { ReactComponent as Logo } from '../../assets/runestonelogo.svg'
 
 const S = {}
 S.Header = styled.div`
@@ -8,7 +9,7 @@ S.Header = styled.div`
   padding: 16px;
   color: rgba(${Layout.GOLD}, 1);
   text-align: center;
-  width: 15vw;
+  width: 10vw;
   height: 100vh;
   box-sizing: border-box;
   border: solid 1px ${Layout.BRONZE};
@@ -30,6 +31,10 @@ S.Header = styled.div`
     margin-top: 8px;
   }
 
+  .logo  {
+    fill: rgba(${Layout.GOLD}, 1);
+  }
+
   @media only screen and (max-width: 600px) {
     width: 100vw;
     height: 60px;
@@ -40,6 +45,7 @@ S.Header = styled.div`
 function Header() {
   return (
     <S.Header>
+      <Logo className="logo" />
       {/* <h1>Rune Stone</h1>
       <h5>Build your own paths or experiment with ones made by the community.</h5> */}
     </S.Header>
