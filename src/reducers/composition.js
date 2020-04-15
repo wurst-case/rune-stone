@@ -1,19 +1,5 @@
 import ActionTypes from '../constants/actionTypes'
 
-const initCounterState = 0
-
-export function counter(state = initCounterState, action) {
-  switch (action.type) {
-    //COUNTER
-    case ActionTypes.INCREMENT_COUNTER:
-      return state + 1
-    case ActionTypes.DECREMENT_COUNTER:
-      return state - 1
-    default:
-      return state
-  }
-}
-
 const initialState = {
   PRIMARY_FLAVOR: 1,
   KEYSTONE: null,

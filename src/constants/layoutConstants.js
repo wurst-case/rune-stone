@@ -16,4 +16,8 @@ export default {
   GOLD: '230, 211, 160',
   DARK: '#050523',
   BRONZE: '#614924',
+  //Editor
+  EDITOR_FIELD_SHORT: 25,
+  EDITOR_FIELD_MID: 85,
+  EDITOR_FIELD_LONG: 250,
 }
