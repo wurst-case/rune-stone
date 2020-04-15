@@ -84,6 +84,9 @@ import Portal from '../assets/bandle/t1/portal.png'
 import Chest from '../assets/bandle/t1/chest.png'
 import Hex from '../assets/bandle/t2/hex.png'
 import Delivery from '../assets/bandle/t2/delivery.png'
+import FindersKeepers from '../assets/bandle/t2/finders_keepers.png'
+import SmallBig from '../assets/bandle/t3/small_big.png'
+import Sneak from '../assets/bandle/t3/sneak.png'
 
 export default [
   {
@@ -157,7 +160,7 @@ export default [
         name: 'Finders, Keepers',
         details:
           'Find an extra 90 gold at the start of the game...somewhere in your team’s base. “Au: a piece of candy!”',
-        src: LegendAlacrity,
+        src: FindersKeepers,
       },
       {
         name: 'DISCOUNTCODE:HEX',
@@ -177,13 +180,13 @@ export default [
         name: 'Sneak Attack',
         details:
           'While your champion is not visible to the enemy team, your non-ultimate spells that damage enemy champions will refund 20%-33% (based on spell level) of their cooldowns and 90% of their mana or energy costs but will deal 20%-33% (based on spell level) reduced damage.',
-        src: CoupdeGrace,
+        src: Sneak,
       },
       {
         name: 'Big Things; Small Packages',
         details:
           'Empowers the passive on-hit bonuses granted by finished items, causing them to inflict true damage instead of physical or magic damage.',
-        src: CutDown,
+        src: SmallBig,
       },
       {
         name: 'Zim’s Magical Rune Randomization Machine',
