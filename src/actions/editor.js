@@ -58,3 +58,12 @@ export const addKeystone = () => {
     type: ActionTypes.ADD_KEYSTONE,
   }
 }
+
+export const setColor = (color) => ({
+  type: ActionTypes.SET_COLOR,
+  payload: color,
+})
+
+export const toggleColorPicker = () => ({
+  type: ActionTypes.TOGGLE_COLOR_PICKER,
+})

@@ -40,7 +40,7 @@ function KeystoneEditor({ color, setName, setTooltip, setDetails, keystones, onA
             value={keystones[id] && keystones[id].detail}
             maxLength={Layout.EDITOR_FIELD_LONG}
           />
-          <OutlinedButton bg={color} color={'#fff'} label="Upload Artwork" onClick={() => console.log('upload')} />
+          <OutlinedButton color={color} label="Upload Artwork" onClick={() => console.log('upload')} />
         </div>
       ))}
       <AddRune onAdd={onAdd} keystone color={color} />

@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from '@emotion/styled'
+import { ChromePicker } from 'react-color'
 import OutlinedButton from '../atoms/OutlinedButton'
 import FilledButton from '../atoms/FilledButton'
 import TextInputField from '../atoms/TextInputField'
@@ -21,7 +22,22 @@ S.PathEditor = styled.div`
   }
 `
 
-function PathEditor({ color, setTitle, setSubtitle, path }) {
+S.ColorPicker = styled.div`
+  position: fixed;
+  z-index: 2000;
+  margin-top: -16px;
+  margin-left: -16px;
+
+  .cover {
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+  }
+`
+
+function PathEditor({ color, setTitle, setSubtitle, path, setColor, colorPickerOpen, toggleColorPicker }) {
   return (
     <S.PathEditor>
       <TextInputField
@@ -40,7 +56,15 @@ function PathEditor({ color, setTitle, setSubtitle, path }) {
         maxLength={5}
       />
       <div className="splitCol">
-        <FilledButton bg={color} color={'white'} label="Path Color" onClick={() => console.log('upload')} />
+        <div>
+          <FilledButton bg={color} color={'white'} id="xxx" label="Path Color" onClick={toggleColorPicker} />
+          {colorPickerOpen ? (
+            <S.ColorPicker>
+              <div className="cover" onClick={toggleColorPicker} />
+              <ChromePicker onChange={(e) => setColor(e.hex)} disableAlpha={true} color={color} />
+            </S.ColorPicker>
+          ) : null}
+        </div>
         <OutlinedButton color={color} label="Path Icon" onClick={() => console.log('upload')} />
       </div>
       <div className="splitCol">

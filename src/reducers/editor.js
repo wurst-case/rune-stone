@@ -4,6 +4,7 @@ const initialState = {
   path: {
     title: '',
     subtitle: '',
+    color: '#614924',
   },
   keystones: [
     {
@@ -44,12 +45,17 @@ const initialState = {
       ],
     },
   ],
+  colorPickerOpen: false,
 }
 
 export default function editor(state = initialState, action) {
   switch (action.type) {
+    case ActionTypes.SET_COLOR:
+      return { ...state, path: { ...state.path, color: action.payload } }
+    case ActionTypes.TOGGLE_COLOR_PICKER:
+      return { ...state, colorPickerOpen: !state.colorPickerOpen }
     case ActionTypes.SET_PATH_TITLE:
-      return { ...state, path: { ...state.path, title: action.payload.value } }
+      return { ...state, path: { ...state.path, title: action.payload.value, color: '#0f0' } }
     case ActionTypes.SET_PATH_SUBTITLE:
       return { ...state, path: { ...state.path, subtitle: action.payload.value } }
     case ActionTypes.SET_KEYSTONE_NAME:

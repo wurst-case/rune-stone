@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import styled from '@emotion/styled'
-import TextInputField from '../atoms/TextInputField'
-import Layout from '../../constants/layoutConstants'
+
 import {
   setPathTitle,
   setPathSubtitle,
@@ -15,10 +14,13 @@ import {
   setRuneDetails,
   addRune,
   addKeystone,
+  setColor,
+  toggleColorPicker,
 } from '../../actions/editor'
 import TierEditor from '../molecules/TierEditor'
 import KeystoneEditor from '../molecules/KeystoneEditor'
 import PathEditor from '../molecules/PathEditor'
+import FilledButton from '../atoms/FilledButton'
 
 const S = {}
 S.Editor = styled.div``
@@ -42,15 +44,27 @@ class Editor extends Component {
       setRuneDetails,
       addRune,
       addKeystone,
+      setColor,
+      color,
+      toggleColorPicker,
+      colorPickerOpen,
     } = this.props
 
     return (
       <S.Editor>
         <h1>Build Your Own Custom Path</h1>
-        <PathEditor color={Layout.BRONZE} setTitle={setPathTitle} setSubtitle={setPathSubtitle} path={path} />
+        <PathEditor
+          color={color}
+          setTitle={setPathTitle}
+          setSubtitle={setPathSubtitle}
+          path={path}
+          setColor={setColor}
+          toggleColorPicker={toggleColorPicker}
+          colorPickerOpen={colorPickerOpen}
+        />
         {/* KEYSTONES */}
         <KeystoneEditor
-          color={Layout.BRONZE}
+          color={color}
           setName={setKeystoneName}
           setTooltip={setKeystoneTooltip}
           setDetails={setKeystoneDetails}
@@ -59,7 +73,7 @@ class Editor extends Component {
         />
         {/* Tiers */}
         <TierEditor
-          color={Layout.BRONZE}
+          color={color}
           setTitle={setTierTitle}
           setName={setRuneName}
           setTooltip={setRuneTooltip}
@@ -69,7 +83,7 @@ class Editor extends Component {
           onAdd={() => addRune(0)}
         />
         <TierEditor
-          color={Layout.BRONZE}
+          color={color}
           setTierTitle={setTierTitle}
           setRuneName={setRuneName}
           setRuneTooltip={setRuneTooltip}
@@ -79,7 +93,7 @@ class Editor extends Component {
           onAdd={() => addRune(1)}
         />
         <TierEditor
-          color={Layout.BRONZE}
+          color={color}
           setTierTitle={setTierTitle}
           setRuneName={setRuneName}
           setRuneTooltip={setRuneTooltip}
@@ -88,6 +102,7 @@ class Editor extends Component {
           tierId={2}
           onAdd={() => addRune(2)}
         />
+        <FilledButton bg={color} color={'#fff'} label="Save" onClick={() => console.log('save')} />
       </S.Editor>
     )
   }
@@ -100,6 +115,8 @@ const mapStateToProps = (state) => {
     tier1: state.editor.tiers[0],
     tier2: state.editor.tiers[1],
     tier3: state.editor.tiers[2],
+    color: state.editor.path.color,
+    colorPickerOpen: state.editor.colorPickerOpen,
   }
 }
 
@@ -116,6 +133,8 @@ const mapDispatchToProps = (dispatch) => {
     setRuneDetails: (tier, id, value) => dispatch(setRuneDetails(tier, id, value)),
     addRune: (tier) => dispatch(addRune(tier)),
     addKeystone: () => dispatch(addKeystone()),
+    setColor: (color) => dispatch(setColor(color)),
+    toggleColorPicker: () => dispatch(toggleColorPicker()),
   }
 }
 
