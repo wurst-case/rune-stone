@@ -141,6 +141,19 @@ export default function editor(state = initialState, action) {
             : tier,
         ),
       }
+    case ActionTypes.ADD_KEYSTONE:
+      var k = []
+      state.keystones.forEach((keystone) => k.push(keystone))
+      if (k.length < 5)
+        k.push({
+          name: '',
+          tooltip: '',
+          detail: '',
+        })
+      return {
+        ...state,
+        keystones: k,
+      }
     default:
       return state
   }

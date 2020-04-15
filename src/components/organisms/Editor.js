@@ -14,9 +14,11 @@ import {
   setRuneTooltip,
   setRuneDetails,
   addRune,
+  addKeystone,
 } from '../../actions/editor'
 import TierEditor from '../molecules/TierEditor'
 import KeystoneEditor from '../molecules/KeystoneEditor'
+import PathEditor from '../molecules/PathEditor'
 
 const S = {}
 S.Editor = styled.div``
@@ -39,24 +41,13 @@ class Editor extends Component {
       setRuneTooltip,
       setRuneDetails,
       addRune,
+      addKeystone,
     } = this.props
+
     return (
       <S.Editor>
-        <TextInputField
-          color={Layout.BRONZE}
-          placeholder="Path Title ex: Precision"
-          onChange={(input) => setPathTitle(input)}
-          label="Define Your Path"
-          value={path && path.title}
-          maxLength={5}
-        />
-        <TextInputField
-          color={Layout.BRONZE}
-          placeholder="Path Subtitle ex: Become a legend"
-          onChange={(input) => setPathSubtitle(input)}
-          value={path && path.subtitle}
-          maxLength={5}
-        />
+        <h1>Build Your Own Custom Path</h1>
+        <PathEditor color={Layout.BRONZE} setTitle={setPathTitle} setSubtitle={setPathSubtitle} path={path} />
         {/* KEYSTONES */}
         <KeystoneEditor
           color={Layout.BRONZE}
@@ -64,7 +55,7 @@ class Editor extends Component {
           setTooltip={setKeystoneTooltip}
           setDetails={setKeystoneDetails}
           keystones={keystones}
-          onAdd={() => console.log('keystone add')}
+          onAdd={() => addKeystone()}
         />
         {/* Tiers */}
         <TierEditor
@@ -124,6 +115,7 @@ const mapDispatchToProps = (dispatch) => {
     setRuneTooltip: (tier, id, value) => dispatch(setRuneTooltip(tier, id, value)),
     setRuneDetails: (tier, id, value) => dispatch(setRuneDetails(tier, id, value)),
     addRune: (tier) => dispatch(addRune(tier)),
+    addKeystone: () => dispatch(addKeystone()),
   }
 }
 

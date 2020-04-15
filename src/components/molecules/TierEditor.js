@@ -3,12 +3,13 @@ import styled from '@emotion/styled'
 import TextInputField from '../atoms/TextInputField'
 import Layout from '../../constants/layoutConstants'
 import AddRune from '../atoms/AddRune'
+import OutlinedButton from '../atoms/OutlinedButton'
 
 const S = {}
 S.TierEditor = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: stretch;
   margin: 24px 0;
 `
 
@@ -62,6 +63,8 @@ function TierEditor({ color, setTitle, setName, setTooltip, setDetails, tier, ti
             maxLength={Layout.EDITOR_FIELD_LONG}
             key={'tier' + tierId + 'rune' + runeId + 'detail'}
           />
+
+          <OutlinedButton color={color} label="Upload Artwork" onClick={() => console.log('upload')} />
         </div>
       ))}
       <AddRune onAdd={onAdd} color={color} />

@@ -3,12 +3,13 @@ import styled from '@emotion/styled'
 import TextInputField from '../atoms/TextInputField'
 import Layout from '../../constants/layoutConstants'
 import AddRune from '../atoms/AddRune'
+import OutlinedButton from '../atoms/OutlinedButton'
 
 const S = {}
 S.KeystoneEditor = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: stretch;
   margin: 24px 0;
 `
 
@@ -23,7 +24,7 @@ function KeystoneEditor({ color, setName, setTooltip, setDetails, keystones, onA
             onChange={(input) => setName(id, input)}
             value={keystones[id].name}
             maxLength={Layout.EDITOR_FIELD_SHORT}
-            label="Define your keystones"
+            label={'Keystone ' + (id + 1)}
           />
           <TextInputField
             color={color}
@@ -39,6 +40,7 @@ function KeystoneEditor({ color, setName, setTooltip, setDetails, keystones, onA
             value={keystones[id] && keystones[id].detail}
             maxLength={Layout.EDITOR_FIELD_LONG}
           />
+          <OutlinedButton bg={color} color={'#fff'} label="Upload Artwork" onClick={() => console.log('upload')} />
         </div>
       ))}
       <AddRune onAdd={onAdd} keystone color={color} />

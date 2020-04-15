@@ -48,9 +48,13 @@ export const setRuneDetails = (tier, id, value) => ({
 })
 
 export const addRune = (tier) => {
-  console.log(tier)
   return {
     type: ActionTypes.ADD_RUNE,
     payload: { tier: tier },
+  }
+}
+export const addKeystone = () => {
+  return {
+    type: ActionTypes.ADD_KEYSTONE,
   }
 }
