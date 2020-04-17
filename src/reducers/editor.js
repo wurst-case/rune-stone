@@ -1,10 +1,11 @@
 import ActionTypes from '../constants/actionTypes'
 
-const initialState = {
+export const initialState = {
   path: {
     title: '',
     subtitle: '',
     color: '#614924',
+    colorRgb: '97,73,36',
   },
   keystones: [
     {
@@ -48,14 +49,14 @@ const initialState = {
   colorPickerOpen: false,
 }
 
-export default function editor(state = initialState, action) {
+export function editor(state = initialState, action) {
   switch (action.type) {
     case ActionTypes.SET_COLOR:
-      return { ...state, path: { ...state.path, color: action.payload } }
+      return { ...state, path: { ...state.path, color: action.payload.hex, colorRgb: action.payload.rgb } }
     case ActionTypes.TOGGLE_COLOR_PICKER:
       return { ...state, colorPickerOpen: !state.colorPickerOpen }
     case ActionTypes.SET_PATH_TITLE:
-      return { ...state, path: { ...state.path, title: action.payload.value, color: '#0f0' } }
+      return { ...state, path: { ...state.path, title: action.payload.value } }
     case ActionTypes.SET_PATH_SUBTITLE:
       return { ...state, path: { ...state.path, subtitle: action.payload.value } }
     case ActionTypes.SET_KEYSTONE_NAME:
@@ -160,6 +161,11 @@ export default function editor(state = initialState, action) {
         ...state,
         keystones: k,
       }
+    case ActionTypes.SAVE_NEW_PATH:
+      return state
+    case ActionTypes.NEW_PATH_ERROR:
+      console.log('New Path Error', action.err)
+      return state
     default:
       return state
   }

@@ -25,7 +25,7 @@ S.Container = styled.div`
   }
 `
 
-export class BandleContainer extends Component {
+export class EditorContainer extends Component {
   render() {
     return (
       <S.Container>
@@ -39,4 +39,4 @@ const mapDispatchToProps = {}
 
 const mapStateToProps = (state) => ({})
 
-export default connect(mapStateToProps, mapDispatchToProps)(BandleContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(EditorContainer)

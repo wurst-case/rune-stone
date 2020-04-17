@@ -41,7 +41,7 @@ S.Display = styled.div`
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
   }
 
-  #details,
+  #detail,
   p {
     text-align: left;
     align-self: flex-start;
@@ -66,7 +66,7 @@ const InfoDisplay = ({ color, rune, onClose, open }) => {
       <CloseIcon id="close" onClick={onClose} />
       <Rune keystone color={color} img={rune && rune.src} />
       <h2>{rune && rune.name}</h2>
-      <ReactMarkdown source={rune && rune.details} escapeHtml={false} skipHtml={false} id="details" />
+      <ReactMarkdown source={rune && rune.detail} escapeHtml={false} skipHtml={false} id="detail" />
     </S.Display>
   )
 }

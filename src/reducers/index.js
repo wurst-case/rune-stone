@@ -1,10 +1,19 @@
 import { combineReducers } from 'redux'
-import composition from './composition'
-import editor from './editor'
+import { firebaseReducer } from 'react-redux-firebase'
+import { firestoreReducer } from 'redux-firestore'
+import { composition, initialState as compositionInitial } from './composition'
+import { editor, initialState as editorInitial } from './editor'
 
-const rootReducer = combineReducers({
-  composition,
-  editor,
+export const initialState = {
+  composition: compositionInitial,
+  editor: editorInitial,
+}
+
+export const rootReducer = combineReducers({
+  firebase: firebaseReducer,
+  firestore: firestoreReducer,
+  composition: composition,
+  editor: editor,
 })
 
 export default rootReducer

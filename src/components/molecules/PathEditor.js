@@ -61,7 +61,14 @@ function PathEditor({ color, setTitle, setSubtitle, path, setColor, colorPickerO
           {colorPickerOpen ? (
             <S.ColorPicker>
               <div className="cover" onClick={toggleColorPicker} />
-              <ChromePicker onChange={(e) => setColor(e.hex)} disableAlpha={true} color={color} />
+              <ChromePicker
+                onChange={(e) => {
+                  // console.log(e.hex, e.rgb.r + ',' + e.rgb.g + ',' + e.rgb.b)
+                  setColor(e.hex, e.rgb.r + ',' + e.rgb.g + ',' + e.rgb.b)
+                }}
+                disableAlpha={true}
+                color={color}
+              />
             </S.ColorPicker>
           ) : null}
         </div>

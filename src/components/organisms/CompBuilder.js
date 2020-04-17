@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
+import { compose } from 'redux'
 import { connect } from 'react-redux'
+import { firestoreConnect } from 'react-redux-firebase'
 import styled from '@emotion/styled'
+import flavors from '../../constants/assetsMap'
 import PrimaryTree from '../../components/molecules/PrimaryTree'
 import SecondaryTree from '../../components/molecules/SecondaryTree'
 import PrimaryMenu from '../../components/molecules/PrimaryMenu'
 import SecondaryMenu from '../../components/molecules/SecondaryMenu'
-import flavors from '../../constants/assetsMap'
 import Layout from '../../constants/layoutConstants'
 import {
   selectPrimaryFlavor,
@@ -16,7 +18,9 @@ import {
   selectSecondaryRunes,
   selectSecondaryFlavor,
   toggleMenu,
+  loadPathsFromFirestore,
 } from '../../actions/counter'
+import { restoreFromBackup } from '../../actions/editor'
 
 const S = {}
 S.CompBuilder = styled.div`
@@ -32,13 +36,15 @@ S.CompBuilder = styled.div`
 `
 
 const mapStateToProps = (state) => {
-  var primeFlavor = flavors[state.composition.PRIMARY_FLAVOR]
+  let paths = state.composition.paths ? state.composition.paths : flavors
+
+  var primeFlavor = paths[state.composition.PRIMARY_FLAVOR]
   var keystone = primeFlavor.keystones[state.composition.KEYSTONE]
   var primeT1 = primeFlavor.tier1[state.composition.PRIMARY_T1]
   var primeT2 = primeFlavor.tier2[state.composition.PRIMARY_T2]
   var primeT3 = primeFlavor.tier3[state.composition.PRIMARY_T3]
 
-  var secondFlavor = flavors[state.composition.SECONDARY_FLAVOR || 0]
+  var secondFlavor = paths[state.composition.SECONDARY_FLAVOR || 0]
   var secondT1 = secondFlavor['tier' + (state.composition.SECONDARY_T1_ROW + 1)][state.composition.SECONDARY_T1_ID]
   var secondT2 = secondFlavor['tier' + (state.composition.SECONDARY_T2_ROW + 1)][state.composition.SECONDARY_T2_ID]
   var runeMatrixIndex = [
@@ -84,10 +90,17 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(selectSecondaryRunes(row, id))
     },
     toggleMenu: (menu) => dispatch(toggleMenu(menu)),
+    loadPathsFromFirestore: () => dispatch(loadPathsFromFirestore()),
+    restoreFromBackup: () => dispatch(restoreFromBackup(flavors[0])),
   }
 }
 
 class CompBuilder extends Component {
+  componentDidMount() {
+    // this.props.restoreFromBackup()
+    this.props.loadPathsFromFirestore()
+  }
+
   render() {
     const {
       primeFlavor,
@@ -109,6 +122,7 @@ class CompBuilder extends Component {
       toggleMenu,
       open,
     } = this.props
+
     return (
       <S.CompBuilder>
         <PrimaryTree
@@ -176,4 +190,7 @@ class CompBuilder extends Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CompBuilder)
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  firestoreConnect([{ collection: 'paths' }]),
+)(CompBuilder)

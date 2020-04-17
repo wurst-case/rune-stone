@@ -63,14 +63,14 @@ export const DoubleDrawer = ({ color, open, onToggle, flavor, runes, selected1, 
         <Rune active={open} img={selected1 ? selected1.src : null} color={color} />
         <ListItemText>
           <h4>{selected1 ? selected1.name : null}</h4>
-          <p>{selected1 ? selected1.details.replace(/<\/?[^>]+(>|$)/g, '') : 'Please select rune.'}</p>
+          <p>{selected1 ? selected1.detail.replace(/<\/?[^>]+(>|$)/g, '') : 'Please select rune.'}</p>
         </ListItemText>
       </ListItem>
       <ListItem button onClick={onToggle}>
         <Rune active={open} img={selected2 ? selected2.src : null} color={color} />
         <ListItemText>
           <h4>{selected2 ? selected2.name : null}</h4>
-          <p>{selected2 ? selected2.details.replace(/<\/?[^>]+(>|$)/g, '') : 'Please select rune.'}</p>
+          <p>{selected2 ? selected2.detail.replace(/<\/?[^>]+(>|$)/g, '') : 'Please select rune.'}</p>
         </ListItemText>
         {open ? <ExpandLessIcon /> : <ExpandMoreIcon />}
       </ListItem>
@@ -90,7 +90,7 @@ export const DoubleDrawer = ({ color, open, onToggle, flavor, runes, selected1, 
                   <ListItemText>
                     <h4>{rune ? rune.name : flavor.tierNames[0]}</h4>
                     {/* Strip away all html tags from description */}
-                    <p>{rune ? rune.details.replace(/<\/?[^>]+(>|$)/g, '') : `Select a rune`}</p>
+                    <p>{rune ? rune.detail.replace(/<\/?[^>]+(>|$)/g, '') : `Select a rune`}</p>
                   </ListItemText>
                   <ListItemIcon key={rune.name + id + 'ICON'}>
                     <InfoIcon htmlColor="white" key={rune.name + id + 'INFO'} />

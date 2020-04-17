@@ -77,7 +77,7 @@ export const Drawer = ({
         <ListItemText>
           <h4>{selected ? selected.name : flavor ? (keystone ? 'Keystone' : flavor.tierNames[tier - 1]) : ''}</h4>
           <p>
-            {selected ? selected.details.replace(/<\/?[^>]+(>|$)/g, '') : isFlavor ? `Select a path` : `Select a rune`}
+            {selected ? selected.detail.replace(/<\/?[^>]+(>|$)/g, '') : isFlavor ? `Select a path` : `Select a rune`}
           </p>
         </ListItemText>
         {open ? <ExpandLessIcon /> : <ExpandMoreIcon />}
@@ -110,7 +110,7 @@ export const Drawer = ({
                 <ListItemText onClick={() => onSelect(id)}>
                   <h4>{rune.name}</h4>
                   {/* Strip away all html tags from description */}
-                  <p>{rune ? rune.details.replace(/<\/?[^>]+(>|$)/g, '') : `Select a rune`}</p>
+                  <p>{rune ? rune.detail.replace(/<\/?[^>]+(>|$)/g, '') : `Select a rune`}</p>
                 </ListItemText>
                 <ListItemIcon key={rune.name + id + 'ICON'} onClick={() => moreInfo({ rune: rune, color: color })}>
                   <InfoIcon htmlColor="white" key={rune.name + id + 'INFO'} />

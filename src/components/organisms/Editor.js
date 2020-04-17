@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { compose } from 'redux'
+import { firestoreConnect } from 'react-redux-firebase'
 import styled from '@emotion/styled'
 
 import {
@@ -16,16 +18,26 @@ import {
   addKeystone,
   setColor,
   toggleColorPicker,
+  saveNewPath,
+  saveEditedPath,
+  loadPathFromFirestore,
+  restoreFromBackup,
 } from '../../actions/editor'
 import TierEditor from '../molecules/TierEditor'
 import KeystoneEditor from '../molecules/KeystoneEditor'
 import PathEditor from '../molecules/PathEditor'
 import FilledButton from '../atoms/FilledButton'
+import assetMap from '../../constants/assetsMap'
 
 const S = {}
 S.Editor = styled.div``
 
 class Editor extends Component {
+  componentDidMount() {
+    // this.props.restoreFromBackup(assetMap[6], 'inspiration')
+    this.props.loadPathFromFirestore(0)
+  }
+
   render() {
     const {
       path,
@@ -48,6 +60,8 @@ class Editor extends Component {
       color,
       toggleColorPicker,
       colorPickerOpen,
+      saveNewPath,
+      saveEditedPath,
     } = this.props
 
     return (
@@ -102,14 +116,27 @@ class Editor extends Component {
           tierId={2}
           onAdd={() => addRune(2)}
         />
-        <FilledButton bg={color} color={'#fff'} label="Save" onClick={() => console.log('save')} />
+        <FilledButton
+          bg={color}
+          color={'white'}
+          label="Save"
+          onClick={() => {
+            return false // this.props.new check
+              ? saveNewPath(this.props.editor)
+              : saveEditedPath(this.props.editor)
+          }}
+        />
       </S.Editor>
     )
   }
 }
 
 const mapStateToProps = (state) => {
+  // console.log(state)
+
   return {
+    fsData: state.firestore.ordered.paths,
+    editor: state.editor,
     path: state.editor.path,
     keystones: state.editor.keystones,
     tier1: state.editor.tiers[0],
@@ -133,9 +160,16 @@ const mapDispatchToProps = (dispatch) => {
     setRuneDetails: (tier, id, value) => dispatch(setRuneDetails(tier, id, value)),
     addRune: (tier) => dispatch(addRune(tier)),
     addKeystone: () => dispatch(addKeystone()),
-    setColor: (color) => dispatch(setColor(color)),
+    setColor: (colorHex, colorRgb) => dispatch(setColor(colorHex, colorRgb)),
     toggleColorPicker: () => dispatch(toggleColorPicker()),
+    saveNewPath: (path) => dispatch(saveNewPath(path)),
+    saveEditedPath: (path) => dispatch(saveEditedPath(path)),
+    loadPathFromFirestore: (pathId) => dispatch(loadPathFromFirestore(pathId)),
+    restoreFromBackup: (paths, name) => dispatch(restoreFromBackup(paths, name)),
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Editor)
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  firestoreConnect([{ collection: 'paths' }]),
+)(Editor)

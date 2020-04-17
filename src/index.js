@@ -6,9 +6,23 @@ import Routes from './routes'
 import './styles/globalStyles.css'
 import * as serviceWorker from './utils/serviceWorker'
 
+import firebase from 'firebase/app'
+import firebaseConfig from './constants/firebaseConfig'
+import { createFirestoreInstance } from 'redux-firestore'
+import { ReactReduxFirebaseProvider } from 'react-redux-firebase'
+
+const rrfProps = {
+  firebase,
+  config: firebaseConfig,
+  dispatch: store.dispatch,
+  createFirestoreInstance,
+}
+
 render(
   <Provider store={store}>
-    <Routes />
+    <ReactReduxFirebaseProvider {...rrfProps}>
+      <Routes />
+    </ReactReduxFirebaseProvider>
   </Provider>,
   document.getElementById('root'),
 )

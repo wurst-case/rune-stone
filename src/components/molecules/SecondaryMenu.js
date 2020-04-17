@@ -74,7 +74,7 @@ function SecondaryMenu({ openMenus, color, onSelectFlavor, flavor, onSelectRunes
               color={color}
               img={rune.src}
               title={rune.name}
-              description={rune.details}
+              description={rune.detail}
               onClick={() => onSelectRunes(rowNumber, id)}
               key={'secondary' + rowNumber + '-' + id}
               disabled={disabled}
@@ -106,7 +106,7 @@ function SecondaryMenu({ openMenus, color, onSelectFlavor, flavor, onSelectRunes
           <p>
             {flavor.subtitle}
             <br />
-            {flavor.details}
+            {flavor.detail}
           </p>
         ) : (
           <p>Select a secondary path</p>
@@ -117,7 +117,7 @@ function SecondaryMenu({ openMenus, color, onSelectFlavor, flavor, onSelectRunes
         <h4>{t1 ? t1.name : 'Secondary'}</h4>
         {t1 ? (
           // Strip away all html tags from description
-          <p className="description">{t1.details.replace(/<\/?[^>]+(>|$)/g, '')}</p>
+          <p className="description">{t1.detail.replace(/<\/?[^>]+(>|$)/g, '')}</p>
         ) : (
           <p className="description">Select two runes from your secondary path</p>
         )}
@@ -126,7 +126,7 @@ function SecondaryMenu({ openMenus, color, onSelectFlavor, flavor, onSelectRunes
         <h4>{t2 ? t2.name : 'Secondary'}</h4>
         {t2 ? (
           // Strip away all html tags from description
-          <p className="description">{t2.details.replace(/<\/?[^>]+(>|$)/g, '')}</p>
+          <p className="description">{t2.detail.replace(/<\/?[^>]+(>|$)/g, '')}</p>
         ) : (
           <p className="description">Select two runes from your secondary path</p>
         )}

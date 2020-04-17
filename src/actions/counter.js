@@ -62,3 +62,46 @@ export const toggleInfoDisplay = (rune) => {
     payload: rune || null,
   }
 }
+
+//Firestore
+export const loadPathsFromFirestore = () => {
+  return (dispatch, getState, { getFirestore }) => {
+    const firestore = getFirestore()
+    firestore
+      .get({ collection: 'paths' })
+      .then((col) => {
+        let paths = []
+        col.docs.forEach((doc) => {
+          const d = doc.data()
+          switch (d.name) {
+            case 'Secondary Path':
+              paths[0] = d
+              break
+            case 'Bandle':
+              paths[1] = d
+              break
+            case 'Precision':
+              paths[2] = d
+              break
+            case 'Domination':
+              paths[3] = d
+              break
+            case 'Sorcery':
+              paths[4] = d
+              break
+            case 'Resolve':
+              paths[5] = d
+              break
+            case 'Inspiration':
+              paths[6] = d
+              break
+            default:
+              paths[paths.length] = d
+              break
+          }
+        })
+        dispatch({ type: ActionTypes.LOAD_ALL_PATHS, payload: paths })
+      })
+      .catch({ type: ActionTypes.LOAD_PATH_ERROR })
+  }
+}

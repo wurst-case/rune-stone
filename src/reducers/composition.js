@@ -1,6 +1,6 @@
 import ActionTypes from '../constants/actionTypes'
 
-const initialState = {
+export const initialState = {
   PRIMARY_FLAVOR: 1,
   KEYSTONE: null,
   PRIMARY_T1: null,
@@ -25,9 +25,10 @@ const initialState = {
     },
   },
   RUNE_INFO: null,
+  paths: null,
 }
 
-export default function composition(state = initialState, action) {
+export function composition(state = initialState, action) {
   switch (action.type) {
     case ActionTypes.RESET:
       return initialState
@@ -131,6 +132,8 @@ export default function composition(state = initialState, action) {
     case ActionTypes.TOGGLE_INFO_DISPLAY:
       // Either will be a rune object if open or null if closed
       return { ...state, RUNE_INFO: action.payload }
+    case ActionTypes.LOAD_ALL_PATHS:
+      return { ...state, paths: action.payload }
     default:
       return state
   }

@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import styled from '@emotion/styled'
+import { compose } from 'redux'
 import { connect } from 'react-redux'
+import { firestoreConnect } from 'react-redux-firebase'
 import List from '@material-ui/core/List'
 
 import flavors from '../../constants/assetsMap'
@@ -14,6 +16,7 @@ import {
   selectSecondaryFlavor,
   toggleMenu,
   toggleInfoDisplay,
+  loadPathsFromFirestore,
 } from '../../actions/counter'
 
 import Drawer from '../molecules/Drawer'
@@ -54,6 +57,11 @@ S.Path = styled.div`
 `
 
 class MobilePathBuilder extends Component {
+  componentDidMount() {
+    // this.props.restoreFromBackup()
+    this.props.loadPathsFromFirestore()
+  }
+
   render() {
     const {
       primeFlavor,
@@ -192,13 +200,15 @@ class MobilePathBuilder extends Component {
 }
 
 const mapStateToProps = (state) => {
-  var primeFlavor = flavors[state.composition.PRIMARY_FLAVOR]
+  let paths = state.composition.paths ? state.composition.paths : flavors
+
+  var primeFlavor = paths[state.composition.PRIMARY_FLAVOR]
   var keystone = primeFlavor.keystones[state.composition.KEYSTONE]
   var primeT1 = primeFlavor.tier1[state.composition.PRIMARY_T1]
   var primeT2 = primeFlavor.tier2[state.composition.PRIMARY_T2]
   var primeT3 = primeFlavor.tier3[state.composition.PRIMARY_T3]
 
-  var secondFlavor = state.composition.SECONDARY_FLAVOR ? flavors[state.composition.SECONDARY_FLAVOR] : null
+  var secondFlavor = state.composition.SECONDARY_FLAVOR ? paths[state.composition.SECONDARY_FLAVOR] : null
   var secondT1 = secondFlavor
     ? secondFlavor['tier' + (state.composition.SECONDARY_T1_ROW + 1)][state.composition.SECONDARY_T1_ID]
     : null
@@ -253,7 +263,12 @@ const mapDispatchToProps = (dispatch) => {
     },
     toggleMenu: (menu) => dispatch(toggleMenu(menu)),
     toggleInfoDisplay: (rune) => dispatch(toggleInfoDisplay(rune)),
+    loadPathsFromFirestore: () => dispatch(loadPathsFromFirestore()),
+    // restoreFromBackup: () => dispatch(restoreFromBackup(flavors[0])),
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(MobilePathBuilder)
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  firestoreConnect([{ collection: 'paths' }]),
+)(MobilePathBuilder)
