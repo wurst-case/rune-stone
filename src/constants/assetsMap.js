@@ -87,6 +87,7 @@ import Delivery from '../assets/bandle/t2/delivery.png'
 import FindersKeepers from '../assets/bandle/t2/finders_keepers.png'
 import SmallBig from '../assets/bandle/t3/small_big.png'
 import Sneak from '../assets/bandle/t3/sneak.png'
+import Machine from '../assets/bandle/t3/machine.png'
 
 export default [
   {
@@ -192,7 +193,7 @@ export default [
         name: 'Zim’s Magical Rune Randomization Machine',
         detail:
           'Each time Zim’s Magical Rune Randomization Machine is selected, this rune is replaced with a non-keystone rune from an unselected row in any rune tree after a three-second delay.  Good luck!',
-        src: LastStand,
+        src: Machine,
       },
     ],
   },

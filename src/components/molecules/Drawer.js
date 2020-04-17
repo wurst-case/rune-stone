@@ -69,15 +69,33 @@ export const Drawer = ({
   keystone,
   tier,
   moreInfo,
+  slotMachine,
 }) => {
   return (
     <S.Drawer color={color}>
       <ListItem button onClick={onToggle}>
-        <Rune active={open} img={selected ? selected.src : null} color={color} />
+        <Rune
+          active={open}
+          img={selected ? selected.src : null}
+          color={color}
+          slotMachine={slotMachine ? true : false}
+        />
         <ListItemText>
-          <h4>{selected ? selected.name : flavor ? (keystone ? 'Keystone' : flavor.tierNames[tier - 1]) : ''}</h4>
+          <h4>
+            {selected
+              ? (slotMachine && slotMachine.name) || selected.name
+              : flavor
+              ? keystone
+                ? 'Keystone'
+                : flavor.tierNames[tier - 1]
+              : ''}
+          </h4>
           <p>
-            {selected ? selected.detail.replace(/<\/?[^>]+(>|$)/g, '') : isFlavor ? `Select a path` : `Select a rune`}
+            {selected
+              ? ((slotMachine && slotMachine.detail) || selected.detail).replace(/<\/?[^>]+(>|$)/g, '')
+              : isFlavor
+              ? `Select a path`
+              : `Select a rune`}
           </p>
         </ListItemText>
         {open ? <ExpandLessIcon /> : <ExpandMoreIcon />}

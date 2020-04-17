@@ -26,6 +26,7 @@ export const initialState = {
   },
   RUNE_INFO: null,
   paths: null,
+  slotMachine: null,
 }
 
 export function composition(state = initialState, action) {
@@ -65,7 +66,22 @@ export function composition(state = initialState, action) {
       // Close menu, open next menu
       state.OPEN.PRIMARY.T3 = false
       if (state.SECONDARY_FLAVOR === 0) state.OPEN.SECONDARY.FLAVOR = true
-      return { ...state, PRIMARY_T3: action.payload }
+      // Bandle SLot machine
+      if (action.payload === 2 && state.PRIMARY_FLAVOR === 1) {
+        var possible = [1, 2, 3, 4, 5, 6].filter(
+          (val) => val !== state.SECONDARY_FLAVOR && val !== state.PRIMARY_FLAVOR,
+        )
+        return {
+          ...state,
+          PRIMARY_T3: action.payload,
+          slotMachine: {
+            flavor: possible[Math.floor(Math.random() * 4)],
+            tier: Math.floor(Math.random() * 3 + 1),
+            id: Math.floor(Math.random() * 3),
+          },
+        }
+      }
+      return { ...state, PRIMARY_T3: action.payload, slotMachine: null }
     case ActionTypes.SELECT_SECONDARY_FLAVOR:
       // Close menu, open next menu
       state.OPEN.SECONDARY.FLAVOR = false

@@ -51,6 +51,7 @@ const mapStateToProps = (state) => {
     [state.composition.SECONDARY_T1_ROW, state.composition.SECONDARY_T1_ID],
     [state.composition.SECONDARY_T2_ROW, state.composition.SECONDARY_T2_ID],
   ]
+  var slotMachine = state.composition.slotMachine
 
   return {
     primeFlavor: primeFlavor,
@@ -75,6 +76,7 @@ const mapStateToProps = (state) => {
         RUNES: state.composition.OPEN.SECONDARY.RUNES,
       },
     },
+    slotMachine: slotMachine ? flavors[slotMachine.flavor]['tier' + slotMachine.tier][slotMachine.id] : null,
   }
 }
 
@@ -121,6 +123,7 @@ class CompBuilder extends Component {
       onSelectSecondaryRunes,
       toggleMenu,
       open,
+      slotMachine,
     } = this.props
 
     return (
@@ -135,6 +138,7 @@ class CompBuilder extends Component {
             toggleMenu({ tree: 'PRIMARY', ...menu })
           }}
           openMenus={open.PRIMARY}
+          bandle={primeFlavor.name === 'Bandle'}
         />
         <PrimaryMenu
           color={primeFlavor.colorRGB}
@@ -159,6 +163,7 @@ class CompBuilder extends Component {
             onSelectPrimaryT3(id)
           }}
           openMenus={open.PRIMARY}
+          slotMachine={slotMachine}
         />
         <SecondaryTree
           color={secondFlavor.colorRGB}
@@ -168,6 +173,7 @@ class CompBuilder extends Component {
             toggleMenu({ tree: 'SECONDARY', ...menu })
           }}
           openMenus={open.SECONDARY}
+          bandle={secondFlavor.name === 'Bandle'}
         />
         <SecondaryMenu
           color={secondFlavor.colorRGB}

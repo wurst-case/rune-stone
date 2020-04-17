@@ -69,7 +69,9 @@ function PrimaryMenu({
   t2,
   onSelectT3,
   t3,
+  slotMachine,
 }) {
+  t3 = slotMachine || t3
   return (
     <S.Menus>
       <S.Menu open={openMenus.FLAVOR} className="flavors">

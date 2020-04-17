@@ -85,6 +85,7 @@ class MobilePathBuilder extends Component {
       bgImage,
       runeInfo,
       toggleInfoDisplay,
+      slotMachine,
     } = this.props
 
     function closeInfoDisplay() {
@@ -158,7 +159,15 @@ class MobilePathBuilder extends Component {
           />
           <Drawer
             open={open.PRIMARY.T3}
-            onToggle={() => toggleMenu({ tree: 'PRIMARY', tier: 'T3' })}
+            onToggle={
+              slotMachine
+                ? () => {
+                    if (open.PRIMARY.T3) onSelectPrimaryT3(2)
+                    toggleMenu({ tree: 'PRIMARY', tier: 'T3' })
+                    // if (open.PRIMARY.T3) toggleMenu({ tree: 'PRIMARY', tier: 'T3' })
+                  }
+                : () => toggleMenu({ tree: 'PRIMARY', tier: 'T3' })
+            }
             onSelect={onSelectPrimaryT3}
             runes={primeFlavor.tier3}
             selected={primeT3}
@@ -166,6 +175,7 @@ class MobilePathBuilder extends Component {
             color={primeFlavor.colorRGB}
             tier={3}
             moreInfo={openInfoDisplay}
+            slotMachine={slotMachine}
           />
         </List>
         <List component="nav" aria-labelledby="nested-list-subheader">
@@ -221,6 +231,7 @@ const mapStateToProps = (state) => {
         [state.composition.SECONDARY_T2_ROW, state.composition.SECONDARY_T2_ID],
       ]
     : null
+  var slotMachine = state.composition.slotMachine
 
   return {
     primeFlavor: primeFlavor,
@@ -247,6 +258,7 @@ const mapStateToProps = (state) => {
     },
     bgImage: flavors[state.composition.PRIMARY_FLAVOR].bg,
     runeInfo: state.composition.RUNE_INFO,
+    slotMachine: slotMachine ? flavors[slotMachine.flavor]['tier' + slotMachine.tier][slotMachine.id] : null,
   }
 }
 

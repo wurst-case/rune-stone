@@ -14,7 +14,7 @@ S.Tree = styled.div`
 `
 
 function PrimaryTree(props) {
-  let { color, keystone, t1, t2, t3, onToggle, openMenus } = props
+  let { color, keystone, t1, t2, t3, onToggle, openMenus, bandle } = props
   // console.log('keystone menu is open: ' + openMenus)
   return (
     <S.Tree>
@@ -32,7 +32,13 @@ function PrimaryTree(props) {
       <Branch color={color} active={openMenus.T2 || openMenus.T3} />
       <Rune color={color} img={t2 ? t2.src : null} onClick={() => onToggle({ tier: 'T2' })} active={openMenus.T2} />
       <Branch color={color} active={openMenus.T3} />
-      <Rune color={color} img={t3 ? t3.src : null} onClick={() => onToggle({ tier: 'T3' })} active={openMenus.T3} />
+      <Rune
+        color={color}
+        img={t3 ? t3.src : null}
+        onClick={() => onToggle({ tier: 'T3' })}
+        active={openMenus.T3}
+        slotMachine={t3 && bandle && t3.name === 'Zim’s Magical Rune Randomization Machine'}
+      />
     </S.Tree>
   )
 }
