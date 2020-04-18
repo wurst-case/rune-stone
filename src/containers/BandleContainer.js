@@ -42,11 +42,14 @@ const mapStateToProps = (state) => ({
 })
 
 export class BandleContainer extends Component {
+  componentDidMount() {
+    console.log()
+  }
   render() {
     const { bgImage } = this.props
     return (
       <S.Container bg={bgImage ? bgImage : null}>
-        <CompBuilder />
+        <CompBuilder pathID={this.props.match.params.pathID} />
         <MobilePathBuilder />
       </S.Container>
     )

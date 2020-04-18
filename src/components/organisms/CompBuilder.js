@@ -19,6 +19,7 @@ import {
   selectSecondaryFlavor,
   toggleMenu,
   loadPathsFromFirestore,
+  loadFromPermalink,
 } from '../../actions/counter'
 import { restoreFromBackup } from '../../actions/editor'
 
@@ -80,26 +81,29 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onSelectPrimaryFlavor: (id) => dispatch(selectPrimaryFlavor(id)),
-    onSelectKeystone: (id) => dispatch(selectKeystone(id)),
-    onSelectPrimaryT1: (id) => dispatch(selectPrimaryT1(id)),
-    onSelectPrimaryT2: (id) => dispatch(selectPrimaryT2(id)),
-    onSelectPrimaryT3: (id) => dispatch(selectPrimaryT3(id)),
-    onSelectSecondaryFlavor: (id) => dispatch(selectSecondaryFlavor(id)),
-    onSelectSecondaryRunes: (row, id) => {
-      dispatch(selectSecondaryRunes(row, id))
-    },
-    toggleMenu: (menu) => dispatch(toggleMenu(menu)),
-    loadPathsFromFirestore: () => dispatch(loadPathsFromFirestore()),
-    restoreFromBackup: () => dispatch(restoreFromBackup(flavors[0])),
-  }
-}
+const mapDispatchToProps = (dispatch) => ({
+  onSelectPrimaryFlavor: (id) => dispatch(selectPrimaryFlavor(id)),
+  onSelectKeystone: (id) => dispatch(selectKeystone(id)),
+  onSelectPrimaryT1: (id) => dispatch(selectPrimaryT1(id)),
+  onSelectPrimaryT2: (id) => dispatch(selectPrimaryT2(id)),
+  onSelectPrimaryT3: (id) => dispatch(selectPrimaryT3(id)),
+  onSelectSecondaryFlavor: (id) => dispatch(selectSecondaryFlavor(id)),
+  onSelectSecondaryRunes: (row, id) => {
+    dispatch(selectSecondaryRunes(row, id))
+  },
+  toggleMenu: (menu) => dispatch(toggleMenu(menu)),
+  loadPathsFromFirestore: () => dispatch(loadPathsFromFirestore()),
+  restoreFromBackup: () => dispatch(restoreFromBackup(flavors[0])),
+  loadFromPermalink: (pathID) => dispatch(loadFromPermalink(pathID)),
+})
 
 class CompBuilder extends Component {
   componentDidMount() {
+    console.log(this.props.pathID)
+
+    // let pathID = this.props.match.params.pathID
     // this.props.restoreFromBackup()
+    this.props.pathID && this.props.loadFromPermalink(this.props.pathID)
     this.props.loadPathsFromFirestore()
   }
 

@@ -27,6 +27,7 @@ export const initialState = {
   RUNE_INFO: null,
   paths: null,
   slotMachine: null,
+  pathID: null,
 }
 
 export function composition(state = initialState, action) {
@@ -150,6 +151,8 @@ export function composition(state = initialState, action) {
       return { ...state, RUNE_INFO: action.payload }
     case ActionTypes.LOAD_ALL_PATHS:
       return { ...state, paths: action.payload }
+    case ActionTypes.MAKE_PERMALINK:
+      return { ...state, pathID: action.payload }
     default:
       return state
   }

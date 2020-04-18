@@ -27,7 +27,8 @@ function Routes() {
         <Header />
         <Switch>
           <Route path="/editor" component={EditorContainer} />
-          <Route path="/" component={BandleContainer} />
+          <Route path="/:pathID" component={BandleContainer} />
+          <Route exact path="/" component={BandleContainer} />
         </Switch>
       </S.Container>
       <Footer />
