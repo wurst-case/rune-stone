@@ -53,11 +53,11 @@ S.Rune = styled.div`
       (props.keystone ? Layout.RUNE_SIZE_KS * 1.75 : Layout.RUNE_SIZE_REG) * (props.active ? 0.8 : 1)}px;
     animation: ${S.pull} 2s ease-out;
   }
-`
 
-S.Highlighter = styled.div`
+  .highlighter{
   content: ' ';
   position: absolute;
+  pointer-events: none;
   top: ${Layout.RUNE_BORDER_WIDTH * -6}px;
   left: ${Layout.RUNE_BORDER_WIDTH * -6}px;
   right: ${Layout.RUNE_BORDER_WIDTH * -6}px;
@@ -66,15 +66,19 @@ S.Highlighter = styled.div`
   border: ${Layout.RUNE_BORDER_WIDTH * 1.5}px solid rgba(${(props) => props.color}, 0);
   transition: border ${Layout.ATTACK}, top ${Layout.ATTACK}, left ${Layout.ATTACK}, right ${Layout.ATTACK},
     bottom ${Layout.ATTACK};
+  }
 
   &:hover {
+    .highlighter{
     top: ${Layout.RUNE_BORDER_WIDTH * -4}px;
     left: ${Layout.RUNE_BORDER_WIDTH * -4}px;
     right: ${Layout.RUNE_BORDER_WIDTH * -4}px;
     bottom: ${Layout.RUNE_BORDER_WIDTH * -4}px;
     border: ${Layout.RUNE_BORDER_WIDTH * 1.5}px solid rgba(${(props) => props.color}, 0.5);
+    }
   }
 `
+
 S.Spark = styled.img`
   display: ${(props) => (props.active ? '' : 'none')};
   position: absolute;
@@ -105,7 +109,7 @@ function Rune({ color, keystone, active, onClick, img, slotMachine, triggerSlot 
         ) : (
           <div />
         )}
-        <S.Highlighter color={color} />
+        <div className="highlighter" />
       </S.Rune>
     </div>
   )
