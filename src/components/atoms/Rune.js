@@ -3,8 +3,6 @@ import styled from '@emotion/styled'
 import { keyframes } from '@emotion/core'
 import Layout from '../../constants/layoutConstants'
 import spark from '../../assets/spark.png'
-import MachineLocked from '../../assets/bandle/t3/machine_locked.png'
-import Machine from '../../assets/bandle/t3/machine.png'
 
 const S = {}
 S.spin = keyframes`
@@ -47,7 +45,13 @@ S.Rune = styled.div`
     /* Image size larger proportionally if keystone rune by 75% and active runes decrease image sixe by 20%*/
     width: ${(props) =>
       (props.keystone ? Layout.RUNE_SIZE_KS * 1.75 : Layout.RUNE_SIZE_REG) * (props.active ? 0.8 : 1)}px;
-    animation: ${S.pull} ${(props) => (props.slotMachine && props.active ? 2 : 0)}s linear infinite;
+  }
+
+  .animation {
+    /* animation: ${S.pull} ${(props) => (props.slotMachine && props.active ? 2 : 0)}s linear infinite; */
+    width: ${(props) =>
+      (props.keystone ? Layout.RUNE_SIZE_KS * 1.75 : Layout.RUNE_SIZE_REG) * (props.active ? 0.8 : 1)}px;
+    animation: ${S.pull} 2s ease-out;
   }
 `
 
@@ -80,19 +84,23 @@ S.Spark = styled.img`
   width: ${(props) => (props.keystone ? Layout.RUNE_SIZE_KS : Layout.RUNE_SIZE_REG) + 8}px;
 
   animation: ${S.spin} 2s linear infinite;
-  transition:   /* step 1 */ animation 2s, /* step 2 */ background 0.5s 1s;
 `
 
-function Rune({ color, keystone, active, onClick, img, slotMachine }) {
+function Rune({ color, keystone, active, onClick, img, slotMachine, triggerSlot }) {
+  // console.log(document.getElementById('slotMachine').onanimationstart)
+  // console.log(triggerSlot)
+
   return (
     <div>
-      <S.Rune color={color} keystone={keystone} active={active} onClick={onClick} slotMachine={slotMachine}>
+      <S.Rune color={color} keystone={keystone} active={active} onClick={onClick}>
         <S.Spark src={spark} keystone={keystone} active={active} />
         {img ? (
           <img
-            className="graphic"
+            className={triggerSlot && slotMachine && !active ? 'animation' : 'graphic'}
+            // id={slotMachine ? 'slotMachine' : 'graphic'}
             alt={keystone ? 'keystone' : 'rune'}
-            src={!slotMachine ? img : active ? Machine : MachineLocked}
+            src={img}
+            onAnimationEnd={() => (triggerSlot ? triggerSlot() : console.log('no trigger'))}
           />
         ) : (
           <div />

@@ -20,8 +20,9 @@ import {
   toggleMenu,
   loadPathsFromFirestore,
   loadFromPermalink,
-} from '../../actions/counter'
-import { restoreFromBackup } from '../../actions/editor'
+  triggerSlot,
+} from '../../actions/composition'
+// import { restoreFromBackup } from '../../actions/editor'
 
 const S = {}
 S.CompBuilder = styled.div`
@@ -52,7 +53,11 @@ const mapStateToProps = (state) => {
     [state.composition.SECONDARY_T1_ROW, state.composition.SECONDARY_T1_ID],
     [state.composition.SECONDARY_T2_ROW, state.composition.SECONDARY_T2_ID],
   ]
-  var slotMachine = state.composition.slotMachine
+  var slotMachine =
+    state.composition.slotMachine &&
+    paths[state.composition.slotMachine.flavor]['tier' + (state.composition.slotMachine.tier + 1)][
+      state.composition.slotMachine.id
+    ]
 
   return {
     primeFlavor: primeFlavor,
@@ -77,7 +82,8 @@ const mapStateToProps = (state) => {
         RUNES: state.composition.OPEN.SECONDARY.RUNES,
       },
     },
-    slotMachine: slotMachine ? flavors[slotMachine.flavor]['tier' + slotMachine.tier][slotMachine.id] : null,
+    slotMachine: slotMachine,
+    fresh: state.composition.fresh,
   }
 }
 
@@ -93,13 +99,14 @@ const mapDispatchToProps = (dispatch) => ({
   },
   toggleMenu: (menu) => dispatch(toggleMenu(menu)),
   loadPathsFromFirestore: () => dispatch(loadPathsFromFirestore()),
-  restoreFromBackup: () => dispatch(restoreFromBackup(flavors[0])),
+  // restoreFromBackup: () => dispatch(restoreFromBackup(flavors[0])),
   loadFromPermalink: (pathID) => dispatch(loadFromPermalink(pathID)),
+  triggerSlot: () => dispatch(triggerSlot(true, flavors)),
 })
 
 class CompBuilder extends Component {
   componentDidMount() {
-    console.log(this.props.pathID)
+    // console.log(this.props.pathID)
 
     // let pathID = this.props.match.params.pathID
     // this.props.restoreFromBackup()
@@ -128,6 +135,9 @@ class CompBuilder extends Component {
       toggleMenu,
       open,
       slotMachine,
+      triggerSlot,
+      fresh,
+      pathID,
     } = this.props
 
     return (
@@ -142,7 +152,8 @@ class CompBuilder extends Component {
             toggleMenu({ tree: 'PRIMARY', ...menu })
           }}
           openMenus={open.PRIMARY}
-          bandle={primeFlavor.name === 'Bandle'}
+          slotMachine={slotMachine}
+          triggerSlot={(!pathID || !fresh) && secondT2 && triggerSlot}
         />
         <PrimaryMenu
           color={primeFlavor.colorRGB}
@@ -177,7 +188,8 @@ class CompBuilder extends Component {
             toggleMenu({ tree: 'SECONDARY', ...menu })
           }}
           openMenus={open.SECONDARY}
-          bandle={secondFlavor.name === 'Bandle'}
+          slotMachine={slotMachine}
+          triggerSlot={(!pathID || !fresh) && triggerSlot}
         />
         <SecondaryMenu
           color={secondFlavor.colorRGB}
@@ -194,6 +206,7 @@ class CompBuilder extends Component {
           t1={secondT1}
           t2={secondT2}
           index={runeMatrixIndex}
+          slotMachine={slotMachine}
         />
       </S.CompBuilder>
     )

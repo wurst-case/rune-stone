@@ -2,7 +2,7 @@ import React from 'react'
 import styled from '@emotion/styled'
 import { keyframes } from '@emotion/core'
 import Rune from '../atoms/Rune'
-import Machine from '../../assets/bandle/t3/machine.png'
+import Machine from '../../assets/bandle/t3/machine_locked.png'
 
 const S = {}
 S.pull = keyframes`

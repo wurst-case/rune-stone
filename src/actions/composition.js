@@ -1,12 +1,6 @@
 import ActionTypes from '../constants/actionTypes'
 import store from '../store'
 
-export function incrementIfOdd() {
-  const { counter } = store.getState()
-  if (counter % 2 === 0) return
-  store.dispatch({ type: ActionTypes.INCREMENT_COUNTER })
-}
-
 //Comp Utilities
 export const resetFlavor = () => ({
   type: ActionTypes.RESET,
@@ -15,7 +9,13 @@ export const toggleMenu = (menu) => {
   const { composition } = store.getState()
   return {
     type: ActionTypes.TOGGLE_MENU,
-    payload: { ...menu, value: !composition['OPEN'][menu.tree][menu.tier] },
+    payload: { ...menu, value: menu.value ? null : !composition['OPEN'][menu.tree][menu.tier] },
+  }
+}
+export const triggerSlot = (primary, runes) => {
+  return {
+    type: ActionTypes.TRIGGER_SLOT,
+    payload: { primary, runes },
   }
 }
 

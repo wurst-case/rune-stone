@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import styled from '@emotion/styled'
 import Layout from '../../constants/layoutConstants'
 import { ReactComponent as Logo } from '../../assets/runestonelogo.svg'
-import { makePermalink } from '../../actions/counter'
+import { makePermalink } from '../../actions/composition'
 
 const S = {}
 S.Header = styled.div`

@@ -87,7 +87,7 @@ import Delivery from '../assets/bandle/t2/delivery.png'
 import FindersKeepers from '../assets/bandle/t2/finders_keepers.png'
 import SmallBig from '../assets/bandle/t3/small_big.png'
 import Sneak from '../assets/bandle/t3/sneak.png'
-import Machine from '../assets/bandle/t3/machine.png'
+import Machine from '../assets/bandle/t3/machine_locked.png'
 
 export default [
   {

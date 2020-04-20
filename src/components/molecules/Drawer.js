@@ -70,15 +70,27 @@ export const Drawer = ({
   tier,
   moreInfo,
   slotMachine,
+  triggerSlot,
 }) => {
+  // selected =
+  //   selected && selected.name === 'Zim’s Magical Rune Randomization Machine' && slotMachine ? slotMachine : selected
+  // console.log('triigerFunc: ', triggerSlot, 'smVal: ', slotMachine)
+
   return (
     <S.Drawer color={color}>
       <ListItem button onClick={onToggle}>
         <Rune
           active={open}
-          img={selected ? selected.src : null}
+          img={
+            selected && selected.name === 'Zim’s Magical Rune Randomization Machine' && slotMachine
+              ? slotMachine.src
+              : selected
+              ? selected.src
+              : null
+          }
           color={color}
-          slotMachine={slotMachine ? true : false}
+          slotMachine={selected && selected.name === 'Zim’s Magical Rune Randomization Machine'}
+          triggerSlot={triggerSlot}
         />
         <ListItemText>
           <h4>

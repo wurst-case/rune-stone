@@ -17,7 +17,9 @@ import {
   toggleMenu,
   toggleInfoDisplay,
   loadPathsFromFirestore,
-} from '../../actions/counter'
+  loadFromPermalink,
+  triggerSlot,
+} from '../../actions/composition'
 
 import Drawer from '../molecules/Drawer'
 import DoubleDrawer from '../molecules/DoubleDrawer'
@@ -58,7 +60,7 @@ S.Path = styled.div`
 
 class MobilePathBuilder extends Component {
   componentDidMount() {
-    // this.props.restoreFromBackup()
+    this.props.pathID && this.props.loadFromPermalink(this.props.pathID)
     this.props.loadPathsFromFirestore()
   }
 
@@ -86,7 +88,10 @@ class MobilePathBuilder extends Component {
       runeInfo,
       toggleInfoDisplay,
       slotMachine,
+      pathID,
+      fresh,
     } = this.props
+    // console.log((!pathID || !fresh) && secondT2 && triggerSlot)
 
     function closeInfoDisplay() {
       const scrollY = document.body.style.top
@@ -159,15 +164,7 @@ class MobilePathBuilder extends Component {
           />
           <Drawer
             open={open.PRIMARY.T3}
-            onToggle={
-              slotMachine
-                ? () => {
-                    if (open.PRIMARY.T3) onSelectPrimaryT3(2)
-                    toggleMenu({ tree: 'PRIMARY', tier: 'T3' })
-                    // if (open.PRIMARY.T3) toggleMenu({ tree: 'PRIMARY', tier: 'T3' })
-                  }
-                : () => toggleMenu({ tree: 'PRIMARY', tier: 'T3' })
-            }
+            onToggle={() => toggleMenu({ tree: 'PRIMARY', tier: 'T3' })}
             onSelect={onSelectPrimaryT3}
             runes={primeFlavor.tier3}
             selected={primeT3}
@@ -175,7 +172,8 @@ class MobilePathBuilder extends Component {
             color={primeFlavor.colorRGB}
             tier={3}
             moreInfo={openInfoDisplay}
-            slotMachine={slotMachine}
+            // slotMachine={slotMachine}
+            // triggerSlot={() => triggerSlot()}
           />
         </List>
         <List component="nav" aria-labelledby="nested-list-subheader">
@@ -202,6 +200,8 @@ class MobilePathBuilder extends Component {
             color={secondFlavor ? secondFlavor.colorRGB : Layout.GOLD}
             index={runeMatrixIndex}
             moreInfo={openInfoDisplay}
+            slotMachine={slotMachine}
+            triggerSlot={(!pathID || !fresh) && secondT2 && triggerSlot}
           />
         </List>
       </S.Path>
@@ -211,6 +211,7 @@ class MobilePathBuilder extends Component {
 
 const mapStateToProps = (state) => {
   let paths = state.composition.paths ? state.composition.paths : flavors
+  console.log(state.composition)
 
   var primeFlavor = paths[state.composition.PRIMARY_FLAVOR]
   var keystone = primeFlavor.keystones[state.composition.KEYSTONE]
@@ -231,7 +232,11 @@ const mapStateToProps = (state) => {
         [state.composition.SECONDARY_T2_ROW, state.composition.SECONDARY_T2_ID],
       ]
     : null
-  var slotMachine = state.composition.slotMachine
+  var slotMachine =
+    state.composition.slotMachine &&
+    paths[state.composition.slotMachine.flavor]['tier' + (state.composition.slotMachine.tier + 1)][
+      state.composition.slotMachine.id
+    ]
 
   return {
     primeFlavor: primeFlavor,
@@ -258,7 +263,8 @@ const mapStateToProps = (state) => {
     },
     bgImage: flavors[state.composition.PRIMARY_FLAVOR].bg,
     runeInfo: state.composition.RUNE_INFO,
-    slotMachine: slotMachine ? flavors[slotMachine.flavor]['tier' + slotMachine.tier][slotMachine.id] : null,
+    slotMachine: slotMachine,
+    fresh: state.composition.fresh,
   }
 }
 
@@ -276,7 +282,8 @@ const mapDispatchToProps = (dispatch) => {
     toggleMenu: (menu) => dispatch(toggleMenu(menu)),
     toggleInfoDisplay: (rune) => dispatch(toggleInfoDisplay(rune)),
     loadPathsFromFirestore: () => dispatch(loadPathsFromFirestore()),
-    // restoreFromBackup: () => dispatch(restoreFromBackup(flavors[0])),
+    loadFromPermalink: (pathID) => dispatch(loadFromPermalink(pathID)),
+    triggerSlot: () => dispatch(triggerSlot(true, flavors)),
   }
 }
 

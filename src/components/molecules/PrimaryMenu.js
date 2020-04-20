@@ -71,7 +71,7 @@ function PrimaryMenu({
   t3,
   slotMachine,
 }) {
-  t3 = slotMachine || t3
+  t3 = t3 && t3.name === 'Zim’s Magical Rune Randomization Machine' && slotMachine ? slotMachine : t3
   return (
     <S.Menus>
       <S.Menu open={openMenus.FLAVOR} className="flavors">

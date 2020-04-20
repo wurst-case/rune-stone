@@ -27,6 +27,7 @@ export const initialState = {
   RUNE_INFO: null,
   paths: null,
   slotMachine: null,
+  fresh: true,
   pathID: null,
 }
 
@@ -47,6 +48,7 @@ export function composition(state = initialState, action) {
         PRIMARY_T1: null,
         PRIMARY_T2: null,
         PRIMARY_T3: null,
+        slotMachine: null,
       }
     case ActionTypes.SELECT_KEYSTONE:
       // Close menu, open next menu
@@ -67,22 +69,52 @@ export function composition(state = initialState, action) {
       // Close menu, open next menu
       state.OPEN.PRIMARY.T3 = false
       if (state.SECONDARY_FLAVOR === 0) state.OPEN.SECONDARY.FLAVOR = true
-      // Bandle SLot machine
-      if (action.payload === 2 && state.PRIMARY_FLAVOR === 1) {
-        var possible = [1, 2, 3, 4, 5, 6].filter(
-          (val) => val !== state.SECONDARY_FLAVOR && val !== state.PRIMARY_FLAVOR,
-        )
-        return {
-          ...state,
-          PRIMARY_T3: action.payload,
-          slotMachine: {
-            flavor: possible[Math.floor(Math.random() * 4)],
-            tier: Math.floor(Math.random() * 3 + 1),
-            id: Math.floor(Math.random() * 3),
-          },
-        }
-      }
+      // Bandle Slot machine
+      if (action.payload === 2 && state.PRIMARY_FLAVOR === 1) return { ...state, PRIMARY_T3: action.payload }
       return { ...state, PRIMARY_T3: action.payload, slotMachine: null }
+    case ActionTypes.TRIGGER_SLOT:
+      var possibleRunes = action.payload.runes.map((rune, i) => ({
+        id: i,
+        tiers: [
+          { id: 0, runes: Array.from(Array(rune.tier1.length).keys()) },
+          { id: 1, runes: Array.from(Array(rune.tier2.length).keys()) },
+          { id: 2, runes: Array.from(Array(rune.tier3.length).keys()) },
+        ],
+      }))
+      //  none from the rows of picked runes of secondary tree, make sure to splice the second one first
+      possibleRunes[state.SECONDARY_FLAVOR].tiers.splice(state.SECONDARY_T2_ROW, 1)
+      possibleRunes[state.SECONDARY_FLAVOR].tiers.splice(state.SECONDARY_T1_ROW, 1)
+      //  none from the rows of primary tree
+      possibleRunes.splice(state.PRIMARY_FLAVOR, 1)
+      // remove empty path
+      possibleRunes.splice(0, 1)
+      var rand1 = Math.floor(Math.random() * possibleRunes.length)
+      var rand2 = Math.floor(Math.random() * possibleRunes[rand1].tiers.length)
+      var rand3 = Math.floor(Math.random() * possibleRunes[rand1].tiers[rand2].runes.length)
+
+      // console.log(possibleRunes)
+      // console.log(
+      //   possibleRunes.length,
+      //   possibleRunes[rand1].tiers.length,
+      //   possibleRunes[rand1].tiers[rand2].runes.length,
+      // )
+      // console.log(rand1, rand2, rand3)
+      // var slotMachine = {
+      //   flavor: possibleRunes[rand1].id,
+      //   tier: possibleRunes[rand1].tiers[rand2].id,
+      //   id: possibleRunes[rand1].tiers[rand2].runes[rand3],
+      // }
+      // console.log(slotMachine)
+      console.log('triggered')
+      // None from 1 aka bandle, none from other
+      return {
+        ...state,
+        slotMachine: {
+          flavor: possibleRunes[rand1].id,
+          tier: possibleRunes[rand1].tiers[rand2].id,
+          id: possibleRunes[rand1].tiers[rand2].runes[rand3],
+        },
+      }
     case ActionTypes.SELECT_SECONDARY_FLAVOR:
       // Close menu, open next menu
       state.OPEN.SECONDARY.FLAVOR = false
@@ -124,6 +156,7 @@ export function composition(state = initialState, action) {
       } else return { ...state }
 
     case ActionTypes.TOGGLE_MENU:
+      if (action.payload.tier === 'T3') state.fresh = false
       if (action.payload.tree === 'SECONDARY') {
         // Normal toggle for flavor
         if (action.payload.tier === 'FLAVOR') state.OPEN.SECONDARY.FLAVOR = action.payload.value
@@ -141,10 +174,12 @@ export function composition(state = initialState, action) {
             SECONDARY_T1_ID: null,
             SECONDARY_T2_ROW: null,
             SECONDARY_T2_ID: null,
+            slotMachine: null,
           }
         }
       } else state['OPEN']['PRIMARY'][action.payload.tier] = action.payload.value
-      return { ...state }
+      if (action.payload.tier === 'T3') return { ...state, slotMachine: null }
+      else return { ...state }
 
     case ActionTypes.TOGGLE_INFO_DISPLAY:
       // Either will be a rune object if open or null if closed
@@ -152,6 +187,8 @@ export function composition(state = initialState, action) {
     case ActionTypes.LOAD_ALL_PATHS:
       return { ...state, paths: action.payload }
     case ActionTypes.MAKE_PERMALINK:
+      return { ...state, pathID: action.payload }
+    case ActionTypes.LOAD_FROM_PERMALINK:
       return { ...state, pathID: action.payload }
     default:
       return state

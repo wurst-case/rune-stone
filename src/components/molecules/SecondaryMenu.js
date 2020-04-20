@@ -60,7 +60,19 @@ S.Description = styled.div`
   }
 `
 
-function SecondaryMenu({ openMenus, color, onSelectFlavor, flavor, onSelectRunes, t1, runes, t2, primeFlavor, index }) {
+function SecondaryMenu({
+  openMenus,
+  color,
+  onSelectFlavor,
+  flavor,
+  onSelectRunes,
+  t1,
+  runes,
+  t2,
+  primeFlavor,
+  index,
+  slotMachine,
+}) {
   var runeMatrix = []
   runes.forEach((row, rowNumber) =>
     runeMatrix.push(
@@ -84,6 +96,7 @@ function SecondaryMenu({ openMenus, color, onSelectFlavor, flavor, onSelectRunes
       </S.Menu>,
     ),
   )
+  t2 = t2 && t2.name === 'Zim’s Magical Rune Randomization Machine' && slotMachine ? slotMachine : t2
   return (
     <S.Menus>
       <S.Menu open={openMenus.FLAVOR} className="flavors">
