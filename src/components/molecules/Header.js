@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link, useHistory } from 'react-router-dom'
 import { connect } from 'react-redux'
 import styled from '@emotion/styled'
 import Layout from '../../constants/layoutConstants'
@@ -44,7 +45,10 @@ S.Header = styled.div`
     max-height: 60px;
   }
 
-  h5 {
+  h5, a {
+    color: rgba(${Layout.GOLD}, 1);
+    text-decoration: none;
+    font-family: 'Beaufort W01 Bold1339640';
     cursor: pointer;
     font-size: 1rem;
   }
@@ -63,17 +67,24 @@ S.Header = styled.div`
   }
 `
 
+function WrappedLogo() {
+  var history = useHistory()
+  function handleClick() {
+    // console.log(history)
+    history.push('/home')
+  }
+
+  return <Logo className="logo" onClick={handleClick} />
+}
+
 export class Header extends Component {
   render() {
     return (
       <S.Header>
-        <Logo className="logo" />
-        <h6>Rune-Stone.com</h6>
-        {/* <h6>Build your own paths or experiment with ones made by the community.</h6> */}
-        <h5 color={Layout.BRONZE} onClick={() => this.props.makePermalink()}>
-          Share
-        </h5>
-        <h5>About</h5>
+        <WrappedLogo />
+        <h5 onClick={() => this.props.makePermalink()}>Share</h5>
+        <Link to="/ecs">Create</Link>
+        <Link to="/about">About</Link>
       </S.Header>
     )
   }

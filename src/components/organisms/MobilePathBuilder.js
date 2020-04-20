@@ -211,7 +211,7 @@ class MobilePathBuilder extends Component {
 
 const mapStateToProps = (state) => {
   let paths = state.composition.paths ? state.composition.paths : flavors
-  console.log(state.composition)
+  // console.log(state.composition)
 
   var primeFlavor = paths[state.composition.PRIMARY_FLAVOR]
   var keystone = primeFlavor.keystones[state.composition.KEYSTONE]
