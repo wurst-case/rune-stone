@@ -72,7 +72,7 @@ import SorceryBg from '../assets/sorcery/bg.png'
 import DominationBg from '../assets/domination/bg.png'
 import InspirationBg from '../assets/inspiration/bg.png'
 import ResolveBg from '../assets/resolve/bg.png'
-import BandleBg from '../assets/bandle/bg.png'
+import BandleBg from '../assets/bandle/bg_em.png'
 
 import Bandle from '../assets/bandle/bandle.png'
 import WRay from '../assets/bandle/keystones/wray.png'
@@ -88,6 +88,7 @@ import FindersKeepers from '../assets/bandle/t2/finders_keepers.png'
 import SmallBig from '../assets/bandle/t3/small_big.png'
 import Sneak from '../assets/bandle/t3/sneak.png'
 import Machine from '../assets/bandle/t3/machine_locked.png'
+import BandleEmblem from '../assets/bandle/emblem.png'
 
 export default [
   {
@@ -107,6 +108,7 @@ export default [
     detail: 'A short one sentance summary of path',
     img: Bandle,
     bg: BandleBg,
+    emblem: BandleEmblem,
     // colorHex: '#EA781E',
     // colorRGB: '234,120,30',
     colorHex: '#11aeff',

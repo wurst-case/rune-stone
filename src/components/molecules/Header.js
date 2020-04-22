@@ -37,6 +37,11 @@ S.Header = styled.div`
     -webkit-background-clip: text;
     -moz-background-clip: text;
     background-clip: text;
+    color: rgba(${Layout.GOLD}, 1);
+    text-decoration: none;
+    font-family: 'Beaufort W01 Bold1339640';
+    cursor: pointer;
+    font-size: 1rem;
   }
 
   .logo,
@@ -47,25 +52,18 @@ S.Header = styled.div`
 
   .logo {
     fill: rgba(${Layout.GOLD}, 1);
+    min-height: 60px;
     max-height: 60px;
     cursor: pointer;
   }
 
-  h5,
-  a {
-    color: rgba(${Layout.GOLD}, 1);
-    text-decoration: none;
-    font-family: 'Beaufort W01 Bold1339640';
-    cursor: pointer;
-    font-size: 1rem;
-  }
-
-  @media only screen and (max-width: 600px) {
+  @media only screen and (max-width: 1100px) {
     width: 100vw;
     height: 60px;
 
     & > div {
       flex-direction: row;
+      justify-content: space-evenly;
       width: 100vw;
       height: 60px;
       box-shadow: 0 5px 6px rgba(0, 0, 0, 0.5);

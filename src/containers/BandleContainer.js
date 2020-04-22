@@ -9,7 +9,7 @@ import MobilePathBuilder from '../components/organisms/MobilePathBuilder'
 const S = {}
 S.Container = styled.div`
   background-image: url(${(props) => props.bg});
-  background-position: top right;
+  background-position: 0% 50%;
   background-repeat: no-repeat;
   background-size: cover;
   background-color: ${Layout.DARK};
@@ -24,7 +24,7 @@ S.Container = styled.div`
   justify-content: flex-start;
   align-items: center;
 
-  @media only screen and (max-width: 600px) {
+  @media only screen and (max-width: 1100px) {
     background: ${Layout.DARK};
     display: flex;
     justify-content: flex-start;
@@ -39,6 +39,7 @@ S.Container = styled.div`
 
 const mapStateToProps = (state) => ({
   bgImage: flavors[state.composition.PRIMARY_FLAVOR].bg,
+  emblem: flavors[state.composition.PRIMARY_FLAVOR].emblem,
 })
 
 export class BandleContainer extends Component {
@@ -46,9 +47,9 @@ export class BandleContainer extends Component {
     console.log()
   }
   render() {
-    const { bgImage } = this.props
+    const { bgImage, emblem } = this.props
     return (
-      <S.Container bg={bgImage ? bgImage : null}>
+      <S.Container bg={bgImage ? bgImage : null} emblem={emblem ? emblem : null}>
         <CompBuilder pathID={this.props.match.params.pathID} />
         <MobilePathBuilder />
       </S.Container>

@@ -32,7 +32,7 @@ S.CompBuilder = styled.div`
   align-items: flex-start;
 
   width: 100%;
-  @media only screen and (max-width: 600px) {
+  @media only screen and (max-width: 1100px) {
     display: none;
   }
 `

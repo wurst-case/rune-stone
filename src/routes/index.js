@@ -18,7 +18,7 @@ S.Container = styled.div`
   flex-direction: row;
   flex-wrap: nowrap;
 
-  @media only screen and (max-width: 600px) {
+  @media only screen and (max-width: 1100px) {
     flex-direction: column;
   }
 `

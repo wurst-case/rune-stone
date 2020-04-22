@@ -134,7 +134,7 @@ S.Tooltip = styled.div`
     border-style: solid;
     border-color: ${Layout.BRONZE} transparent transparent transparent;
   }
-  @media only screen and (min-width: 600px) {
+  @media only screen and (min-width: 1100px) {
     &:hover .tooltiptext {
       visibility: ${(props) => (props.empty ? 'hidden' : 'visible')};
     }

@@ -12,7 +12,7 @@ S.Footer = styled.div`
   background-color: ${Layout.DARK};
   border: 1px solid ${Layout.BRONZE};
 
-  @media only screen and (min-width: 600px) {
+  @media only screen and (min-width: 1100px) {
     padding-left: 10vw;
   }
 
