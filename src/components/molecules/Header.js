@@ -94,7 +94,6 @@ export class Header extends Component {
           <WrappedLogo />
           <h5 onClick={() => this.props.makePermalink()}>Share</h5>
           <h5 onClick={() => this.props.reset()}>Reset</h5>
-          {/* <Link to="/">Reset</Link> */}
           <Link to="/ecs">Create</Link>
           <Link to="/about">About</Link>
         </div>
