@@ -2,7 +2,7 @@ import ActionTypes from '../constants/actionTypes'
 import store from '../store'
 
 //Comp Utilities
-export const resetFlavor = () => ({
+export const reset = () => ({
   type: ActionTypes.RESET,
 })
 export const toggleMenu = (menu) => {

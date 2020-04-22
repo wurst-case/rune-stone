@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import styled from '@emotion/styled'
 import Layout from '../../constants/layoutConstants'
 import { ReactComponent as Logo } from '../../assets/runestonelogo.svg'
-import { makePermalink } from '../../actions/composition'
+import { makePermalink, reset } from '../../actions/composition'
 
 const S = {}
 S.Header = styled.div`
@@ -71,7 +71,7 @@ function WrappedLogo() {
   var history = useHistory()
   function handleClick() {
     // console.log(history)
-    history.push('/home')
+    history.push('/')
   }
 
   return <Logo className="logo" onClick={handleClick} />
@@ -83,6 +83,8 @@ export class Header extends Component {
       <S.Header>
         <WrappedLogo />
         <h5 onClick={() => this.props.makePermalink()}>Share</h5>
+        <h5 onClick={() => this.props.reset()}>Reset</h5>
+        {/* <Link to="/">Reset</Link> */}
         <Link to="/ecs">Create</Link>
         <Link to="/about">About</Link>
       </S.Header>
@@ -96,6 +98,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   makePermalink: () => dispatch(makePermalink()),
+  reset: () => dispatch(reset()),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header)

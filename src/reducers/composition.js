@@ -34,7 +34,7 @@ export const initialState = {
 export function composition(state = initialState, action) {
   switch (action.type) {
     case ActionTypes.RESET:
-      return initialState
+      return { ...initialState, PRIMARY_FLAVOR: state.PRIMARY_FLAVOR }
     case ActionTypes.SELECT_PRIMARY_FLAVOR:
       // Close menu, open next menu
       state.OPEN.PRIMARY.FLAVOR = false
