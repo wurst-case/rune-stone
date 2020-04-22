@@ -11,27 +11,27 @@ S.Header = styled.div`
   min-width: 10vw;
   height: 100%;
 
-  &>div{  position: fixed;
-  
-  background-color: ${Layout.DARK};
-  padding: 16px;
-  color: rgba(${Layout.GOLD}, 1);
-  text-align: center;
-  width: 10vw;
-  height: 100vh;
-  box-sizing: border-box;
-  border: solid 1px ${Layout.BRONZE};
-  z-index: 100;
+  & > div {
+    position: fixed;
 
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;}
+    background-color: ${Layout.DARK};
+    padding: 16px;
+    color: rgba(${Layout.GOLD}, 1);
+    text-align: center;
+    width: 10vw;
+    height: 100vh;
+    box-sizing: border-box;
+    border: solid 1px ${Layout.BRONZE};
+    z-index: 100;
 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 
-  h1,
-  h4 {
-    /* background-color: rgba(${Layout.GOLD}, 1); */
+  a,
+  h5 {
     color: transparent;
     text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
     -webkit-background-clip: text;
@@ -39,19 +39,20 @@ S.Header = styled.div`
     background-clip: text;
   }
 
-  h1,
-  h4 {
-    margin: 0;
-    margin-top: 8px;
+  .logo,
+  a,
+  h5 {
+    margin: 54px 0;
   }
 
-  .logo  {
+  .logo {
     fill: rgba(${Layout.GOLD}, 1);
     max-height: 60px;
     cursor: pointer;
   }
 
-  h5, a {
+  h5,
+  a {
     color: rgba(${Layout.GOLD}, 1);
     text-decoration: none;
     font-family: 'Beaufort W01 Bold1339640';
@@ -63,7 +64,7 @@ S.Header = styled.div`
     width: 100vw;
     height: 60px;
 
-    &>div{
+    & > div {
       flex-direction: row;
       width: 100vw;
       height: 60px;
@@ -71,9 +72,9 @@ S.Header = styled.div`
       padding: 16px 8px;
     }
 
-    .logo  {
-    fill: rgba(${Layout.GOLD}, 1);
-    height: 100%;
+    .logo {
+      fill: rgba(${Layout.GOLD}, 1);
+      height: 100%;
     }
   }
 `
@@ -81,7 +82,6 @@ S.Header = styled.div`
 function WrappedLogo() {
   var history = useHistory()
   function handleClick() {
-    // console.log(history)
     history.push('/')
   }
 
