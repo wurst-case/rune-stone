@@ -8,7 +8,7 @@ import { makePermalink, reset } from '../../actions/composition'
 
 const S = {}
 S.Header = styled.div`
-  width: 10vw;
+  min-width: 10vw;
   height: 100%;
 
   &>div{  position: fixed;
