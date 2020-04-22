@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from '@emotion/styled'
 import { keyframes } from '@emotion/core'
+import ReactMarkdown from 'react-markdown/with-html'
 import Layout from '../../constants/layoutConstants'
 import spark from '../../assets/spark.png'
 
@@ -90,12 +91,61 @@ S.Spark = styled.img`
   animation: ${S.spin} 2s linear infinite;
 `
 
-function Rune({ color, keystone, active, onClick, img, slotMachine, triggerSlot }) {
+S.Tooltip = styled.div`
+  position: relative;
+
+  & .tooltiptext {
+    visibility: hidden;
+    width: 300px;
+    background-color: ${Layout.DARK};
+    text-align: left;
+    border-radius: 6px;
+    padding: 16px;
+    margin-bottom: 8px;
+    box-sizing: border-box;
+    position: absolute;
+    z-index: 100;
+    bottom: 150%;
+    left: 50%;
+    margin-left: -150px;
+    border: 2px solid ${Layout.BRONZE};
+
+    h4 {
+      color: rgba(${Layout.GOLD});
+      margin: 0;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+    }
+
+    p {
+      font-size: 0.75rem;
+      color: white;
+    }
+  }
+
+  & .tooltiptext::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -8px;
+    border-width: 8px;
+    border-style: solid;
+    border-color: ${Layout.BRONZE} transparent transparent transparent;
+  }
+  @media only screen and (min-width: 600px) {
+    &:hover .tooltiptext {
+      visibility: ${(props) => (props.empty ? 'hidden' : 'visible')};
+    }
+  }
+`
+
+function Rune({ color, keystone, active, onClick, img, slotMachine, triggerSlot, title, description }) {
   // console.log(document.getElementById('slotMachine').onanimationstart)
   // console.log(triggerSlot)
 
   return (
-    <div>
+    <S.Tooltip empty={!title && !description && true}>
       <S.Rune color={color} keystone={keystone} active={active} onClick={onClick}>
         <S.Spark src={spark} keystone={keystone} active={active} />
         {img ? (
@@ -111,7 +161,11 @@ function Rune({ color, keystone, active, onClick, img, slotMachine, triggerSlot 
         )}
         <div className="highlighter" />
       </S.Rune>
-    </div>
+      <div className="tooltiptext">
+        <h4>{title}</h4>
+        <ReactMarkdown source={description} escapeHtml={false} skipHtml={false} />
+      </div>
+    </S.Tooltip>
   )
 }
 

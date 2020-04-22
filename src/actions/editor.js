@@ -242,7 +242,7 @@ export const uploadIcon = (img, path) => {
 
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     // Get access to firebase services
-    const firestore = getFirestore()
+    // const firestore = getFirestore()
     const firebase = getFirebase()
     // Upload image and get path to storage location
     // Create a root reference

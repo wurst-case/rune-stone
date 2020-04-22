@@ -23,6 +23,8 @@ function PrimaryTree({ color, t1, t2, onToggle, openMenus, slotMachine, triggerS
         img={t1 ? t1.img : null}
         onClick={() => onToggle({ tier: 'RUNES' })}
         active={openMenus.RUNES}
+        title={t1 && t1.name}
+        description={t1 && t1.detail}
       />
       <Branch color={color} active={openMenus.RUNES} />
       <Rune
@@ -38,6 +40,8 @@ function PrimaryTree({ color, t1, t2, onToggle, openMenus, slotMachine, triggerS
         active={openMenus.RUNES}
         slotMachine={t2 && t2.name === 'Zim’s Magical Rune Randomization Machine'}
         triggerSlot={triggerSlot}
+        title={t1 && t1.name}
+        description={t1 && t1.detail}
       />
     </S.Tree>
   )

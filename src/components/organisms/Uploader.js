@@ -1,7 +1,7 @@
 import React from 'react'
 import { map } from 'lodash'
 import { useSelector } from 'react-redux'
-import { useFirebase, useFirebaseConnect } from 'react-redux-firebase'
+import { useFirebase } from 'react-redux-firebase'
 
 import { useDropzone } from 'react-dropzone'
 
