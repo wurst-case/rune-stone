@@ -84,7 +84,7 @@ function SecondaryMenu({
           return (
             <MenuRune
               color={color}
-              img={rune.src}
+              img={rune.img}
               title={rune.name}
               description={rune.detail}
               onClick={() => onSelectRunes(rowNumber, id)}
@@ -104,7 +104,7 @@ function SecondaryMenu({
           if (rune.name !== primeFlavor.name && id !== 0)
             return (
               <FlavorMenuRune
-                img={rune.src}
+                img={rune.img}
                 onClick={() => onSelectFlavor(id)}
                 key={'secondflavor' + id}
                 picked={flavor ? rune.name === flavor.name : null}

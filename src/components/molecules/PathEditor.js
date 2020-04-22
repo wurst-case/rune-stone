@@ -1,7 +1,8 @@
 import React from 'react'
 import styled from '@emotion/styled'
 import { ChromePicker } from 'react-color'
-import OutlinedButton from '../atoms/OutlinedButton'
+import Layout from '../../constants/layoutConstants'
+import FileInput from '../atoms/FileInput'
 import FilledButton from '../atoms/FilledButton'
 import TextInputField from '../atoms/TextInputField'
 
@@ -37,7 +38,7 @@ S.ColorPicker = styled.div`
   }
 `
 
-function PathEditor({ color, setTitle, setSubtitle, path, setColor, colorPickerOpen, toggleColorPicker }) {
+function PathEditor({ color, setTitle, setSubtitle, path, setColor, colorPickerOpen, toggleColorPicker, selectImage }) {
   return (
     <S.PathEditor>
       <TextInputField
@@ -46,14 +47,15 @@ function PathEditor({ color, setTitle, setSubtitle, path, setColor, colorPickerO
         onChange={(input) => setTitle(input)}
         label="Define Your Path"
         value={path && path.title}
-        maxLength={5}
+        maxLength={Layout.EDITOR_FIELD_SHORT}
       />
       <TextInputField
         color={color}
         placeholder="Path Subtitle ex: Become a legend"
         onChange={(input) => setSubtitle(input)}
         value={path && path.subtitle}
-        maxLength={5}
+        maxLength={Layout.EDITOR_FIELD_MID}
+        big
       />
       <div className="splitCol">
         <div>
@@ -72,11 +74,11 @@ function PathEditor({ color, setTitle, setSubtitle, path, setColor, colorPickerO
             </S.ColorPicker>
           ) : null}
         </div>
-        <OutlinedButton color={color} label="Path Icon" onClick={() => console.log('upload')} />
+        <FileInput color={color} onChange={(e) => selectImage(e.target.files[0], 6)} label="Path Icon" />
       </div>
       <div className="splitCol">
-        <OutlinedButton color={color} label="Background Image" onClick={() => console.log('upload')} />
-        <OutlinedButton color={color} label="Emblem" onClick={() => console.log('upload')} />
+        <FileInput color={color} onChange={(e) => selectImage(e.target.files[0], 4)} label="Background Image" />
+        <FileInput color={color} onChange={(e) => selectImage(e.target.files[0], 5)} label="Emblem" />
       </div>
     </S.PathEditor>
   )

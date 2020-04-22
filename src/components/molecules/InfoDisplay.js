@@ -64,7 +64,7 @@ const InfoDisplay = ({ color, rune, onClose, open }) => {
     <S.Display open={open} color={color}>
       <S.ClickPreventer />
       <CloseIcon id="close" onClick={onClose} />
-      <Rune keystone color={color} img={rune && rune.src} />
+      <Rune keystone color={color} img={rune && rune.img} />
       <h2>{rune && rune.name}</h2>
       <ReactMarkdown source={rune && rune.detail} escapeHtml={false} skipHtml={false} id="detail" />
     </S.Display>

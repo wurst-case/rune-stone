@@ -3,7 +3,7 @@ import styled from '@emotion/styled'
 import TextInputField from '../atoms/TextInputField'
 import Layout from '../../constants/layoutConstants'
 import AddRune from '../atoms/AddRune'
-import OutlinedButton from '../atoms/OutlinedButton'
+import FileInput from '../atoms/FileInput'
 
 const S = {}
 S.KeystoneEditor = styled.div`
@@ -11,9 +11,15 @@ S.KeystoneEditor = styled.div`
   flex-direction: column;
   align-items: stretch;
   margin: 24px 0;
+
+  & > div {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
 `
 
-function KeystoneEditor({ color, setName, setTooltip, setDetails, keystones, onAdd }) {
+function KeystoneEditor({ color, setName, setTooltip, setDetails, keystones, onAdd, selectImage }) {
   return (
     <S.KeystoneEditor>
       {keystones.map((_, id) => (
@@ -32,6 +38,7 @@ function KeystoneEditor({ color, setName, setTooltip, setDetails, keystones, onA
             onChange={(input) => setTooltip(id, input)}
             value={keystones[id] && keystones[id].tooltip}
             maxLength={Layout.EDITOR_FIELD_MID}
+            big
           />
           <TextInputField
             color={color}
@@ -39,8 +46,13 @@ function KeystoneEditor({ color, setName, setTooltip, setDetails, keystones, onA
             onChange={(input) => setDetails(id, input)}
             value={keystones[id] && keystones[id].detail}
             maxLength={Layout.EDITOR_FIELD_LONG}
+            big
           />
-          <OutlinedButton color={color} label="Upload Artwork" onClick={() => console.log('upload')} />
+          <FileInput
+            color={color}
+            onChange={(e) => selectImage(e.target.files[0], id)}
+            label="Choose Keystone Artwork"
+          />
         </div>
       ))}
       <AddRune onAdd={onAdd} keystone color={color} />

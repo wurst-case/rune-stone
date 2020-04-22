@@ -20,8 +20,11 @@ import {
   toggleColorPicker,
   saveNewPath,
   saveEditedPath,
-  loadPathFromFirestore,
   restoreFromBackup,
+  setChosenPath,
+  loadPathNamesFromFirestore,
+  selectImage,
+  uploadIcon,
 } from '../../actions/editor'
 import TierEditor from '../molecules/TierEditor'
 import KeystoneEditor from '../molecules/KeystoneEditor'
@@ -30,12 +33,16 @@ import FilledButton from '../atoms/FilledButton'
 // import assetMap from '../../constants/assetsMap'
 
 const S = {}
-S.Editor = styled.div``
+S.Editor = styled.div`
+  .center {
+    align-self: center;
+  }
+`
 
 class Editor extends Component {
   componentDidMount() {
     // this.props.restoreFromBackup(assetMap[6], 'inspiration')
-    this.props.loadPathFromFirestore(0)
+    this.props.loadPathNamesFromFirestore()
   }
 
   render() {
@@ -62,11 +69,39 @@ class Editor extends Component {
       colorPickerOpen,
       saveNewPath,
       saveEditedPath,
+      pathList,
+      chosenPath,
+      setChosenPath,
+      selectImage,
     } = this.props
+
+    function createPathList() {
+      var optionArray = []
+      if (pathList.length > 0)
+        pathList.forEach((path) =>
+          optionArray.push(
+            <option value={path.id} key={path.id + 'option'}>
+              {path.name}
+            </option>,
+          ),
+        )
+      return optionArray
+    }
 
     return (
       <S.Editor>
-        <h1>Build Your Own Custom Path</h1>
+        {false ? ( //If new path, false indicates editing existing path
+          <h1>Build Your Own Custom Path</h1>
+        ) : (
+          <div className="center">
+            <h1>Edit your custom paths</h1>
+            <label>Choose The Path To Edit: </label>
+            <select id="paths" value={chosenPath} onChange={(e) => setChosenPath(e.target.value)}>
+              <option value="default">Choose a path</option>
+              {createPathList()}
+            </select>
+          </div>
+        )}
         <PathEditor
           color={color}
           setTitle={setPathTitle}
@@ -75,6 +110,7 @@ class Editor extends Component {
           setColor={setColor}
           toggleColorPicker={toggleColorPicker}
           colorPickerOpen={colorPickerOpen}
+          selectImage={(img, tier) => selectImage(img, tier, 0)}
         />
         {/* KEYSTONES */}
         <KeystoneEditor
@@ -84,6 +120,7 @@ class Editor extends Component {
           setDetails={setKeystoneDetails}
           keystones={keystones}
           onAdd={() => addKeystone()}
+          selectImage={(img, id) => selectImage(img, 0, id)}
         />
         {/* Tiers */}
         <TierEditor
@@ -95,6 +132,7 @@ class Editor extends Component {
           tier={tier1}
           tierId={0}
           onAdd={() => addRune(0)}
+          selectImage={(img, id) => selectImage(img, 1, id)}
         />
         <TierEditor
           color={color}
@@ -105,6 +143,7 @@ class Editor extends Component {
           tier={tier2}
           tierId={1}
           onAdd={() => addRune(1)}
+          selectImage={(img, id) => selectImage(img, 2, id)}
         />
         <TierEditor
           color={color}
@@ -115,6 +154,7 @@ class Editor extends Component {
           tier={tier3}
           tierId={2}
           onAdd={() => addRune(2)}
+          selectImage={(img, id) => selectImage(img, 3, id)}
         />
         <FilledButton
           bg={color}
@@ -132,7 +172,7 @@ class Editor extends Component {
 }
 
 const mapStateToProps = (state) => {
-  // console.log(state)
+  console.log(state.editor)
 
   return {
     fsData: state.firestore.ordered.paths,
@@ -144,6 +184,8 @@ const mapStateToProps = (state) => {
     tier3: state.editor.tiers[2],
     color: state.editor.path.color,
     colorPickerOpen: state.editor.colorPickerOpen,
+    chosenPath: state.editor.chosenPath,
+    pathList: state.editor.pathList,
   }
 }
 
@@ -164,8 +206,11 @@ const mapDispatchToProps = (dispatch) => {
     toggleColorPicker: () => dispatch(toggleColorPicker()),
     saveNewPath: (path) => dispatch(saveNewPath(path)),
     saveEditedPath: (path) => dispatch(saveEditedPath(path)),
-    loadPathFromFirestore: (pathId) => dispatch(loadPathFromFirestore(pathId)),
     restoreFromBackup: (paths, name) => dispatch(restoreFromBackup(paths, name)),
+    setChosenPath: (path) => dispatch(setChosenPath(path)),
+    loadPathNamesFromFirestore: () => dispatch(loadPathNamesFromFirestore()),
+    selectImage: (img, tier, id) => dispatch(selectImage(img, tier, id)),
+    uploadIcon: (img, path) => dispatch(uploadIcon(img, path)),
   }
 }
 

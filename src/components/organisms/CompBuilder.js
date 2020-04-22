@@ -22,7 +22,7 @@ import {
   loadFromPermalink,
   triggerSlot,
 } from '../../actions/composition'
-// import { restoreFromBackup } from '../../actions/editor'
+import { restoreFromBackup } from '../../actions/editor'
 
 const S = {}
 S.CompBuilder = styled.div`
@@ -99,7 +99,7 @@ const mapDispatchToProps = (dispatch) => ({
   },
   toggleMenu: (menu) => dispatch(toggleMenu(menu)),
   loadPathsFromFirestore: () => dispatch(loadPathsFromFirestore()),
-  // restoreFromBackup: () => dispatch(restoreFromBackup(flavors[0])),
+  restoreFromBackup: () => dispatch(restoreFromBackup(flavors[6], 'inspiration')),
   loadFromPermalink: (pathID) => dispatch(loadFromPermalink(pathID)),
   triggerSlot: () => dispatch(triggerSlot(true, flavors)),
 })

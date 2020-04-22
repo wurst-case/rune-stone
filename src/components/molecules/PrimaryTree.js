@@ -21,22 +21,22 @@ function PrimaryTree({ color, keystone, t1, t2, t3, onToggle, openMenus, slotMac
       <Rune
         color={color}
         keystone
-        img={keystone ? keystone.src : null}
+        img={keystone ? keystone.img : null}
         onClick={() => onToggle({ tier: 'KEYSTONE' })}
         active={openMenus.KEYSTONE}
       />
       <Branch color={color} padding={-16} onClick={onToggle} active={openMenus.T1 || openMenus.T2 || openMenus.T3} />
-      <Rune color={color} img={t1 ? t1.src : null} onClick={() => onToggle({ tier: 'T1' })} active={openMenus.T1} />
+      <Rune color={color} img={t1 ? t1.img : null} onClick={() => onToggle({ tier: 'T1' })} active={openMenus.T1} />
       <Branch color={color} active={openMenus.T2 || openMenus.T3} />
-      <Rune color={color} img={t2 ? t2.src : null} onClick={() => onToggle({ tier: 'T2' })} active={openMenus.T2} />
+      <Rune color={color} img={t2 ? t2.img : null} onClick={() => onToggle({ tier: 'T2' })} active={openMenus.T2} />
       <Branch color={color} active={openMenus.T3} />
       <Rune
         color={color}
         img={
           t3 && t3.name === 'Zim’s Magical Rune Randomization Machine' && slotMachine
-            ? slotMachine.src
+            ? slotMachine.img
             : t3
-            ? t3.src
+            ? t3.img
             : null
         }
         onClick={() => onToggle({ tier: 'T3' })}

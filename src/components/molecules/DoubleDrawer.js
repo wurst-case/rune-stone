@@ -60,14 +60,14 @@ export const DoubleDrawer = ({ color, open, onToggle, flavor, runes, selected1, 
   return (
     <S.Drawer color={color}>
       <ListItem button onClick={onToggle}>
-        <Rune active={open} img={selected1 ? selected1.src : null} color={color} />
+        <Rune active={open} img={selected1 ? selected1.img : null} color={color} />
         <ListItemText>
           <h4>{selected1 ? selected1.name : null}</h4>
           <p>{selected1 ? selected1.detail.replace(/<\/?[^>]+(>|$)/g, '') : 'Please select rune.'}</p>
         </ListItemText>
       </ListItem>
       <ListItem button onClick={onToggle}>
-        <Rune active={open} img={selected2 ? selected2.src : null} color={color} />
+        <Rune active={open} img={selected2 ? selected2.img : null} color={color} />
         <ListItemText>
           <h4>{selected2 ? selected2.name : null}</h4>
           <p>{selected2 ? selected2.detail.replace(/<\/?[^>]+(>|$)/g, '') : 'Please select rune.'}</p>
@@ -81,7 +81,7 @@ export const DoubleDrawer = ({ color, open, onToggle, flavor, runes, selected1, 
               tier.map((rune, id) => (
                 <ListItem button onClick={() => onSelect(row, id)} key={rune.name + id + 'LI'}>
                   <MenuRune
-                    img={rune.src}
+                    img={rune.img}
                     onClick={() => {}}
                     // picked={selected1 || selected2 ? rune.name === selected1.name || rune.name === selected2.name : false}
                     key={rune.name + id + 'RUNE'}

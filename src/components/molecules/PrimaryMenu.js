@@ -79,7 +79,7 @@ function PrimaryMenu({
           if (id !== 0)
             return (
               <FlavorMenuRune
-                img={rune.src}
+                img={rune.img}
                 onClick={() => onSelectFlavor(id)}
                 key={'primeflavor' + id}
                 picked={rune.name === flavor.name}
@@ -105,7 +105,7 @@ function PrimaryMenu({
           <MenuRune
             keystone
             color={color}
-            img={rune.src}
+            img={rune.img}
             title={rune.name}
             description={rune.detail}
             onClick={() => onSelectKeystone(id)}
@@ -123,7 +123,7 @@ function PrimaryMenu({
         {flavor.tier1.map((rune, id) => (
           <MenuRune
             color={color}
-            img={rune.src}
+            img={rune.img}
             title={rune.name}
             description={rune.detail}
             onClick={() => onSelectT1(id)}
@@ -141,7 +141,7 @@ function PrimaryMenu({
         {flavor.tier2.map((rune, id) => (
           <MenuRune
             color={color}
-            img={rune.src}
+            img={rune.img}
             title={rune.name}
             description={rune.detail}
             onClick={() => onSelectT2(id)}
@@ -159,7 +159,7 @@ function PrimaryMenu({
         {flavor.tier3.map((rune, id) => (
           <MenuRune
             color={color}
-            img={rune.src}
+            img={rune.img}
             title={rune.name}
             description={rune.detail}
             onClick={() => onSelectT3(id)}

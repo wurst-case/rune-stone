@@ -6,12 +6,16 @@ export const initialState = {
     subtitle: '',
     color: '#614924',
     colorRgb: '97,73,36',
+    bg: null,
+    emblem: null,
+    icon: null,
   },
   keystones: [
     {
       name: '',
       tooltip: '',
       detail: '',
+      img: null,
     },
   ],
   tiers: [
@@ -22,6 +26,7 @@ export const initialState = {
           name: '',
           tooltip: '',
           detail: '',
+          img: null,
         },
       ],
     },
@@ -47,10 +52,16 @@ export const initialState = {
     },
   ],
   colorPickerOpen: false,
+  pathList: [],
+  chosenPath: '',
 }
 
 export function editor(state = initialState, action) {
   switch (action.type) {
+    case ActionTypes.LOAD_ALL_PATHS:
+      return { ...state, pathList: action.payload }
+    case ActionTypes.SET_CHOSEN_PATH:
+      return { ...state, chosenPath: action.payload }
     case ActionTypes.SET_COLOR:
       return { ...state, path: { ...state.path, color: action.payload.hex, colorRgb: action.payload.rgb } }
     case ActionTypes.TOGGLE_COLOR_PICKER:
@@ -78,6 +89,15 @@ export function editor(state = initialState, action) {
         ...state,
         keystones: state.keystones.map((keystone, id) =>
           id === action.payload.id ? { ...keystone, detail: action.payload.value } : keystone,
+        ),
+      }
+    case ActionTypes.SET_KEYSTONE_IMAGE:
+      console.log(action.payload.value)
+
+      return {
+        ...state,
+        keystones: state.keystones.map((keystone, id) =>
+          id === action.payload.id ? { ...keystone, img: action.payload.value } : keystone,
         ),
       }
     case ActionTypes.SET_TIER_TITLE:
@@ -110,6 +130,20 @@ export function editor(state = initialState, action) {
                 ...item,
                 runes: item.runes.map((rune, id) =>
                   id === action.payload.id ? { ...rune, tooltip: action.payload.value } : rune,
+                ),
+              }
+            : item,
+        ),
+      }
+    case ActionTypes.SET_RUNE_IMAGE:
+      return {
+        ...state,
+        tiers: state.tiers.map((item, tier) =>
+          tier === action.payload.tier
+            ? {
+                ...item,
+                runes: item.runes.map((rune, id) =>
+                  id === action.payload.id ? { ...rune, img: action.payload.value } : rune,
                 ),
               }
             : item,
@@ -166,6 +200,40 @@ export function editor(state = initialState, action) {
     case ActionTypes.NEW_PATH_ERROR:
       console.log('New Path Error', action.err)
       return state
+    case ActionTypes.SELECT_IMAGE:
+      switch (action.payload.tier) {
+        case 0:
+          return {
+            ...state,
+            keystones: state.keystones.map((keystone, id) =>
+              id === action.payload.id ? { ...keystone, img: action.payload.img } : keystone,
+            ),
+          }
+        case 1:
+        case 2:
+        case 3:
+          return {
+            ...state,
+            tiers: state.tiers.map((item, tier) =>
+              tier === action.payload.tier - 1
+                ? {
+                    ...item,
+                    runes: item.runes.map((rune, id) =>
+                      id === action.payload.id ? { ...rune, img: action.payload.img } : rune,
+                    ),
+                  }
+                : item,
+            ),
+          }
+        case 4:
+          return { ...state, path: { ...state.path, bg: action.payload.img } }
+        case 5:
+          return { ...state, path: { ...state.path, emblem: action.payload.img } }
+        case 6:
+          return { ...state, path: { ...state.path, icon: action.payload.img } }
+        default:
+          return state
+      }
     default:
       return state
   }

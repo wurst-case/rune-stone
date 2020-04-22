@@ -3,7 +3,7 @@ import styled from '@emotion/styled'
 import TextInputField from '../atoms/TextInputField'
 import Layout from '../../constants/layoutConstants'
 import AddRune from '../atoms/AddRune'
-import OutlinedButton from '../atoms/OutlinedButton'
+import FileInput from '../atoms/FileInput'
 
 const S = {}
 S.TierEditor = styled.div`
@@ -11,9 +11,15 @@ S.TierEditor = styled.div`
   flex-direction: column;
   align-items: stretch;
   margin: 24px 0;
+
+  & > div {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
 `
 
-function TierEditor({ color, setTitle, setName, setTooltip, setDetails, tier, tierId, onAdd }) {
+function TierEditor({ color, setTitle, setName, setTooltip, setDetails, tier, tierId, onAdd, selectImage }) {
   var label = ''
   switch (tierId) {
     case 0:
@@ -54,6 +60,7 @@ function TierEditor({ color, setTitle, setName, setTooltip, setDetails, tier, ti
             maxLength={Layout.EDITOR_FIELD_MID}
             optional
             key={'tier' + tierId + 'rune' + runeId + 'tooltip'}
+            big
           />
           <TextInputField
             color={color}
@@ -62,9 +69,13 @@ function TierEditor({ color, setTitle, setName, setTooltip, setDetails, tier, ti
             value={tier.runes[runeId] && tier.runes[runeId].detail}
             maxLength={Layout.EDITOR_FIELD_LONG}
             key={'tier' + tierId + 'rune' + runeId + 'detail'}
+            big
           />
-
-          <OutlinedButton color={color} label="Upload Artwork" onClick={() => console.log('upload')} />
+          <FileInput
+            color={color}
+            onChange={(e) => selectImage(e.target.files[0], runeId)}
+            label="Choose Rune Artwork"
+          />
         </div>
       ))}
       <AddRune onAdd={onAdd} color={color} />

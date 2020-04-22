@@ -83,9 +83,9 @@ export const Drawer = ({
           active={open}
           img={
             selected && selected.name === 'Zim’s Magical Rune Randomization Machine' && slotMachine
-              ? slotMachine.src
+              ? slotMachine.img
               : selected
-              ? selected.src
+              ? selected.img
               : null
           }
           color={color}
@@ -123,14 +123,14 @@ export const Drawer = ({
               <ListItem button key={rune.name + id + 'LI'}>
                 {isFlavor ? (
                   <FlavorMenuRune
-                    img={rune.src}
+                    img={rune.img}
                     picked={selected ? rune.name === selected.name : false}
                     key={rune.name + id + 'RUNE'}
                     onClick={() => onSelect(id)}
                   />
                 ) : (
                   <MenuRune
-                    img={rune.src}
+                    img={rune.img}
                     onClick={() => onSelect(id)}
                     disabled={selected ? rune.name !== selected.name : false}
                     key={rune.name + id + 'RUNE'}

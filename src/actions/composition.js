@@ -174,7 +174,7 @@ export const makePermalink = () => {
     '_' +
     SECONDARY_T2_ID
   // console.log(navigator)
-  alert('Copy this to clipboard to share: www.rune-stone.com/' + pathID)
+  alert('www.rune-stone.com/' + pathID)
 
   // navigator.clipboard.writeText(pathID).then(alert('copied www.rune-stone.com/' + pathID + ' to clipboard!'), (err) => {
   //   console.error('Async: Could not copy text: ', err)
