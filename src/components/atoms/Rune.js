@@ -20,7 +20,7 @@ S.pull = keyframes`
     transform: rotate(0deg);
   }
   100% {
-    transform: rotate(1079deg);
+    transform: rotate(3239deg);
   }
 `
 
@@ -52,7 +52,7 @@ S.Rune = styled.div`
     /* animation: ${S.pull} ${(props) => (props.slotMachine && props.active ? 2 : 0)}s linear infinite; */
     width: ${(props) =>
       (props.keystone ? Layout.RUNE_SIZE_KS * 1.75 : Layout.RUNE_SIZE_REG) * (props.active ? 0.8 : 1)}px;
-    animation: ${S.pull} 2s ease-out;
+    animation: ${S.pull} 5s ease-out;
   }
 
   .highlighter{
