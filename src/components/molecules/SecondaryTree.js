@@ -2,7 +2,7 @@ import React from 'react'
 import styled from '@emotion/styled'
 import Rune from '../atoms/Rune'
 import Branch from '../atoms/Branch'
-import FlavorRune from '../atoms/FlavorRune'
+import SecondFlavorRune from '../atoms/SecondFlavorRune'
 
 const S = {}
 S.Tree = styled.div`
@@ -13,10 +13,19 @@ S.Tree = styled.div`
   margin: 24px;
 `
 
-function PrimaryTree({ color, t1, t2, onToggle, openMenus, slotMachine, triggerSlot }) {
+function PrimaryTree({ color, t1, t2, onToggle, openMenus, slotMachine, triggerSlot, icon }) {
+  if (document.getElementById('swirl' + color)) {
+    document.getElementById('swirl' + color).style.stopColor = 'rgba(' + color + ',1)'
+    console.log(document.getElementById('swirl' + color).style.stopColor)
+  }
   return (
     <S.Tree>
-      <FlavorRune color={color} onClick={() => onToggle({ tier: 'FLAVOR' })} active={openMenus.FLAVOR} />
+      <SecondFlavorRune
+        color={color}
+        onClick={() => onToggle({ tier: 'FLAVOR' })}
+        active={openMenus.FLAVOR}
+        icon={icon}
+      />
       <Branch color={color} padding={4} active={openMenus.RUNES} />
       <Rune
         color={color}

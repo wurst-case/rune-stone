@@ -154,6 +154,7 @@ class CompBuilder extends Component {
           openMenus={open.PRIMARY}
           slotMachine={slotMachine}
           triggerSlot={(!pathID || !fresh) && secondT2 && triggerSlot}
+          icon={primeFlavor && primeFlavor.img}
         />
         <PrimaryMenu
           color={primeFlavor.colorRGB}
@@ -190,6 +191,7 @@ class CompBuilder extends Component {
           openMenus={open.SECONDARY}
           slotMachine={slotMachine}
           triggerSlot={(!pathID || !fresh) && triggerSlot}
+          icon={secondFlavor && secondFlavor.img}
         />
         <SecondaryMenu
           color={secondFlavor.colorRGB}

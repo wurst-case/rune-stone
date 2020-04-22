@@ -13,10 +13,15 @@ S.Tree = styled.div`
   margin: 24px;
 `
 
-function PrimaryTree({ color, keystone, t1, t2, t3, onToggle, openMenus, slotMachine, triggerSlot }) {
+function PrimaryTree({ color, keystone, t1, t2, t3, onToggle, openMenus, slotMachine, triggerSlot, icon }) {
+  if (document.getElementById('swirl' + color)) {
+    document.getElementById('swirl' + color).style.stopColor = 'rgba(' + color + ',1)'
+    console.log(document.getElementById('swirl' + color).style.stopColor)
+  }
+
   return (
     <S.Tree>
-      <FlavorRune color={color} onClick={() => onToggle({ tier: 'FLAVOR' })} />
+      <FlavorRune color={color} onClick={() => onToggle({ tier: 'FLAVOR' })} icon={icon} />
       <Branch color={color} padding={4} active={openMenus.KEYSTONE || openMenus.T1 || openMenus.T2 || openMenus.T3} />
       <Rune
         color={color}
