@@ -48,6 +48,7 @@ S.Header = styled.div`
   .logo  {
     fill: rgba(${Layout.GOLD}, 1);
     max-height: 60px;
+    cursor: pointer;
   }
 
   h5, a {
@@ -56,10 +57,6 @@ S.Header = styled.div`
     font-family: 'Beaufort W01 Bold1339640';
     cursor: pointer;
     font-size: 1rem;
-  }
-
-  .clickable {
-    cursor: pointer;
   }
 
   @media only screen and (max-width: 600px) {
