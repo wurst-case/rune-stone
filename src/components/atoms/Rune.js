@@ -94,6 +94,7 @@ S.Spark = styled.img`
 S.Tooltip = styled.div`
   position: relative;
 
+  /* background-color: blue; */
   & .tooltiptext {
     visibility: hidden;
     width: 300px;

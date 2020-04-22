@@ -11,6 +11,10 @@ S.Menus = styled.div`
   justify-content: start;
   align-items: start;
   margin: 8px;
+
+  .keystones {
+    height: 145px;
+  }
 `
 S.Menu = styled.div`
   display: ${(props) => (props.open ? 'flex' : 'none')};
@@ -19,16 +23,19 @@ S.Menu = styled.div`
   align-items: center;
 
   margin: 2px;
-  height: 100px;
-  width: 300px;
+  height: 110px;
+  width: 400px;
 `
 
 S.Description = styled.div`
-  display: ${(props) => (props.open ? 'none' : '')};
+  display: ${(props) => (props.open ? 'none' : 'flex')};
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
 
   margin: 2px;
-  height: 100px;
-  width: 300px;
+  height: 110px;
+  width: 400px;
 
   text-align: left;
 
@@ -100,7 +107,7 @@ function PrimaryMenu({
           <p>Select a rune</p>
         )}
       </S.Description>
-      <S.Menu open={openMenus.KEYSTONE}>
+      <S.Menu open={openMenus.KEYSTONE} className="keystones">
         {flavor.keystones.map((rune, id) => (
           <MenuRune
             keystone
@@ -114,7 +121,7 @@ function PrimaryMenu({
           />
         ))}
       </S.Menu>
-      <S.Description open={openMenus.KEYSTONE} color={color}>
+      <S.Description open={openMenus.KEYSTONE} color={color} className="keystones">
         <h4>{keystone ? keystone.name : 'Keystone'}</h4>
         {/* Strip away all html tags from description */}
         <p>{keystone ? keystone.detail.replace(/<\/?[^>]+(>|$)/g, '') : `Select a keystone`}</p>

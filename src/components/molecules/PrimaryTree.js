@@ -27,7 +27,7 @@ function PrimaryTree({ color, keystone, t1, t2, t3, onToggle, openMenus, slotMac
         title={keystone && keystone.name}
         description={keystone && keystone.detail}
       />
-      <Branch color={color} padding={-16} onClick={onToggle} active={openMenus.T1 || openMenus.T2 || openMenus.T3} />
+      <Branch color={color} onClick={onToggle} active={openMenus.T1 || openMenus.T2 || openMenus.T3} />
       <Rune
         color={color}
         img={t1 ? t1.img : null}

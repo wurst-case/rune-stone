@@ -53,6 +53,10 @@ S.Header = styled.div`
     font-size: 1rem;
   }
 
+  .clickable {
+    cursor: pointer;
+  }
+
   @media only screen and (max-width: 600px) {
     flex-direction: row;
     width: 100vw;
