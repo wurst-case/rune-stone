@@ -8,6 +8,11 @@ import { makePermalink, reset } from '../../actions/composition'
 
 const S = {}
 S.Header = styled.div`
+  width: 10vw;
+  height: 100%;
+
+  &>div{  position: fixed;
+  
   background-color: ${Layout.DARK};
   padding: 16px;
   color: rgba(${Layout.GOLD}, 1);
@@ -21,8 +26,8 @@ S.Header = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  align-items: center;
-  
+  align-items: center;}
+
 
   h1,
   h4 {
@@ -58,11 +63,16 @@ S.Header = styled.div`
   }
 
   @media only screen and (max-width: 600px) {
-    flex-direction: row;
     width: 100vw;
     height: 60px;
-    box-shadow: 0 5px 6px rgba(0, 0, 0, 0.5);
-    padding: 16px 8px;
+
+    &>div{
+      flex-direction: row;
+      width: 100vw;
+      height: 60px;
+      box-shadow: 0 5px 6px rgba(0, 0, 0, 0.5);
+      padding: 16px 8px;
+    }
 
     .logo  {
     fill: rgba(${Layout.GOLD}, 1);
@@ -85,12 +95,14 @@ export class Header extends Component {
   render() {
     return (
       <S.Header>
-        <WrappedLogo />
-        <h5 onClick={() => this.props.makePermalink()}>Share</h5>
-        <h5 onClick={() => this.props.reset()}>Reset</h5>
-        {/* <Link to="/">Reset</Link> */}
-        <Link to="/ecs">Create</Link>
-        <Link to="/about">About</Link>
+        <div>
+          <WrappedLogo />
+          <h5 onClick={() => this.props.makePermalink()}>Share</h5>
+          <h5 onClick={() => this.props.reset()}>Reset</h5>
+          {/* <Link to="/">Reset</Link> */}
+          <Link to="/ecs">Create</Link>
+          <Link to="/about">About</Link>
+        </div>
       </S.Header>
     )
   }

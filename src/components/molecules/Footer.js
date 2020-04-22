@@ -10,6 +10,11 @@ S.Footer = styled.div`
   padding: 32px 16px;
   box-sizing: border-box;
   background-color: ${Layout.DARK};
+  border: 1px solid ${Layout.BRONZE};
+
+  @media only screen and (min-width: 600px) {
+    padding-left: 10vw;
+  }
 
   p {
     text-align: center;
