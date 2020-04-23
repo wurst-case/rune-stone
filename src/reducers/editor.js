@@ -58,6 +58,8 @@ export const initialState = {
 
 export function editor(state = initialState, action) {
   switch (action.type) {
+    case ActionTypes.RESET_EDITOR:
+      return { ...initialState, pathList: state.pathList, chosenPath: state.chosenPath }
     case ActionTypes.LOAD_ALL_PATHS:
       return { ...state, pathList: action.payload }
     case ActionTypes.SET_CHOSEN_PATH:

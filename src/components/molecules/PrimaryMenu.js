@@ -3,6 +3,7 @@ import styled from '@emotion/styled'
 import MenuRune from '../atoms/MenuRune'
 import FlavorMenuRune from '../atoms/FlavorMenuRune'
 import flavors from '../../constants/assetsMap'
+import ReactMarkdown from 'react-markdown/with-html'
 
 const S = {}
 S.Menus = styled.div`
@@ -52,7 +53,8 @@ S.Description = styled.div`
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
   }
 
-  & > p {
+  & > p,
+  .simpleTT {
     font-size: 0.8rem;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -60,6 +62,10 @@ S.Description = styled.div`
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+  }
+
+  & > .simpleTT > p {
+    margin: 3px 0;
   }
 `
 
@@ -101,10 +107,10 @@ function PrimaryMenu({
           <p>
             {flavor.subtitle}
             <br />
-            {flavor.detail}
+            {flavor.tooltip}
           </p>
         ) : (
-          <p>Select a rune</p>
+          <p>Select a Path</p>
         )}
       </S.Description>
       <S.Menu open={openMenus.KEYSTONE} className="keystones">
@@ -124,7 +130,11 @@ function PrimaryMenu({
       <S.Description open={openMenus.KEYSTONE} color={color} className="keystones">
         <h4>{keystone ? keystone.name : 'Keystone'}</h4>
         {/* Strip away all html tags from description */}
-        <p>{keystone ? keystone.detail.replace(/<\/?[^>]+(>|$)/g, '') : `Select a keystone`}</p>
+        {keystone ? (
+          <ReactMarkdown source={keystone.tooltip} escapeHtml={false} skipHtml={false} className="simpleTT" />
+        ) : (
+          <p>Select a keystone</p>
+        )}
       </S.Description>
       <S.Menu open={openMenus.T1}>
         {flavor.tier1.map((rune, id) => (
@@ -142,7 +152,11 @@ function PrimaryMenu({
       <S.Description open={openMenus.T1} color={color}>
         <h4>{t1 ? t1.name : flavor.tierNames[0]}</h4>
         {/* Strip away all html tags from description */}
-        <p>{t1 ? t1.detail.replace(/<\/?[^>]+(>|$)/g, '') : `Select a rune`}</p>
+        {t1 ? (
+          <ReactMarkdown source={t1.tooltip} escapeHtml={false} skipHtml={false} className="simpleTT" />
+        ) : (
+          <p>Select a rune</p>
+        )}
       </S.Description>
       <S.Menu open={openMenus.T2}>
         {flavor.tier2.map((rune, id) => (
@@ -160,7 +174,11 @@ function PrimaryMenu({
       <S.Description open={openMenus.T2} color={color}>
         <h4>{t2 ? t2.name : flavor.tierNames[1]}</h4>
         {/* Strip away all html tags from description */}
-        <p>{t2 ? t2.detail.replace(/<\/?[^>]+(>|$)/g, '') : `Select a rune`}</p>
+        {t2 ? (
+          <ReactMarkdown source={t2.tooltip} escapeHtml={false} skipHtml={false} className="simpleTT" />
+        ) : (
+          <p>Select a rune</p>
+        )}
       </S.Description>
       <S.Menu open={openMenus.T3}>
         {flavor.tier3.map((rune, id) => (
@@ -178,7 +196,11 @@ function PrimaryMenu({
       <S.Description open={openMenus.T3} color={color}>
         <h4>{t3 ? t3.name : flavor.tierNames[2]}</h4>
         {/* Strip away all html tags from description */}
-        <p>{t3 ? t3.detail.replace(/<\/?[^>]+(>|$)/g, '') : `Select a rune`}</p>
+        {t3 ? (
+          <ReactMarkdown source={t3.tooltip} escapeHtml={false} skipHtml={false} className="simpleTT" />
+        ) : (
+          <p>Select a rune</p>
+        )}
       </S.Description>
     </S.Menus>
   )

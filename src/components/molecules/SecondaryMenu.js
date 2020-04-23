@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from '@emotion/styled'
+import ReactMarkdown from 'react-markdown/with-html'
 import MenuRune from '../atoms/MenuRune'
 import FlavorMenuRune from '../atoms/FlavorMenuRune'
 import flavors from '../../constants/assetsMap'
@@ -49,7 +50,8 @@ S.Description = styled.div`
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
   }
 
-  & > p {
+  & > p,
+  .simpleTT {
     font-size: 0.8rem;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -57,6 +59,10 @@ S.Description = styled.div`
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+  }
+
+  & > .simpleTT > p {
+    margin: 3px 0;
   }
 `
 
@@ -115,11 +121,11 @@ function SecondaryMenu({
       </S.Menu>
       <S.Description open={openMenus.FLAVOR} color={color}>
         <h4>{flavor ? flavor.name : 'Choose a path.'}</h4>
-        {flavor === 0 ? (
+        {flavor !== 0 ? (
           <p>
             {flavor.subtitle}
             <br />
-            {flavor.detail}
+            {flavor.tooltip}
           </p>
         ) : (
           <p>Select a secondary path</p>
@@ -129,19 +135,17 @@ function SecondaryMenu({
       <S.Description open={openMenus.RUNES} color={color} className="first">
         <h4>{t1 ? t1.name : 'Secondary'}</h4>
         {t1 ? (
-          // Strip away all html tags from description
-          <p className="description">{t1.detail.replace(/<\/?[^>]+(>|$)/g, '')}</p>
+          <ReactMarkdown source={t1.tooltip} escapeHtml={false} skipHtml={false} className="simpleTT" />
         ) : (
-          <p className="description">Select two runes from your secondary path</p>
+          <p>Select two runes from your secondary path</p>
         )}
       </S.Description>
       <S.Description open={openMenus.RUNES} color={color}>
         <h4>{t2 ? t2.name : 'Secondary'}</h4>
         {t2 ? (
-          // Strip away all html tags from description
-          <p className="description">{t2.detail.replace(/<\/?[^>]+(>|$)/g, '')}</p>
+          <ReactMarkdown source={t2.tooltip} escapeHtml={false} skipHtml={false} className="simpleTT" />
         ) : (
-          <p className="description">Select two runes from your secondary path</p>
+          <p>Select two runes from your secondary path</p>
         )}
       </S.Description>
     </S.Menus>

@@ -1,5 +1,9 @@
 import ActionTypes from '../constants/actionTypes'
 
+export const resetEditor = (value) => ({
+  type: ActionTypes.RESET_EDITOR,
+})
+
 export const setPathTitle = (value) => ({
   type: ActionTypes.SET_PATH_TITLE,
   payload: { value: value },
@@ -135,7 +139,7 @@ export const loadPathFromFirestore = (pathId) => {
       .get({ collection: 'paths', doc: pathId })
       .then((doc) => {
         let d = doc.data()
-        // console.log(d)
+        dispatch(resetEditor())
         dispatch(setColor(d.colorHex, d.colorRGB))
         dispatch(setPathTitle(d.name))
         dispatch(setPathSubtitle(d.subtitle))
@@ -143,7 +147,7 @@ export const loadPathFromFirestore = (pathId) => {
           if (id !== 0) dispatch(addKeystone())
           dispatch(setKeystoneName(id, keystone.name))
           dispatch(setKeystoneDetails(id, keystone.detail))
-          dispatch(setKeystoneTooltip(id, keystone.detail)) //TODO: CHANGE TO TOOLTIP
+          dispatch(setKeystoneTooltip(id, keystone.tooltip))
           dispatch(setKeystoneImage(id, keystone.img))
         })
         d.tierNames.forEach((name, tier) => {
@@ -152,7 +156,7 @@ export const loadPathFromFirestore = (pathId) => {
             if (id !== 0) dispatch(addRune(tier))
             dispatch(setRuneName(tier, id, rune.name))
             dispatch(setRuneDetails(tier, id, rune.detail))
-            dispatch(setRuneTooltip(tier, id, rune.detail)) //TODO: CHANGE TO TOOLTIP
+            dispatch(setRuneTooltip(tier, id, rune.tooltip))
             dispatch(setRuneImage(tier, id, rune.img))
           })
         })
