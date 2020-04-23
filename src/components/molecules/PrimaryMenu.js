@@ -180,7 +180,7 @@ function PrimaryMenu({
           ))}
       </S.Menu>
       <S.Description open={openMenus.T2} color={color}>
-        <h4>{(t2 && t2.name) || (flavor && flavor.tierNames && flavor.tierNames[2]) || '2nd Tier'}</h4>
+        <h4>{(t2 && t2.name) || (flavor && flavor.tierNames && flavor.tierNames[1]) || '2nd Tier'}</h4>
         {/* Strip away all html tags from description */}
         {t2 && t2.tooltip ? (
           <ReactMarkdown source={t2.tooltip} escapeHtml={false} skipHtml={false} className="simpleTT" />
