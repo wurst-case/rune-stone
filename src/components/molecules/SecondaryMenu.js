@@ -80,29 +80,30 @@ function SecondaryMenu({
   paths,
 }) {
   var runeMatrix = []
-  runes.forEach((row, rowNumber) =>
-    runeMatrix.push(
-      <S.Menu open={openMenus.RUNES} key={'secondaryRuneMenuRow' + rowNumber}>
-        {row &&
-          row.map((rune, id) => {
-            var disabled =
-              (index[0][0] === rowNumber && index[0][1] !== id) || (index[1][0] === rowNumber && index[1][1] !== id)
+  runes &&
+    runes.forEach((row, rowNumber) =>
+      runeMatrix.push(
+        <S.Menu open={openMenus.RUNES} key={'secondaryRuneMenuRow' + rowNumber}>
+          {row &&
+            row.map((rune, id) => {
+              var disabled =
+                (index[0][0] === rowNumber && index[0][1] !== id) || (index[1][0] === rowNumber && index[1][1] !== id)
 
-            return (
-              <MenuRune
-                color={color}
-                img={rune.img}
-                title={rune.name}
-                description={rune.detail}
-                onClick={() => onSelectRunes(rowNumber, id)}
-                key={'secondary' + rowNumber + '-' + id}
-                disabled={disabled}
-              />
-            )
-          })}
-      </S.Menu>,
-    ),
-  )
+              return (
+                <MenuRune
+                  color={color}
+                  img={rune.img}
+                  title={rune.name}
+                  description={rune.detail}
+                  onClick={() => onSelectRunes(rowNumber, id)}
+                  key={'secondary' + rowNumber + '-' + id}
+                  disabled={disabled}
+                />
+              )
+            })}
+        </S.Menu>,
+      ),
+    )
   t2 = t2 && t2.name === 'Zim’s Magical Rune Randomization Machine' && slotMachine ? slotMachine : t2
   return (
     <S.Menus>
@@ -122,8 +123,8 @@ function SecondaryMenu({
           })}
       </S.Menu>
       <S.Description open={openMenus.FLAVOR} color={color}>
-        <h4>{flavor.name || 'Choose a path.'}</h4>
-        {flavor !== 0 && flavor.subtitle ? (
+        <h4>{(flavor && flavor.name) || 'Choose a path.'}</h4>
+        {flavor !== 0 && flavor && flavor.subtitle ? (
           <p>
             {flavor.subtitle}
             <br />
@@ -135,16 +136,16 @@ function SecondaryMenu({
       </S.Description>
       {runeMatrix}
       <S.Description open={openMenus.RUNES} color={color} className="first">
-        <h4>{t1.name || 'Secondary'}</h4>
-        {t1.name ? (
+        <h4>{(t1 && t1.name) || 'Secondary'}</h4>
+        {t1 && t1.name ? (
           <ReactMarkdown source={t1.tooltip} escapeHtml={false} skipHtml={false} className="simpleTT" />
         ) : (
           <p>Select two runes from your secondary path</p>
         )}
       </S.Description>
       <S.Description open={openMenus.RUNES} color={color}>
-        <h4>{t2.name || 'Secondary'}</h4>
-        {t2.name ? (
+        <h4>{(t2 && t2.name) || 'Secondary'}</h4>
+        {t2 && t2.name ? (
           <ReactMarkdown source={t2.tooltip} escapeHtml={false} skipHtml={false} className="simpleTT" />
         ) : (
           <p>Select two runes from your secondary path</p>

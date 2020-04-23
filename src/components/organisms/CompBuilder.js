@@ -60,14 +60,14 @@ const mapStateToProps = (state) => {
       ]
   }
   return {
-    primeFlavor: primeFlavor || {},
-    keystone: keystone || {},
-    primeT1: primeT1 || {},
-    primeT2: primeT2 || {},
-    primeT3: primeT3 || {},
-    secondFlavor: secondFlavor || {},
-    secondT1: secondT1 || {},
-    secondT2: secondT2 || {},
+    primeFlavor: primeFlavor || null,
+    keystone: keystone || null,
+    primeT1: primeT1 || null,
+    primeT2: primeT2 || null,
+    primeT3: primeT3 || null,
+    secondFlavor: secondFlavor || null,
+    secondT1: secondT1 || null,
+    secondT2: secondT2 || null,
     runeMatrixIndex: runeMatrixIndex || [{}, {}],
     open: {
       PRIMARY: {
@@ -82,7 +82,7 @@ const mapStateToProps = (state) => {
         RUNES: state.composition.OPEN.SECONDARY.RUNES,
       },
     },
-    slotMachine: slotMachine || {},
+    slotMachine: slotMachine || null,
     fresh: state.composition.fresh,
     paths: state.composition.paths,
   }
@@ -155,11 +155,11 @@ class CompBuilder extends Component {
           }}
           openMenus={open.PRIMARY}
           slotMachine={slotMachine}
-          triggerSlot={() => (!pathID || !fresh) && secondT2 && triggerSlot(paths)}
+          triggerSlot={(!pathID || !fresh) && secondT2 ? () => triggerSlot(paths || null) : console.log()}
           icon={primeFlavor && primeFlavor.img}
         />
         <PrimaryMenu
-          color={primeFlavor.colorRGB}
+          color={primeFlavor && primeFlavor.colorRGB}
           keystone={keystone}
           t1={primeT1}
           t2={primeT2}
@@ -185,7 +185,7 @@ class CompBuilder extends Component {
           paths={paths}
         />
         <SecondaryTree
-          color={secondFlavor.colorRGB}
+          color={secondFlavor && secondFlavor.colorRGB}
           t1={secondT1}
           t2={secondT2}
           onToggle={(menu) => {
@@ -193,11 +193,11 @@ class CompBuilder extends Component {
           }}
           openMenus={open.SECONDARY}
           slotMachine={slotMachine}
-          triggerSlot={(!pathID || !fresh) && triggerSlot}
+          triggerSlot={!pathID || !fresh ? () => triggerSlot(paths || null) : console.log()}
           icon={secondFlavor && secondFlavor.img}
         />
         <SecondaryMenu
-          color={secondFlavor.colorRGB}
+          color={secondFlavor && secondFlavor.colorRGB}
           flavor={secondFlavor}
           onSelectFlavor={(id) => {
             onSelectSecondaryFlavor(id)
@@ -207,7 +207,7 @@ class CompBuilder extends Component {
           }}
           openMenus={open.SECONDARY}
           primeFlavor={primeFlavor}
-          runes={[secondFlavor.tier1, secondFlavor.tier2, secondFlavor.tier3]}
+          runes={secondFlavor && [secondFlavor.tier1, secondFlavor.tier2, secondFlavor.tier3]}
           t1={secondT1}
           t2={secondT2}
           index={runeMatrixIndex}
