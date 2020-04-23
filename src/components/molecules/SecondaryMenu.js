@@ -3,7 +3,6 @@ import styled from '@emotion/styled'
 import ReactMarkdown from 'react-markdown/with-html'
 import MenuRune from '../atoms/MenuRune'
 import FlavorMenuRune from '../atoms/FlavorMenuRune'
-import flavors from '../../constants/assetsMap'
 
 const S = {}
 S.Menus = styled.div`
@@ -78,27 +77,29 @@ function SecondaryMenu({
   primeFlavor,
   index,
   slotMachine,
+  paths,
 }) {
   var runeMatrix = []
   runes.forEach((row, rowNumber) =>
     runeMatrix.push(
       <S.Menu open={openMenus.RUNES} key={'secondaryRuneMenuRow' + rowNumber}>
-        {row.map((rune, id) => {
-          var disabled =
-            (index[0][0] === rowNumber && index[0][1] !== id) || (index[1][0] === rowNumber && index[1][1] !== id)
+        {row &&
+          row.map((rune, id) => {
+            var disabled =
+              (index[0][0] === rowNumber && index[0][1] !== id) || (index[1][0] === rowNumber && index[1][1] !== id)
 
-          return (
-            <MenuRune
-              color={color}
-              img={rune.img}
-              title={rune.name}
-              description={rune.detail}
-              onClick={() => onSelectRunes(rowNumber, id)}
-              key={'secondary' + rowNumber + '-' + id}
-              disabled={disabled}
-            />
-          )
-        })}
+            return (
+              <MenuRune
+                color={color}
+                img={rune.img}
+                title={rune.name}
+                description={rune.detail}
+                onClick={() => onSelectRunes(rowNumber, id)}
+                key={'secondary' + rowNumber + '-' + id}
+                disabled={disabled}
+              />
+            )
+          })}
       </S.Menu>,
     ),
   )
@@ -106,22 +107,23 @@ function SecondaryMenu({
   return (
     <S.Menus>
       <S.Menu open={openMenus.FLAVOR} className="flavors">
-        {flavors.map((rune, id) => {
-          if (rune.name !== primeFlavor.name && id !== 0)
-            return (
-              <FlavorMenuRune
-                img={rune.img}
-                onClick={() => onSelectFlavor(id)}
-                key={'secondflavor' + id}
-                picked={flavor ? rune.name === flavor.name : null}
-              />
-            )
-          else return <div key={'secondflavors' + id}></div>
-        })}
+        {paths &&
+          paths.map((rune, id) => {
+            if (rune.name !== primeFlavor.name && id !== 0)
+              return (
+                <FlavorMenuRune
+                  img={rune.img}
+                  onClick={() => onSelectFlavor(id)}
+                  key={'secondflavor' + id}
+                  picked={flavor ? rune.name === flavor.name : null}
+                />
+              )
+            else return <div key={'secondflavors' + id}></div>
+          })}
       </S.Menu>
       <S.Description open={openMenus.FLAVOR} color={color}>
-        <h4>{flavor ? flavor.name : 'Choose a path.'}</h4>
-        {flavor !== 0 ? (
+        <h4>{flavor.name || 'Choose a path.'}</h4>
+        {flavor !== 0 && flavor.subtitle ? (
           <p>
             {flavor.subtitle}
             <br />
@@ -133,16 +135,16 @@ function SecondaryMenu({
       </S.Description>
       {runeMatrix}
       <S.Description open={openMenus.RUNES} color={color} className="first">
-        <h4>{t1 ? t1.name : 'Secondary'}</h4>
-        {t1 ? (
+        <h4>{t1.name || 'Secondary'}</h4>
+        {t1.name ? (
           <ReactMarkdown source={t1.tooltip} escapeHtml={false} skipHtml={false} className="simpleTT" />
         ) : (
           <p>Select two runes from your secondary path</p>
         )}
       </S.Description>
       <S.Description open={openMenus.RUNES} color={color}>
-        <h4>{t2 ? t2.name : 'Secondary'}</h4>
-        {t2 ? (
+        <h4>{t2.name || 'Secondary'}</h4>
+        {t2.name ? (
           <ReactMarkdown source={t2.tooltip} escapeHtml={false} skipHtml={false} className="simpleTT" />
         ) : (
           <p>Select two runes from your secondary path</p>

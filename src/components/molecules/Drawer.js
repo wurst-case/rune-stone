@@ -104,7 +104,7 @@ export const Drawer = ({
           </h4>
           <p>
             {selected
-              ? ((slotMachine && slotMachine.detail) || selected.detail).replace(/<\/?[^>]+(>|$)/g, '')
+              ? (slotMachine && slotMachine.detail) || selected.detail
               : isFlavor
               ? `Select a path`
               : `Select a rune`}
@@ -114,42 +114,43 @@ export const Drawer = ({
       </ListItem>
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding id="runeMenu">
-          {runes.map((rune, id) =>
-            (flavor ? (
-              rune.name !== flavor.name
-            ) : (
-              true
-            )) ? (
-              <ListItem button key={rune.name + id + 'LI'}>
-                {isFlavor ? (
-                  <FlavorMenuRune
-                    img={rune.img}
-                    picked={selected ? rune.name === selected.name : false}
-                    key={rune.name + id + 'RUNE'}
-                    onClick={() => onSelect(id)}
-                  />
-                ) : (
-                  <MenuRune
-                    img={rune.img}
-                    onClick={() => onSelect(id)}
-                    disabled={selected ? rune.name !== selected.name : false}
-                    key={rune.name + id + 'RUNE'}
-                    color={color}
-                  />
-                )}
-                <ListItemText onClick={() => onSelect(id)}>
-                  <h4>{rune.name}</h4>
-                  {/* Strip away all html tags from description */}
-                  <p>{rune ? rune.detail.replace(/<\/?[^>]+(>|$)/g, '') : `Select a rune`}</p>
-                </ListItemText>
-                <ListItemIcon key={rune.name + id + 'ICON'} onClick={() => moreInfo({ rune: rune, color: color })}>
-                  <InfoIcon htmlColor="white" key={rune.name + id + 'INFO'} />
-                </ListItemIcon>
-              </ListItem>
-            ) : (
-              []
-            ),
-          )}
+          {runes &&
+            runes.map((rune, id) =>
+              (flavor ? (
+                rune.name !== flavor.name
+              ) : (
+                true
+              )) ? (
+                <ListItem button key={rune.name + id + 'LI'}>
+                  {isFlavor ? (
+                    <FlavorMenuRune
+                      img={rune.img}
+                      picked={selected ? rune.name === selected.name : false}
+                      key={rune.name + id + 'RUNE'}
+                      onClick={() => onSelect(id)}
+                    />
+                  ) : (
+                    <MenuRune
+                      img={rune.img}
+                      onClick={() => onSelect(id)}
+                      disabled={selected ? rune.name !== selected.name : false}
+                      key={rune.name + id + 'RUNE'}
+                      color={color}
+                    />
+                  )}
+                  <ListItemText onClick={() => onSelect(id)}>
+                    <h4>{rune.name}</h4>
+                    {/* Strip away all html tags from description */}
+                    <p>{rune ? rune.detail.replace(/<\/?[^>]+(>|$)/g, '') : `Select a rune`}</p>
+                  </ListItemText>
+                  <ListItemIcon key={rune.name + id + 'ICON'} onClick={() => moreInfo({ rune: rune, color: color })}>
+                    <InfoIcon htmlColor="white" key={rune.name + id + 'INFO'} />
+                  </ListItemIcon>
+                </ListItem>
+              ) : (
+                []
+              ),
+            )}
         </List>
       </Collapse>
     </S.Drawer>

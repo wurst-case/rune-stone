@@ -5,7 +5,6 @@ import { connect } from 'react-redux'
 import { firestoreConnect } from 'react-redux-firebase'
 import List from '@material-ui/core/List'
 
-import flavors from '../../constants/assetsMap'
 import {
   selectPrimaryFlavor,
   selectKeystone,
@@ -90,6 +89,7 @@ class MobilePathBuilder extends Component {
       slotMachine,
       pathID,
       fresh,
+      paths,
     } = this.props
     // console.log((!pathID || !fresh) && secondT2 && triggerSlot)
 
@@ -123,20 +123,20 @@ class MobilePathBuilder extends Component {
             open={open.PRIMARY.FLAVOR}
             onToggle={() => toggleMenu({ tree: 'PRIMARY', tier: 'FLAVOR' })}
             onSelect={(id) => onSelectPrimaryFlavor(id + 1)}
-            runes={flavors.slice(1)}
+            runes={paths && paths.slice(1)}
             selected={primeFlavor}
             isFlavor
-            color={primeFlavor.colorRGB}
+            color={primeFlavor && primeFlavor.colorRGB}
             moreInfo={openInfoDisplay}
           />
           <Drawer
             open={open.PRIMARY.KEYSTONE}
             onToggle={() => toggleMenu({ tree: 'PRIMARY', tier: 'KEYSTONE' })}
             onSelect={onSelectKeystone}
-            runes={primeFlavor.keystones}
+            runes={primeFlavor && primeFlavor.keystones}
             selected={keystone}
             flavor={primeFlavor}
-            color={primeFlavor.colorRGB}
+            color={primeFlavor && primeFlavor.colorRGB}
             keystone
             moreInfo={openInfoDisplay}
           />
@@ -144,10 +144,10 @@ class MobilePathBuilder extends Component {
             open={open.PRIMARY.T1}
             onToggle={() => toggleMenu({ tree: 'PRIMARY', tier: 'T1' })}
             onSelect={onSelectPrimaryT1}
-            runes={primeFlavor.tier1}
+            runes={primeFlavor && primeFlavor.tier1}
             selected={primeT1}
             flavor={primeFlavor}
-            color={primeFlavor.colorRGB}
+            color={primeFlavor && primeFlavor.colorRGB}
             tier={1}
             moreInfo={openInfoDisplay}
           />
@@ -155,10 +155,10 @@ class MobilePathBuilder extends Component {
             open={open.PRIMARY.T2}
             onToggle={() => toggleMenu({ tree: 'PRIMARY', tier: 'T2' })}
             onSelect={onSelectPrimaryT2}
-            runes={primeFlavor.tier2}
+            runes={primeFlavor && primeFlavor.tier2}
             selected={primeT2}
             flavor={primeFlavor}
-            color={primeFlavor.colorRGB}
+            color={primeFlavor && primeFlavor.colorRGB}
             tier={2}
             moreInfo={openInfoDisplay}
           />
@@ -166,10 +166,10 @@ class MobilePathBuilder extends Component {
             open={open.PRIMARY.T3}
             onToggle={() => toggleMenu({ tree: 'PRIMARY', tier: 'T3' })}
             onSelect={onSelectPrimaryT3}
-            runes={primeFlavor.tier3}
+            runes={primeFlavor && primeFlavor.tier3}
             selected={primeT3}
             flavor={primeFlavor}
-            color={primeFlavor.colorRGB}
+            color={primeFlavor && primeFlavor.colorRGB}
             tier={3}
             moreInfo={openInfoDisplay}
             // slotMachine={slotMachine}
@@ -181,7 +181,7 @@ class MobilePathBuilder extends Component {
             open={open.SECONDARY.FLAVOR}
             onToggle={() => toggleMenu({ tree: 'SECONDARY', tier: 'FLAVOR' })}
             onSelect={(id) => onSelectSecondaryFlavor(id + 1)}
-            runes={flavors.slice(1)}
+            runes={paths && paths.slice(1)}
             selected={secondFlavor}
             isFlavor
             flavor={primeFlavor}
@@ -194,14 +194,14 @@ class MobilePathBuilder extends Component {
             onSelect={(row, id) => {
               onSelectSecondaryRunes(row, id)
             }}
-            runes={secondFlavor ? [secondFlavor.tier1, secondFlavor.tier2, secondFlavor.tier3] : []}
+            runes={secondFlavor && [secondFlavor.tier1, secondFlavor.tier2, secondFlavor.tier3]}
             selected1={secondT1}
             selected2={secondT2}
             color={secondFlavor ? secondFlavor.colorRGB : Layout.GOLD}
             index={runeMatrixIndex}
             moreInfo={openInfoDisplay}
             slotMachine={slotMachine}
-            triggerSlot={(!pathID || !fresh) && secondT2 && triggerSlot}
+            triggerSlot={() => (!pathID || !fresh) && secondT2 && triggerSlot(paths)}
           />
         </List>
       </S.Path>
@@ -210,44 +210,46 @@ class MobilePathBuilder extends Component {
 }
 
 const mapStateToProps = (state) => {
-  let paths = state.composition.paths ? state.composition.paths : flavors
-  // console.log(state.composition)
+  if (state.composition.paths) {
+    let paths = state.composition.paths
+    // console.log(state.composition)
 
-  var primeFlavor = paths[state.composition.PRIMARY_FLAVOR]
-  var keystone = primeFlavor.keystones[state.composition.KEYSTONE]
-  var primeT1 = primeFlavor.tier1[state.composition.PRIMARY_T1]
-  var primeT2 = primeFlavor.tier2[state.composition.PRIMARY_T2]
-  var primeT3 = primeFlavor.tier3[state.composition.PRIMARY_T3]
+    var primeFlavor = paths[state.composition.PRIMARY_FLAVOR]
+    var keystone = primeFlavor.keystones[state.composition.KEYSTONE]
+    var primeT1 = primeFlavor.tier1[state.composition.PRIMARY_T1]
+    var primeT2 = primeFlavor.tier2[state.composition.PRIMARY_T2]
+    var primeT3 = primeFlavor.tier3[state.composition.PRIMARY_T3]
 
-  var secondFlavor = state.composition.SECONDARY_FLAVOR ? paths[state.composition.SECONDARY_FLAVOR] : null
-  var secondT1 = secondFlavor
-    ? secondFlavor['tier' + (state.composition.SECONDARY_T1_ROW + 1)][state.composition.SECONDARY_T1_ID]
-    : null
-  var secondT2 = secondFlavor
-    ? secondFlavor['tier' + (state.composition.SECONDARY_T2_ROW + 1)][state.composition.SECONDARY_T2_ID]
-    : null
-  var runeMatrixIndex = secondFlavor
-    ? [
-        [state.composition.SECONDARY_T1_ROW, state.composition.SECONDARY_T1_ID],
-        [state.composition.SECONDARY_T2_ROW, state.composition.SECONDARY_T2_ID],
+    var secondFlavor = state.composition.SECONDARY_FLAVOR ? paths[state.composition.SECONDARY_FLAVOR] : null
+    var secondT1 = secondFlavor
+      ? secondFlavor['tier' + (state.composition.SECONDARY_T1_ROW + 1)][state.composition.SECONDARY_T1_ID]
+      : null
+    var secondT2 = secondFlavor
+      ? secondFlavor['tier' + (state.composition.SECONDARY_T2_ROW + 1)][state.composition.SECONDARY_T2_ID]
+      : null
+    var runeMatrixIndex = secondFlavor
+      ? [
+          [state.composition.SECONDARY_T1_ROW, state.composition.SECONDARY_T1_ID],
+          [state.composition.SECONDARY_T2_ROW, state.composition.SECONDARY_T2_ID],
+        ]
+      : null
+    var slotMachine =
+      state.composition.slotMachine &&
+      paths[state.composition.slotMachine.flavor]['tier' + (state.composition.slotMachine.tier + 1)][
+        state.composition.slotMachine.id
       ]
-    : null
-  var slotMachine =
-    state.composition.slotMachine &&
-    paths[state.composition.slotMachine.flavor]['tier' + (state.composition.slotMachine.tier + 1)][
-      state.composition.slotMachine.id
-    ]
-
+    var bgImage = paths[state.composition.PRIMARY_FLAVOR].bg
+  }
   return {
-    primeFlavor: primeFlavor,
-    keystone: keystone,
-    primeT1: primeT1,
-    primeT2: primeT2,
-    primeT3: primeT3,
-    secondFlavor: secondFlavor,
-    secondT1: secondT1,
-    secondT2: secondT2,
-    runeMatrixIndex: runeMatrixIndex,
+    primeFlavor: primeFlavor || null,
+    keystone: keystone || null,
+    primeT1: primeT1 || null,
+    primeT2: primeT2 || null,
+    primeT3: primeT3 || null,
+    secondFlavor: secondFlavor || null,
+    secondT1: secondT1 || null,
+    secondT2: secondT2 || null,
+    runeMatrixIndex: runeMatrixIndex || [{}, {}],
     open: {
       PRIMARY: {
         FLAVOR: state.composition.OPEN.PRIMARY.FLAVOR,
@@ -261,10 +263,11 @@ const mapStateToProps = (state) => {
         RUNES: state.composition.OPEN.SECONDARY.RUNES,
       },
     },
-    bgImage: flavors[state.composition.PRIMARY_FLAVOR].bg,
+    bgImage: bgImage || null,
     runeInfo: state.composition.RUNE_INFO,
-    slotMachine: slotMachine,
+    slotMachine: slotMachine || {},
     fresh: state.composition.fresh,
+    paths: state.composition.paths,
   }
 }
 
@@ -283,7 +286,7 @@ const mapDispatchToProps = (dispatch) => {
     toggleInfoDisplay: (rune) => dispatch(toggleInfoDisplay(rune)),
     loadPathsFromFirestore: () => dispatch(loadPathsFromFirestore()),
     loadFromPermalink: (pathID) => dispatch(loadFromPermalink(pathID)),
-    triggerSlot: () => dispatch(triggerSlot(true, flavors)),
+    triggerSlot: (paths) => dispatch(triggerSlot(true, paths)),
   }
 }
 

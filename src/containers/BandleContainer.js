@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import styled from '@emotion/styled'
+// import { useFirebase } from 'react-redux-firebase'
 import Layout from '../constants/layoutConstants'
 import CompBuilder from '../components/organisms/CompBuilder'
-import flavors from '../constants/assetsMap'
 import MobilePathBuilder from '../components/organisms/MobilePathBuilder'
+import { loadImgFromStorage } from '../actions/composition'
 
 const S = {}
 S.Container = styled.div`
@@ -14,7 +15,7 @@ S.Container = styled.div`
   background-size: cover;
   background-color: ${Layout.DARK};
   padding: 20px;
-  /* padding-top: ${Layout.HEADER_HEIGHT * 2}px; */
+
   color: #fff;
   text-align: center;
   height: 100vh;
@@ -33,23 +34,18 @@ S.Container = styled.div`
     height: 100%;
     width: 100vw;
     padding: 0;
-  margin: 0;
+    margin: 0;
   }
 `
 
-const mapStateToProps = (state) => ({
-  bgImage: flavors[state.composition.PRIMARY_FLAVOR].bg,
-  emblem: flavors[state.composition.PRIMARY_FLAVOR].emblem,
-})
-
 export class BandleContainer extends Component {
   componentDidMount() {
-    console.log()
+    // this.props.loadImgFromStorage(this.props.bgImage)
   }
   render() {
-    const { bgImage, emblem } = this.props
+    const { bgImage } = this.props
     return (
-      <S.Container bg={bgImage ? bgImage : null} emblem={emblem ? emblem : null}>
+      <S.Container bg={bgImage ? bgImage : null}>
         <CompBuilder pathID={this.props.match.params.pathID} />
         <MobilePathBuilder />
       </S.Container>
@@ -57,6 +53,17 @@ export class BandleContainer extends Component {
   }
 }
 
-const mapDispatchToProps = {}
+const mapStateToProps = (state) => {
+  let paths = state.composition.paths
+  return {
+    bgImage: paths && paths[state.composition.PRIMARY_FLAVOR].bg,
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    loadImgFromStorage: (imgPath) => dispatch(loadImgFromStorage(imgPath)),
+  }
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(BandleContainer)

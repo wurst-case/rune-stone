@@ -63,20 +63,20 @@ export const DoubleDrawer = ({ color, open, onToggle, flavor, runes, selected1, 
         <Rune active={open} img={selected1 ? selected1.img : null} color={color} />
         <ListItemText>
           <h4>{selected1 ? selected1.name : null}</h4>
-          <p>{selected1 ? selected1.detail.replace(/<\/?[^>]+(>|$)/g, '') : 'Please select rune.'}</p>
+          <p>{selected1 ? selected1.detail : 'Please select rune.'}</p>
         </ListItemText>
       </ListItem>
       <ListItem button onClick={onToggle}>
         <Rune active={open} img={selected2 ? selected2.img : null} color={color} />
         <ListItemText>
           <h4>{selected2 ? selected2.name : null}</h4>
-          <p>{selected2 ? selected2.detail.replace(/<\/?[^>]+(>|$)/g, '') : 'Please select rune.'}</p>
+          <p>{selected2 ? selected2.detail : 'Please select rune.'}</p>
         </ListItemText>
         {open ? <ExpandLessIcon /> : <ExpandMoreIcon />}
       </ListItem>
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding id="runeMenu">
-          {runes ? (
+          {runes &&
             runes.map((tier, row) =>
               tier.map((rune, id) => (
                 <ListItem button onClick={() => onSelect(row, id)} key={rune.name + id + 'LI'}>
@@ -97,10 +97,7 @@ export const DoubleDrawer = ({ color, open, onToggle, flavor, runes, selected1, 
                   </ListItemIcon>
                 </ListItem>
               )),
-            )
-          ) : (
-            <div />
-          )}
+            )}
         </List>
       </Collapse>
     </S.Drawer>

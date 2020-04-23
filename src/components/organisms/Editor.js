@@ -30,7 +30,6 @@ import TierEditor from '../molecules/TierEditor'
 import KeystoneEditor from '../molecules/KeystoneEditor'
 import PathEditor from '../molecules/PathEditor'
 import FilledButton from '../atoms/FilledButton'
-// import assetMap from '../../constants/assetsMap'
 
 const S = {}
 S.Editor = styled.div`

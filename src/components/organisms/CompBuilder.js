@@ -3,7 +3,6 @@ import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { firestoreConnect } from 'react-redux-firebase'
 import styled from '@emotion/styled'
-import flavors from '../../constants/assetsMap'
 import PrimaryTree from '../../components/molecules/PrimaryTree'
 import SecondaryTree from '../../components/molecules/SecondaryTree'
 import PrimaryMenu from '../../components/molecules/PrimaryMenu'
@@ -22,7 +21,7 @@ import {
   loadFromPermalink,
   triggerSlot,
 } from '../../actions/composition'
-import { restoreFromBackup } from '../../actions/editor'
+// import { restoreFromBackup } from '../../actions/editor'
 
 const S = {}
 S.CompBuilder = styled.div`
@@ -38,37 +37,38 @@ S.CompBuilder = styled.div`
 `
 
 const mapStateToProps = (state) => {
-  let paths = state.composition.paths ? state.composition.paths : flavors
+  if (state.composition.paths) {
+    let paths = state.composition.paths
 
-  var primeFlavor = paths[state.composition.PRIMARY_FLAVOR]
-  var keystone = primeFlavor.keystones[state.composition.KEYSTONE]
-  var primeT1 = primeFlavor.tier1[state.composition.PRIMARY_T1]
-  var primeT2 = primeFlavor.tier2[state.composition.PRIMARY_T2]
-  var primeT3 = primeFlavor.tier3[state.composition.PRIMARY_T3]
+    var primeFlavor = paths[state.composition.PRIMARY_FLAVOR]
+    var keystone = primeFlavor.keystones[state.composition.KEYSTONE]
+    var primeT1 = primeFlavor.tier1[state.composition.PRIMARY_T1]
+    var primeT2 = primeFlavor.tier2[state.composition.PRIMARY_T2]
+    var primeT3 = primeFlavor.tier3[state.composition.PRIMARY_T3]
 
-  var secondFlavor = paths[state.composition.SECONDARY_FLAVOR || 0]
-  var secondT1 = secondFlavor['tier' + (state.composition.SECONDARY_T1_ROW + 1)][state.composition.SECONDARY_T1_ID]
-  var secondT2 = secondFlavor['tier' + (state.composition.SECONDARY_T2_ROW + 1)][state.composition.SECONDARY_T2_ID]
-  var runeMatrixIndex = [
-    [state.composition.SECONDARY_T1_ROW, state.composition.SECONDARY_T1_ID],
-    [state.composition.SECONDARY_T2_ROW, state.composition.SECONDARY_T2_ID],
-  ]
-  var slotMachine =
-    state.composition.slotMachine &&
-    paths[state.composition.slotMachine.flavor]['tier' + (state.composition.slotMachine.tier + 1)][
-      state.composition.slotMachine.id
+    var secondFlavor = paths[state.composition.SECONDARY_FLAVOR || 0]
+    var secondT1 = secondFlavor['tier' + (state.composition.SECONDARY_T1_ROW + 1)][state.composition.SECONDARY_T1_ID]
+    var secondT2 = secondFlavor['tier' + (state.composition.SECONDARY_T2_ROW + 1)][state.composition.SECONDARY_T2_ID]
+    var runeMatrixIndex = [
+      [state.composition.SECONDARY_T1_ROW, state.composition.SECONDARY_T1_ID],
+      [state.composition.SECONDARY_T2_ROW, state.composition.SECONDARY_T2_ID],
     ]
-
+    var slotMachine =
+      state.composition.slotMachine &&
+      paths[state.composition.slotMachine.flavor]['tier' + (state.composition.slotMachine.tier + 1)][
+        state.composition.slotMachine.id
+      ]
+  }
   return {
-    primeFlavor: primeFlavor,
-    keystone: keystone,
-    primeT1: primeT1,
-    primeT2: primeT2,
-    primeT3: primeT3,
-    secondFlavor: secondFlavor,
-    secondT1: secondT1,
-    secondT2: secondT2,
-    runeMatrixIndex: runeMatrixIndex,
+    primeFlavor: primeFlavor || {},
+    keystone: keystone || {},
+    primeT1: primeT1 || {},
+    primeT2: primeT2 || {},
+    primeT3: primeT3 || {},
+    secondFlavor: secondFlavor || {},
+    secondT1: secondT1 || {},
+    secondT2: secondT2 || {},
+    runeMatrixIndex: runeMatrixIndex || [{}, {}],
     open: {
       PRIMARY: {
         FLAVOR: state.composition.OPEN.PRIMARY.FLAVOR,
@@ -82,8 +82,9 @@ const mapStateToProps = (state) => {
         RUNES: state.composition.OPEN.SECONDARY.RUNES,
       },
     },
-    slotMachine: slotMachine,
+    slotMachine: slotMachine || {},
     fresh: state.composition.fresh,
+    paths: state.composition.paths,
   }
 }
 
@@ -99,9 +100,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   toggleMenu: (menu) => dispatch(toggleMenu(menu)),
   loadPathsFromFirestore: () => dispatch(loadPathsFromFirestore()),
-  restoreFromBackup: () => dispatch(restoreFromBackup(flavors[6], 'inspiration')),
+  // restoreFromBackup: () => dispatch(restoreFromBackup(flavors[6], 'inspiration')),
   loadFromPermalink: (pathID) => dispatch(loadFromPermalink(pathID)),
-  triggerSlot: () => dispatch(triggerSlot(true, flavors)),
+  triggerSlot: (paths) => dispatch(triggerSlot(true, paths)),
 })
 
 class CompBuilder extends Component {
@@ -138,6 +139,7 @@ class CompBuilder extends Component {
       triggerSlot,
       fresh,
       pathID,
+      paths,
     } = this.props
 
     return (
@@ -153,7 +155,7 @@ class CompBuilder extends Component {
           }}
           openMenus={open.PRIMARY}
           slotMachine={slotMachine}
-          triggerSlot={(!pathID || !fresh) && secondT2 && triggerSlot}
+          triggerSlot={() => (!pathID || !fresh) && secondT2 && triggerSlot(paths)}
           icon={primeFlavor && primeFlavor.img}
         />
         <PrimaryMenu
@@ -180,6 +182,7 @@ class CompBuilder extends Component {
           }}
           openMenus={open.PRIMARY}
           slotMachine={slotMachine}
+          paths={paths}
         />
         <SecondaryTree
           color={secondFlavor.colorRGB}
@@ -209,6 +212,7 @@ class CompBuilder extends Component {
           t2={secondT2}
           index={runeMatrixIndex}
           slotMachine={slotMachine}
+          paths={paths}
         />
       </S.CompBuilder>
     )

@@ -2,7 +2,6 @@ import React from 'react'
 import styled from '@emotion/styled'
 import MenuRune from '../atoms/MenuRune'
 import FlavorMenuRune from '../atoms/FlavorMenuRune'
-import flavors from '../../constants/assetsMap'
 import ReactMarkdown from 'react-markdown/with-html'
 
 const S = {}
@@ -83,23 +82,26 @@ function PrimaryMenu({
   onSelectT3,
   t3,
   slotMachine,
+  paths,
 }) {
   t3 = t3 && t3.name === 'Zim’s Magical Rune Randomization Machine' && slotMachine ? slotMachine : t3
+
   return (
     <S.Menus>
       <S.Menu open={openMenus.FLAVOR} className="flavors">
-        {flavors.map((rune, id) => {
-          if (id !== 0)
-            return (
-              <FlavorMenuRune
-                img={rune.img}
-                onClick={() => onSelectFlavor(id)}
-                key={'primeflavor' + id}
-                picked={rune.name === flavor.name}
-              />
-            )
-          else return <div key={'primeflavor' + id}></div>
-        })}
+        {paths &&
+          paths.map((rune, id) => {
+            if (id !== 0)
+              return (
+                <FlavorMenuRune
+                  img={rune.img}
+                  onClick={() => onSelectFlavor(id)}
+                  key={'primeflavor' + id}
+                  picked={rune.name === flavor.name}
+                />
+              )
+            else return <div key={'primeflavor' + id}></div>
+          })}
       </S.Menu>
       <S.Description open={openMenus.FLAVOR} color={color}>
         <h4>{flavor ? flavor.name : 'Choose a path.'}</h4>
@@ -114,89 +116,93 @@ function PrimaryMenu({
         )}
       </S.Description>
       <S.Menu open={openMenus.KEYSTONE} className="keystones">
-        {flavor.keystones.map((rune, id) => (
-          <MenuRune
-            keystone
-            color={color}
-            img={rune.img}
-            title={rune.name}
-            description={rune.detail}
-            onClick={() => onSelectKeystone(id)}
-            key={'keystone' + id + rune.name}
-            disabled={keystone ? rune.name !== keystone.name : false}
-          />
-        ))}
+        {flavor.keystones &&
+          flavor.keystones.map((rune, id) => (
+            <MenuRune
+              keystone
+              color={color}
+              img={rune.img}
+              title={rune.name}
+              description={rune.detail}
+              onClick={() => onSelectKeystone(id)}
+              key={'keystone' + id + rune.name}
+              disabled={keystone ? rune.name !== keystone.name : false}
+            />
+          ))}
       </S.Menu>
       <S.Description open={openMenus.KEYSTONE} color={color} className="keystones">
-        <h4>{keystone ? keystone.name : 'Keystone'}</h4>
+        <h4>{keystone.name || 'Keystone'}</h4>
         {/* Strip away all html tags from description */}
-        {keystone ? (
+        {keystone.tooltip ? (
           <ReactMarkdown source={keystone.tooltip} escapeHtml={false} skipHtml={false} className="simpleTT" />
         ) : (
           <p>Select a keystone</p>
         )}
       </S.Description>
       <S.Menu open={openMenus.T1}>
-        {flavor.tier1.map((rune, id) => (
-          <MenuRune
-            color={color}
-            img={rune.img}
-            title={rune.name}
-            description={rune.detail}
-            onClick={() => onSelectT1(id)}
-            key={'t1' + id + rune.name}
-            disabled={t1 ? rune.name !== t1.name : false}
-          />
-        ))}
+        {flavor.tier1 &&
+          flavor.tier1.map((rune, id) => (
+            <MenuRune
+              color={color}
+              img={rune.img}
+              title={rune.name}
+              description={rune.detail}
+              onClick={() => onSelectT1(id)}
+              key={'t1' + id + rune.name}
+              disabled={t1 ? rune.name !== t1.name : false}
+            />
+          ))}
       </S.Menu>
       <S.Description open={openMenus.T1} color={color}>
-        <h4>{t1 ? t1.name : flavor.tierNames[0]}</h4>
+        <h4>{t1.name || (flavor.tierNames && flavor.tierNames[0]) || '1st Tier'}</h4>
         {/* Strip away all html tags from description */}
-        {t1 ? (
+        {t1.tooltip ? (
           <ReactMarkdown source={t1.tooltip} escapeHtml={false} skipHtml={false} className="simpleTT" />
         ) : (
           <p>Select a rune</p>
         )}
       </S.Description>
       <S.Menu open={openMenus.T2}>
-        {flavor.tier2.map((rune, id) => (
-          <MenuRune
-            color={color}
-            img={rune.img}
-            title={rune.name}
-            description={rune.detail}
-            onClick={() => onSelectT2(id)}
-            key={'t2' + id + rune.name}
-            disabled={t2 ? rune.name !== t2.name : false}
-          />
-        ))}
+        {flavor.tier2 &&
+          flavor.tier2.map((rune, id) => (
+            <MenuRune
+              color={color}
+              img={rune.img}
+              title={rune.name}
+              description={rune.detail}
+              onClick={() => onSelectT2(id)}
+              key={'t2' + id + rune.name}
+              disabled={t2 ? rune.name !== t2.name : false}
+            />
+          ))}
       </S.Menu>
       <S.Description open={openMenus.T2} color={color}>
-        <h4>{t2 ? t2.name : flavor.tierNames[1]}</h4>
+        <h4>{t2.name || (flavor.tierNames && flavor.tierNames[1]) || '2nd Tier'}</h4>
         {/* Strip away all html tags from description */}
-        {t2 ? (
+        {t2.tooltip ? (
           <ReactMarkdown source={t2.tooltip} escapeHtml={false} skipHtml={false} className="simpleTT" />
         ) : (
           <p>Select a rune</p>
         )}
       </S.Description>
       <S.Menu open={openMenus.T3}>
-        {flavor.tier3.map((rune, id) => (
-          <MenuRune
-            color={color}
-            img={rune.img}
-            title={rune.name}
-            description={rune.detail}
-            onClick={() => onSelectT3(id)}
-            key={'t3' + id + rune.name}
-            disabled={t3 ? rune.name !== t3.name : false}
-          />
-        ))}
+        {flavor.tier3 &&
+          flavor.tier3.map((rune, id) => (
+            <MenuRune
+              color={color}
+              img={rune.img}
+              title={rune.name}
+              description={rune.detail}
+              onClick={() => onSelectT3(id)}
+              key={'t3' + id + rune.name}
+              disabled={t3 ? rune.name !== t3.name : false}
+            />
+          ))}
       </S.Menu>
       <S.Description open={openMenus.T3} color={color}>
-        <h4>{t3 ? t3.name : flavor.tierNames[2]}</h4>
+        <h4>{t3.name || (flavor.tierNames && flavor.tierNames[2]) || '3rd Tier'}</h4>
         {/* Strip away all html tags from description */}
-        {t3 ? (
+        {t3.tooltip ? (
           <ReactMarkdown source={t3.tooltip} escapeHtml={false} skipHtml={false} className="simpleTT" />
         ) : (
           <p>Select a rune</p>

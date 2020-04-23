@@ -29,6 +29,56 @@ export const initialState = {
   slotMachine: null,
   fresh: true,
   pathID: null,
+  assetMap: {
+    bandle: {
+      bg: '',
+      icon: '',
+      ks: '',
+      t1: '',
+      t2: '',
+      t3: '',
+    },
+    precision: {
+      bg: '',
+      icon: '',
+      ks: '',
+      t1: '',
+      t2: '',
+      t3: '',
+    },
+    domination: {
+      bg: '',
+      icon: '',
+      ks: '',
+      t1: '',
+      t2: '',
+      t3: '',
+    },
+    sorcery: {
+      bg: '',
+      icon: '',
+      ks: '',
+      t1: '',
+      t2: '',
+      t3: '',
+    },
+    resolve: {
+      bg: '',
+      icon: '',
+      ks: '',
+      t1: '',
+      t2: '',
+      t3: '',
+    },
+    inspiration: {
+      bg: '',
+      icon: '',
+      ks: '',
+      t1: '',
+      t2: '',
+      t3: '',
+    },
+  },
 }
 
 export function composition(state = initialState, action) {
