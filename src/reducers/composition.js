@@ -165,8 +165,7 @@ export function composition(state = initialState, action) {
           }
         }
       } else state['OPEN']['PRIMARY'][action.payload.tier] = action.payload.value
-      if (action.payload.tier === 'T3') return { ...state, slotMachine: null }
-      else return { ...state }
+      return { ...state }
 
     case ActionTypes.TOGGLE_INFO_DISPLAY:
       // Either will be a rune object if open or null if closed
