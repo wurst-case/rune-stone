@@ -27,6 +27,7 @@ code {
   font-family: 'Beaufort W01 Bold1339640';
   src: url('../assets/Fonts/1339640/de0c3102-6880-4403-9f57-b10402305c4d.woff2') format('woff2'),
     url('../assets/Fonts/1339640/db16c1ca-02e1-440f-ba47-2e52b0f4c580.woff') format('woff');
+  font-display: swap;
 }
 
 /*
