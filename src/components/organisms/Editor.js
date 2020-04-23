@@ -137,9 +137,9 @@ class Editor extends Component {
         <TierEditor
           color={color}
           setTierTitle={setTierTitle}
-          setRuneName={setRuneName}
-          setRuneTooltip={setRuneTooltip}
-          setRuneDetails={setRuneDetails}
+          setName={setRuneName}
+          setTooltip={setRuneTooltip}
+          setDetails={setRuneDetails}
           tier={tier2}
           tierId={1}
           onAdd={() => addRune(1)}
@@ -148,9 +148,9 @@ class Editor extends Component {
         <TierEditor
           color={color}
           setTierTitle={setTierTitle}
-          setRuneName={setRuneName}
-          setRuneTooltip={setRuneTooltip}
-          setRuneDetails={setRuneDetails}
+          setName={setRuneName}
+          setTooltip={setRuneTooltip}
+          setDetails={setRuneDetails}
           tier={tier3}
           tierId={2}
           onAdd={() => addRune(2)}
@@ -172,8 +172,6 @@ class Editor extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state.editor)
-
   return {
     fsData: state.firestore.ordered.paths,
     editor: state.editor,
