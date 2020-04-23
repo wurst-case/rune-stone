@@ -16,7 +16,6 @@ S.Tree = styled.div`
 function PrimaryTree({ color, keystone, t1, t2, t3, onToggle, openMenus, slotMachine, triggerSlot, icon }) {
   if (document.getElementById('swirl' + color)) {
     document.getElementById('swirl' + color).style.stopColor = 'rgba(' + color + ',1)'
-    console.log(document.getElementById('swirl' + color).style.stopColor)
   }
 
   return (
@@ -54,11 +53,7 @@ function PrimaryTree({ color, keystone, t1, t2, t3, onToggle, openMenus, slotMac
       <Rune
         color={color}
         img={
-          t3 && t3.name === 'Zim’s Magical Rune Randomization Machine' && slotMachine
-            ? slotMachine.img
-            : t3
-            ? t3.img
-            : null
+          t3 && t3.name === 'Zim’s Magical Rune Randomization Machine' && slotMachine ? slotMachine.img : t3 && t3.img
         }
         onClick={() => onToggle({ tier: 'T3' })}
         active={openMenus.T3}

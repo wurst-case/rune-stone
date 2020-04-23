@@ -13,7 +13,7 @@ export const initialState = {
   SECONDARY_T2_ID: null,
   OPEN: {
     PRIMARY: {
-      FLAVOR: true,
+      FLAVOR: null,
       KEYSTONE: null,
       T1: null,
       T2: null,
@@ -29,62 +29,12 @@ export const initialState = {
   slotMachine: null,
   fresh: true,
   pathID: null,
-  assetMap: {
-    bandle: {
-      bg: '',
-      icon: '',
-      ks: '',
-      t1: '',
-      t2: '',
-      t3: '',
-    },
-    precision: {
-      bg: '',
-      icon: '',
-      ks: '',
-      t1: '',
-      t2: '',
-      t3: '',
-    },
-    domination: {
-      bg: '',
-      icon: '',
-      ks: '',
-      t1: '',
-      t2: '',
-      t3: '',
-    },
-    sorcery: {
-      bg: '',
-      icon: '',
-      ks: '',
-      t1: '',
-      t2: '',
-      t3: '',
-    },
-    resolve: {
-      bg: '',
-      icon: '',
-      ks: '',
-      t1: '',
-      t2: '',
-      t3: '',
-    },
-    inspiration: {
-      bg: '',
-      icon: '',
-      ks: '',
-      t1: '',
-      t2: '',
-      t3: '',
-    },
-  },
 }
 
 export function composition(state = initialState, action) {
   switch (action.type) {
     case ActionTypes.RESET:
-      return { ...initialState, PRIMARY_FLAVOR: state.PRIMARY_FLAVOR }
+      return { ...initialState, PRIMARY_FLAVOR: state.PRIMARY_FLAVOR, paths: state.paths }
     case ActionTypes.SELECT_PRIMARY_FLAVOR:
       // Close menu, open next menu
       state.OPEN.PRIMARY.FLAVOR = false
@@ -123,48 +73,35 @@ export function composition(state = initialState, action) {
       if (action.payload === 2 && state.PRIMARY_FLAVOR === 1) return { ...state, PRIMARY_T3: action.payload }
       return { ...state, PRIMARY_T3: action.payload, slotMachine: null }
     case ActionTypes.TRIGGER_SLOT:
-      var possibleRunes = action.payload.runes.map((rune, i) => ({
-        id: i,
-        tiers: [
-          { id: 0, runes: Array.from(Array(rune.tier1.length).keys()) },
-          { id: 1, runes: Array.from(Array(rune.tier2.length).keys()) },
-          { id: 2, runes: Array.from(Array(rune.tier3.length).keys()) },
-        ],
-      }))
-      //  none from the rows of picked runes of secondary tree, make sure to splice the second one first
-      possibleRunes[state.SECONDARY_FLAVOR].tiers.splice(state.SECONDARY_T2_ROW, 1)
-      possibleRunes[state.SECONDARY_FLAVOR].tiers.splice(state.SECONDARY_T1_ROW, 1)
-      //  none from the rows of primary tree
-      possibleRunes.splice(state.PRIMARY_FLAVOR, 1)
-      // remove empty path
-      possibleRunes.splice(0, 1)
-      var rand1 = Math.floor(Math.random() * possibleRunes.length)
-      var rand2 = Math.floor(Math.random() * possibleRunes[rand1].tiers.length)
-      var rand3 = Math.floor(Math.random() * possibleRunes[rand1].tiers[rand2].runes.length)
-
-      // console.log(possibleRunes)
-      // console.log(
-      //   possibleRunes.length,
-      //   possibleRunes[rand1].tiers.length,
-      //   possibleRunes[rand1].tiers[rand2].runes.length,
-      // )
-      // console.log(rand1, rand2, rand3)
-      // var slotMachine = {
-      //   flavor: possibleRunes[rand1].id,
-      //   tier: possibleRunes[rand1].tiers[rand2].id,
-      //   id: possibleRunes[rand1].tiers[rand2].runes[rand3],
-      // }
-      // console.log(slotMachine)
-      console.log('triggered')
-      // None from 1 aka bandle, none from other
-      return {
-        ...state,
-        slotMachine: {
-          flavor: possibleRunes[rand1].id,
-          tier: possibleRunes[rand1].tiers[rand2].id,
-          id: possibleRunes[rand1].tiers[rand2].runes[rand3],
-        },
-      }
+      if (state.paths) {
+        var possibleRunes = state.paths.map((rune, i) => ({
+          id: i,
+          tiers: [
+            { id: 0, runes: Array.from(Array(rune.tier1.length).keys()) },
+            { id: 1, runes: Array.from(Array(rune.tier2.length).keys()) },
+            { id: 2, runes: Array.from(Array(rune.tier3.length).keys()) },
+          ],
+        }))
+        //  none from the rows of picked runes of secondary tree, make sure to splice the second one first
+        possibleRunes[state.SECONDARY_FLAVOR].tiers.splice(state.SECONDARY_T2_ROW, 1)
+        possibleRunes[state.SECONDARY_FLAVOR].tiers.splice(state.SECONDARY_T1_ROW, 1)
+        //  none from the rows of primary tree
+        possibleRunes.splice(state.PRIMARY_FLAVOR, 1)
+        // remove empty path
+        possibleRunes.splice(0, 1)
+        var rand1 = Math.floor(Math.random() * possibleRunes.length)
+        var rand2 = Math.floor(Math.random() * possibleRunes[rand1].tiers.length)
+        var rand3 = Math.floor(Math.random() * possibleRunes[rand1].tiers[rand2].runes.length)
+        // None from 1 aka bandle, none from other
+        return {
+          ...state,
+          slotMachine: {
+            flavor: possibleRunes[rand1].id,
+            tier: possibleRunes[rand1].tiers[rand2].id,
+            id: possibleRunes[rand1].tiers[rand2].runes[rand3],
+          },
+        }
+      } else return state
     case ActionTypes.SELECT_SECONDARY_FLAVOR:
       // Close menu, open next menu
       state.OPEN.SECONDARY.FLAVOR = false

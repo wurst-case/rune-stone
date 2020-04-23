@@ -102,7 +102,7 @@ const mapDispatchToProps = (dispatch) => ({
   loadPathsFromFirestore: () => dispatch(loadPathsFromFirestore()),
   // restoreFromBackup: () => dispatch(restoreFromBackup(flavors[6], 'inspiration')),
   loadFromPermalink: (pathID) => dispatch(loadFromPermalink(pathID)),
-  triggerSlot: (paths) => dispatch(triggerSlot(true, paths)),
+  triggerSlot: () => dispatch(triggerSlot()),
 })
 
 class CompBuilder extends Component {
@@ -155,7 +155,7 @@ class CompBuilder extends Component {
           }}
           openMenus={open.PRIMARY}
           slotMachine={slotMachine}
-          triggerSlot={(!pathID || !fresh) && secondT2 ? () => triggerSlot(paths || null) : console.log()}
+          triggerSlot={(!pathID || !fresh) && secondT2 ? () => triggerSlot() : console.log()}
           icon={primeFlavor && primeFlavor.img}
         />
         <PrimaryMenu
@@ -193,7 +193,7 @@ class CompBuilder extends Component {
           }}
           openMenus={open.SECONDARY}
           slotMachine={slotMachine}
-          triggerSlot={!pathID || !fresh ? () => triggerSlot(paths || null) : console.log()}
+          triggerSlot={!pathID || !fresh ? () => triggerSlot() : console.log()}
           icon={secondFlavor && secondFlavor.img}
         />
         <SecondaryMenu

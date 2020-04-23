@@ -14,10 +14,9 @@ export const toggleMenu = (menu) => {
     payload: { ...menu, value: menu.value ? null : !composition['OPEN'][menu.tree][menu.tier] },
   }
 }
-export const triggerSlot = (primary, runes) => {
+export const triggerSlot = () => {
   return {
     type: ActionTypes.TRIGGER_SLOT,
-    payload: { primary, runes },
   }
 }
 

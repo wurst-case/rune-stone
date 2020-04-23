@@ -2,7 +2,6 @@ import React from 'react'
 import styled from '@emotion/styled'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
-import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
 import Collapse from '@material-ui/core/Collapse'
 import InfoIcon from '@material-ui/icons/Info'
@@ -45,15 +44,75 @@ S.Drawer = styled.div`
     padding: 0;
     margin: 0;
     padding-left: 8px;
+
+    box-sizing: border-box;
   }
 
   .title {
     padding-left: 8px;
     font-family: 'Beaufort W01 Bold1339640';
+
+    box-sizing: border-box;
   }
 
   #runeMenu {
     background-color: rgba(255, 255, 255, 0.05);
+  }
+  .MuiList-padding .MuiList-root {
+    padding-bottom: 0;
+  }
+
+  .MuiListItem-root.subMenu {
+    padding-bottom: 0;
+    padding-top: 0;
+
+    box-sizing: border-box;
+  }
+
+  .listItemWrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    min-height: 108px;
+
+    box-sizing: border-box;
+  }
+
+  .listItemWrapper > div {
+    display: flex;
+    flex-direction: row;
+    justify-content: stretch;
+    padding-bottom: 8px;
+    padding-top: 8px;
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .iconWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* background-color: rgba(255, 255, 255, 0.05); */
+    height: 80px;
+    width: 100%;
+    max-width: 44px;
+    padding-bottom: 8px;
+    padding-top: 8px;
+    /* padding-left: 8px; */
+    box-sizing: border-box;
+  }
+
+  .runeWrap {
+    min-width: 84px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    box-sizing: border-box;
   }
 `
 
@@ -72,30 +131,31 @@ export const Drawer = ({
   slotMachine,
   triggerSlot,
 }) => {
-  // selected =
-  //   selected && selected.name === 'Zim’s Magical Rune Randomization Machine' && slotMachine ? slotMachine : selected
-  // console.log('triigerFunc: ', triggerSlot, 'smVal: ', slotMachine)
+  selected =
+    selected && selected.name === 'Zim’s Magical Rune Randomization Machine' && slotMachine ? slotMachine : selected
 
   return (
     <S.Drawer color={color}>
       <ListItem button onClick={onToggle}>
-        <Rune
-          active={open}
-          img={
-            selected && selected.name === 'Zim’s Magical Rune Randomization Machine' && slotMachine
-              ? slotMachine.img
-              : selected
-              ? selected.img
-              : null
-          }
-          color={color}
-          slotMachine={selected && selected.name === 'Zim’s Magical Rune Randomization Machine'}
-          triggerSlot={triggerSlot}
-        />
+        <div className="runeWrap">
+          <Rune
+            active={open}
+            img={
+              selected && selected.name === 'Zim’s Magical Rune Randomization Machine' && slotMachine
+                ? slotMachine.img
+                : selected && selected.img
+            }
+            color={color}
+            slotMachine={selected && selected.name === 'Zim’s Magical Rune Randomization Machine'}
+            triggerSlot={triggerSlot}
+            keystone={keystone}
+          />
+        </div>
         <ListItemText>
           <h4>
             {selected
-              ? (slotMachine && slotMachine.name) || selected.name
+              ? (selected.name === 'Zim’s Magical Rune Randomization Machine' && slotMachine && slotMachine.name) ||
+                selected.name
               : flavor
               ? keystone
                 ? 'Keystone'
@@ -104,7 +164,10 @@ export const Drawer = ({
           </h4>
           <p>
             {selected
-              ? (slotMachine && slotMachine.detail) || selected.detail
+              ? (selected.name === 'Zim’s Magical Rune Randomization Machine' &&
+                  slotMachine &&
+                  slotMachine.detail.replace(/<\/?[^>]+(>|$)/g, '')) ||
+                selected.detail.replace(/<\/?[^>]+(>|$)/g, '')
               : isFlavor
               ? `Select a path`
               : `Select a rune`}
@@ -121,31 +184,39 @@ export const Drawer = ({
               ) : (
                 true
               )) ? (
-                <ListItem button key={rune.name + id + 'LI'}>
-                  {isFlavor ? (
-                    <FlavorMenuRune
-                      img={rune.img}
-                      picked={selected ? rune.name === selected.name : false}
-                      key={rune.name + id + 'RUNE'}
-                      onClick={() => onSelect(id)}
-                    />
-                  ) : (
-                    <MenuRune
-                      img={rune.img}
-                      onClick={() => onSelect(id)}
-                      disabled={selected ? rune.name !== selected.name : false}
-                      key={rune.name + id + 'RUNE'}
-                      color={color}
-                    />
-                  )}
-                  <ListItemText onClick={() => onSelect(id)}>
-                    <h4>{rune.name}</h4>
-                    {/* Strip away all html tags from description */}
-                    <p>{rune ? rune.detail.replace(/<\/?[^>]+(>|$)/g, '') : `Select a rune`}</p>
-                  </ListItemText>
-                  <ListItemIcon key={rune.name + id + 'ICON'} onClick={() => moreInfo({ rune: rune, color: color })}>
-                    <InfoIcon htmlColor="white" key={rune.name + id + 'INFO'} />
-                  </ListItemIcon>
+                <ListItem button key={rune.name + id + 'LI'} className="subMenu">
+                  <div className="listItemWrapper">
+                    <div onClick={() => onSelect(id)}>
+                      <div className="runeWrap">
+                        {isFlavor ? (
+                          <FlavorMenuRune
+                            img={rune.img}
+                            picked={selected ? rune.name === selected.name : false}
+                            key={rune.name + id + 'RUNE'}
+                            onClick={() => onSelect(id)}
+                          />
+                        ) : (
+                          <MenuRune
+                            img={rune.img}
+                            onClick={() => onSelect(id)}
+                            disabled={selected ? rune.name !== selected.name : false}
+                            key={rune.name + id + 'RUNE'}
+                            color={color}
+                          />
+                        )}
+                      </div>
+                      <ListItemText>
+                        <h4>{rune.name}</h4>
+                        {/* Strip away all html tags from description */}
+                        <p>{rune ? rune.detail.replace(/<\/?[^>]+(>|$)/g, '') : `Select a rune`}</p>
+                      </ListItemText>
+                    </div>
+                    {isFlavor || (
+                      <div className="iconWrapper" onClick={() => moreInfo({ rune: rune, color: color })}>
+                        <InfoIcon htmlColor="white" key={rune.name + id + 'INFO'} />
+                      </div>
+                    )}
+                  </div>
                 </ListItem>
               ) : (
                 []

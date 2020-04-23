@@ -6,7 +6,7 @@ import Layout from '../../constants/layoutConstants'
 const S = {}
 S.Footer = styled.div`
   min-height: 60px;
-  width: 100vw;
+  width: 100%;
   padding: 32px 16px;
   box-sizing: border-box;
   background-color: ${Layout.DARK};

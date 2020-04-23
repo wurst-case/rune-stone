@@ -28,7 +28,6 @@ S.Display = styled.div`
   padding: 16px;
 
   #close {
-    align-self: flex-end;
     margin: 16px;
   }
 
@@ -47,10 +46,20 @@ S.Display = styled.div`
     align-self: flex-start;
     font-size: 0.8rem;
   }
+
+  .iconWrapper {
+    align-self: flex-end;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.05);
+    height: 64px;
+    width: 64px;
+  }
 `
 //not working
 S.ClickPreventer = styled.div`
-  pointer-events: none;
+  /* pointer-events: none; */
   width: 100vw;
   height: 100vh;
   color: red;
@@ -62,8 +71,10 @@ S.ClickPreventer = styled.div`
 const InfoDisplay = ({ color, rune, onClose, open }) => {
   return (
     <S.Display open={open} color={color}>
-      <S.ClickPreventer />
-      <CloseIcon id="close" onClick={onClose} />
+      <S.ClickPreventer onClick={onClose} />
+      <div className="iconWrapper">
+        <CloseIcon id="close" onClick={onClose} />
+      </div>
       <Rune keystone color={color} img={rune && rune.img} />
       <h2>{rune && rune.name}</h2>
       <ReactMarkdown source={rune && rune.detail} escapeHtml={false} skipHtml={false} id="detail" />

@@ -14,7 +14,6 @@ S.Container = styled.div`
   background-repeat: no-repeat;
   background-size: cover;
   background-color: ${Layout.DARK};
-  padding: 20px;
 
   color: #fff;
   text-align: center;
@@ -35,6 +34,7 @@ S.Container = styled.div`
     width: 100vw;
     padding: 0;
     margin: 0;
+    box-sizing: border-box;
   }
 `
 

@@ -8,12 +8,12 @@ import { makePermalink, reset } from '../../actions/composition'
 
 const S = {}
 S.Header = styled.div`
-  min-width: 10vw;
+  min-width: 8vw;
   height: 100%;
+  margin-right: 16px;
 
   & > div {
     position: fixed;
-
     background-color: ${Layout.DARK};
     padding: 16px;
     color: rgba(${Layout.GOLD}, 1);

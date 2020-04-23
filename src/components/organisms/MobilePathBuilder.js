@@ -92,11 +92,11 @@ class MobilePathBuilder extends Component {
       runeInfo,
       toggleInfoDisplay,
       slotMachine,
+      triggerSlot,
       pathID,
       fresh,
       paths,
     } = this.props
-    // console.log((!pathID || !fresh) && secondT2 && triggerSlot)
 
     function closeInfoDisplay() {
       const scrollY = document.body.style.top
@@ -181,8 +181,8 @@ class MobilePathBuilder extends Component {
             color={primeFlavor && primeFlavor.colorRGB}
             tier={3}
             moreInfo={openInfoDisplay}
-            // slotMachine={slotMachine}
-            // triggerSlot={() => triggerSlot()}
+            slotMachine={slotMachine}
+            triggerSlot={(!pathID || !fresh) && secondT2 ? () => triggerSlot() : null}
           />
         </List>
         <List component="nav" aria-label="secondary tree">
@@ -210,7 +210,7 @@ class MobilePathBuilder extends Component {
             index={runeMatrixIndex}
             moreInfo={openInfoDisplay}
             slotMachine={slotMachine}
-            triggerSlot={() => (!pathID || !fresh) && secondT2 && triggerSlot(paths)}
+            triggerSlot={(!pathID || !fresh) && secondT2 ? () => triggerSlot() : null}
           />
         </List>
       </S.Path>
@@ -221,7 +221,6 @@ class MobilePathBuilder extends Component {
 const mapStateToProps = (state) => {
   if (state.composition.paths) {
     let paths = state.composition.paths
-    // console.log(state.composition)
 
     var primeFlavor = paths[state.composition.PRIMARY_FLAVOR]
     var keystone = primeFlavor.keystones[state.composition.KEYSTONE]
@@ -278,30 +277,28 @@ const mapStateToProps = (state) => {
     bgChrome: bgChrome || null,
     bgSafari: bgSafari || null,
     runeInfo: state.composition.RUNE_INFO,
-    slotMachine: slotMachine || {},
+    slotMachine: slotMachine || null,
     fresh: state.composition.fresh,
     paths: state.composition.paths,
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onSelectPrimaryFlavor: (id) => dispatch(selectPrimaryFlavor(id)),
-    onSelectKeystone: (id) => dispatch(selectKeystone(id)),
-    onSelectPrimaryT1: (id) => dispatch(selectPrimaryT1(id)),
-    onSelectPrimaryT2: (id) => dispatch(selectPrimaryT2(id)),
-    onSelectPrimaryT3: (id) => dispatch(selectPrimaryT3(id)),
-    onSelectSecondaryFlavor: (id) => dispatch(selectSecondaryFlavor(id)),
-    onSelectSecondaryRunes: (row, id) => {
-      dispatch(selectSecondaryRunes(row, id))
-    },
-    toggleMenu: (menu) => dispatch(toggleMenu(menu)),
-    toggleInfoDisplay: (rune) => dispatch(toggleInfoDisplay(rune)),
-    loadPathsFromFirestore: () => dispatch(loadPathsFromFirestore()),
-    loadFromPermalink: (pathID) => dispatch(loadFromPermalink(pathID)),
-    triggerSlot: (paths) => dispatch(triggerSlot(true, paths)),
-  }
-}
+const mapDispatchToProps = (dispatch) => ({
+  onSelectPrimaryFlavor: (id) => dispatch(selectPrimaryFlavor(id)),
+  onSelectKeystone: (id) => dispatch(selectKeystone(id)),
+  onSelectPrimaryT1: (id) => dispatch(selectPrimaryT1(id)),
+  onSelectPrimaryT2: (id) => dispatch(selectPrimaryT2(id)),
+  onSelectPrimaryT3: (id) => dispatch(selectPrimaryT3(id)),
+  onSelectSecondaryFlavor: (id) => dispatch(selectSecondaryFlavor(id)),
+  onSelectSecondaryRunes: (row, id) => {
+    dispatch(selectSecondaryRunes(row, id))
+  },
+  toggleMenu: (menu) => dispatch(toggleMenu(menu)),
+  toggleInfoDisplay: (rune) => dispatch(toggleInfoDisplay(rune)),
+  loadPathsFromFirestore: () => dispatch(loadPathsFromFirestore()),
+  loadFromPermalink: (pathID) => dispatch(loadFromPermalink(pathID)),
+  triggerSlot: () => dispatch(triggerSlot()),
+})
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),

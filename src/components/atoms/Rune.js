@@ -141,9 +141,6 @@ S.Tooltip = styled.div`
 `
 
 function Rune({ color, keystone, active, onClick, img, slotMachine, triggerSlot, title, description }) {
-  // console.log(document.getElementById('slotMachine').onanimationstart)
-  // console.log(triggerSlot)
-
   return (
     <S.Tooltip empty={!title && !description && true}>
       <S.Rune color={color} keystone={keystone} active={active} onClick={onClick}>
