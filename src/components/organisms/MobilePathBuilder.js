@@ -39,10 +39,15 @@ S.Path = styled.div`
   padding: 0;
   margin: 0;
 
-  & > img {
+  & > picture {
+    display: flex;
     height: 33vh;
     min-height: 180px;
-    width: 100%;
+    width: 100vw;
+    /* overflow: hidden; */
+  }
+  & > picture > img {
+    width: 100vw;
     object-fit: cover;
     object-position: center right;
   }
@@ -116,9 +121,13 @@ class MobilePathBuilder extends Component {
     return (
       <S.Path>
         <InfoDisplay open={runeInfo || false} onClose={closeInfoDisplay} rune={runeInfo && runeInfo.rune} />
-        <img src={bgImage} alt="" />
+        <picture>
+          <source srcSet={this.props.bgChrome} type="image/webp" />
+          <source srcSet={this.props.bgSafari} type="image/jpeg" />
+          <img src={bgImage} alt="background" />
+        </picture>
 
-        <List component="nav" aria-labelledby="nested-list-subheader">
+        <List component="nav" aria-label="primary tree">
           <Drawer
             open={open.PRIMARY.FLAVOR}
             onToggle={() => toggleMenu({ tree: 'PRIMARY', tier: 'FLAVOR' })}
@@ -176,7 +185,7 @@ class MobilePathBuilder extends Component {
             // triggerSlot={() => triggerSlot()}
           />
         </List>
-        <List component="nav" aria-labelledby="nested-list-subheader">
+        <List component="nav" aria-label="secondary tree">
           <Drawer
             open={open.SECONDARY.FLAVOR}
             onToggle={() => toggleMenu({ tree: 'SECONDARY', tier: 'FLAVOR' })}
@@ -238,7 +247,9 @@ const mapStateToProps = (state) => {
       paths[state.composition.slotMachine.flavor]['tier' + (state.composition.slotMachine.tier + 1)][
         state.composition.slotMachine.id
       ]
-    var bgImage = paths[state.composition.PRIMARY_FLAVOR].bg
+    var bgImage = paths[state.composition.PRIMARY_FLAVOR].bgMobile
+    var bgChrome = paths[state.composition.PRIMARY_FLAVOR].bgMobileChrome
+    var bgSafari = paths[state.composition.PRIMARY_FLAVOR].bgMobileSafari
   }
   return {
     primeFlavor: primeFlavor || null,
@@ -264,6 +275,8 @@ const mapStateToProps = (state) => {
       },
     },
     bgImage: bgImage || null,
+    bgChrome: bgChrome || null,
+    bgSafari: bgSafari || null,
     runeInfo: state.composition.RUNE_INFO,
     slotMachine: slotMachine || {},
     fresh: state.composition.fresh,

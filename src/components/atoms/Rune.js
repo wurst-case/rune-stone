@@ -147,7 +147,7 @@ function Rune({ color, keystone, active, onClick, img, slotMachine, triggerSlot,
   return (
     <S.Tooltip empty={!title && !description && true}>
       <S.Rune color={color} keystone={keystone} active={active} onClick={onClick}>
-        <S.Spark src={spark} keystone={keystone} active={active} />
+        <S.Spark src={spark} keystone={keystone} active={active} alt="active spark" />
         {img ? (
           <img
             className={triggerSlot && slotMachine && !active ? 'animation' : 'graphic'}

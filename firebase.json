@@ -18,7 +18,36 @@
         "destination": "/index.html"
       }
     ],
-    "cleanUrls": true
+    "cleanUrls": true,
+    "headers": [
+      {
+        "source": "**/*.@(eot|otf|ttf|ttc|woff|woff2|font.css)",
+        "headers": [
+          {
+            "key": "Access-Control-Allow-Origin",
+            "value": "*"
+          }
+        ]
+      },
+      {
+        "source": "**/*.@(jpg|jpeg|gif|png|js|woff2|css)",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "max-age=31536000"
+          }
+        ]
+      },
+      {
+        "source": "404.html",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "max-age=300"
+          }
+        ]
+      }
+    ]
   },
   "rewrites": [
     {

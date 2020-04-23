@@ -27,7 +27,6 @@ function FlavorRune({ color, onClick, icon }) {
       <img src={icon} alt="path icon" />
       <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" viewBox="0 0 61 60.55">
         <defs>
-          <ref id="paramX" param="x" default="#0f0" />
           <linearGradient
             id={'linear-gradient'}
             x1="33.67"
@@ -58,20 +57,18 @@ function FlavorRune({ color, onClick, icon }) {
             xlinkHref="#linear-gradient"
           />
         </defs>
-        <g id="Layer_2" data-name="Layer 2">
-          <path
-            style={{ fill: 'url(#linear-gradient)' }}
-            d="M33.67.49A27.33,27.33,0,1,0,61,27.81,27.33,27.33,0,0,0,33.67.49Zm0,52.61A25.29,25.29,0,1,1,59,27.81,25.29,25.29,0,0,1,33.67,53.1Z"
-          />
-          <path
-            style={{ fill: 'url(#linear-gradient-2)' }}
-            d="M53.52,46.88a27.33,27.33,0,1,0-37.33,10A27.32,27.32,0,0,0,53.52,46.88ZM8,20.57a25.28,25.28,0,1,1,9.25,34.55A25.29,25.29,0,0,1,8,20.57Z"
-          />
-          <path
-            style={{ fill: 'url(#linear-gradient-3)' }}
-            d="M3.67,41a27.32,27.32,0,1,0,10-37.32A27.32,27.32,0,0,0,3.67,41Zm45.56-26.3A25.29,25.29,0,1,1,14.69,5.43,25.28,25.28,0,0,1,49.23,14.69Z"
-          />
-        </g>
+        <path
+          style={{ fill: 'url(#linear-gradient)' }}
+          d="M33.67.49A27.33,27.33,0,1,0,61,27.81,27.33,27.33,0,0,0,33.67.49Zm0,52.61A25.29,25.29,0,1,1,59,27.81,25.29,25.29,0,0,1,33.67,53.1Z"
+        />
+        <path
+          style={{ fill: 'url(#linear-gradient-2)' }}
+          d="M53.52,46.88a27.33,27.33,0,1,0-37.33,10A27.32,27.32,0,0,0,53.52,46.88ZM8,20.57a25.28,25.28,0,1,1,9.25,34.55A25.29,25.29,0,0,1,8,20.57Z"
+        />
+        <path
+          style={{ fill: 'url(#linear-gradient-3)' }}
+          d="M3.67,41a27.32,27.32,0,1,0,10-37.32A27.32,27.32,0,0,0,3.67,41Zm45.56-26.3A25.29,25.29,0,1,1,14.69,5.43,25.28,25.28,0,0,1,49.23,14.69Z"
+        />
       </svg>
     </S.FlavorRune>
   )
