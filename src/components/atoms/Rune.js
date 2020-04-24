@@ -117,9 +117,11 @@ S.Tooltip = styled.div`
       font-size: 0.9rem;
     }
 
-    p {
+    p,
+    ul,
+    li {
       font-size: 0.75rem;
-      color: white;
+      font-family: 'Roboto';
     }
   }
 

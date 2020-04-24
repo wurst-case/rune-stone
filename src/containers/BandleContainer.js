@@ -15,7 +15,6 @@ S.Container = styled.div`
   background-size: cover;
   background-color: ${Layout.DARK};
 
-  color: #fff;
   text-align: center;
   height: 100vh;
   width: 100%;
@@ -23,6 +22,7 @@ S.Container = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  padding: 16px;
 
   @media only screen and (max-width: 1100px) {
     background: ${Layout.DARK};
