@@ -177,11 +177,6 @@ export const makePermalink = () => {
     (SECONDARY_T2_ROW === null ? 'n' : SECONDARY_T2_ROW) +
     '_' +
     (SECONDARY_T2_ID === null ? 'n' : SECONDARY_T2_ID)
-  // console.log(navigator)
-
-  // navigator.clipboard.writeText(pathID).then(alert('copied www.rune-stone.com/' + pathID + ' to clipboard!'), (err) => {
-  //   console.error('Async: Could not copy text: ', err)
-  // })
   return {
     type: ActionTypes.MAKE_PERMALINK,
     payload: pathID,

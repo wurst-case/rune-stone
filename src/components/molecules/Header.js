@@ -80,6 +80,7 @@ S.Header = styled.div`
       left: '-1000px';
       top: '-1000px';
       opacity: 0;
+      color: transparent;
     }
   }
 `
@@ -109,6 +110,7 @@ export class Header extends Component {
           <WrappedLogo />
           <h5
             onClick={() => {
+              this.forceUpdate()
               this.props.makePermalink()
             }}
           >
