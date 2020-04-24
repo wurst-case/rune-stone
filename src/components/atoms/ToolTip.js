@@ -33,7 +33,7 @@ S.Tooltip = styled.div`
     ul,
     li {
       font-size: 0.75rem;
-      font-family: 'Beaufort W01 Bold1339640';
+      line-height: 1rem;
     }
   }
 

@@ -96,7 +96,7 @@ S.Tooltip = styled.div`
     ul,
     li {
       font-size: 0.75rem;
-      font-family: 'Roboto';
+      line-height: 1rem;
     }
   }
 
