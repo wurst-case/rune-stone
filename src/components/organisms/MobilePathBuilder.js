@@ -114,13 +114,42 @@ class MobilePathBuilder extends Component {
       toggleInfoDisplay(rune)
     }
 
+    function lockInInfoDisplay(primary, tier, id) {
+      if (primary) {
+        switch (tier) {
+          case 0: // keystone
+            onSelectKeystone(id)
+            break
+          case 1: // tier 1
+            onSelectPrimaryT1(id)
+            break
+          case 2: // tier 2
+            onSelectPrimaryT2(id)
+            break
+          case 3: // tier 3
+            onSelectPrimaryT3(id)
+            break
+          default:
+            break
+        }
+      } else {
+        onSelectSecondaryRunes(tier, id)
+      }
+      closeInfoDisplay()
+    }
+
     window.addEventListener('scroll', () => {
       document.documentElement.style.setProperty('--scroll-y', `${window.scrollY}px`)
     })
 
     return (
       <S.Path>
-        <InfoDisplay open={runeInfo || false} onClose={closeInfoDisplay} rune={runeInfo && runeInfo.rune} />
+        <InfoDisplay
+          open={runeInfo || false}
+          onClose={closeInfoDisplay}
+          onPick={lockInInfoDisplay}
+          runeInfo={runeInfo}
+        />
         <picture>
           <source srcSet={this.props.bgChrome} type="image/webp" />
           <source srcSet={this.props.bgSafari} type="image/jpeg" />
@@ -136,7 +165,6 @@ class MobilePathBuilder extends Component {
             selected={primeFlavor}
             isFlavor
             color={primeFlavor && primeFlavor.colorRGB}
-            moreInfo={openInfoDisplay}
           />
           <Drawer
             open={open.PRIMARY.KEYSTONE}
@@ -147,7 +175,7 @@ class MobilePathBuilder extends Component {
             flavor={primeFlavor}
             color={primeFlavor && primeFlavor.colorRGB}
             keystone
-            moreInfo={openInfoDisplay}
+            moreInfo={(runeInfo) => openInfoDisplay({ ...runeInfo, primary: true, tier: 0 })}
           />
           <Drawer
             open={open.PRIMARY.T1}
@@ -158,7 +186,7 @@ class MobilePathBuilder extends Component {
             flavor={primeFlavor}
             color={primeFlavor && primeFlavor.colorRGB}
             tier={1}
-            moreInfo={openInfoDisplay}
+            moreInfo={(runeInfo) => openInfoDisplay({ ...runeInfo, primary: true, tier: 1 })}
           />
           <Drawer
             open={open.PRIMARY.T2}
@@ -169,7 +197,7 @@ class MobilePathBuilder extends Component {
             flavor={primeFlavor}
             color={primeFlavor && primeFlavor.colorRGB}
             tier={2}
-            moreInfo={openInfoDisplay}
+            moreInfo={(runeInfo) => openInfoDisplay({ ...runeInfo, primary: true, tier: 2 })}
           />
           <Drawer
             open={open.PRIMARY.T3}
@@ -180,7 +208,7 @@ class MobilePathBuilder extends Component {
             flavor={primeFlavor}
             color={primeFlavor && primeFlavor.colorRGB}
             tier={3}
-            moreInfo={openInfoDisplay}
+            moreInfo={(runeInfo) => openInfoDisplay({ ...runeInfo, primary: true, tier: 3 })}
             slotMachine={slotMachine}
             triggerSlot={(!pathID || !fresh) && secondT2 ? () => triggerSlot() : null}
           />
@@ -208,7 +236,7 @@ class MobilePathBuilder extends Component {
             selected2={secondT2}
             color={secondFlavor ? secondFlavor.colorRGB : Layout.GOLD}
             index={runeMatrixIndex}
-            moreInfo={openInfoDisplay}
+            moreInfo={(runeInfo) => openInfoDisplay({ ...runeInfo, primary: false })}
             slotMachine={slotMachine}
             triggerSlot={(!pathID || !fresh) && secondT2 ? () => triggerSlot() : null}
           />
@@ -284,7 +312,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  onSelectPrimaryFlavor: (id) => dispatch(selectPrimaryFlavor(id)),
+  onSelectPrimaryFlavor: (id) => dispatch(selectPrimaryFlavor(id, true)),
   onSelectKeystone: (id) => dispatch(selectKeystone(id)),
   onSelectPrimaryT1: (id) => dispatch(selectPrimaryT1(id)),
   onSelectPrimaryT2: (id) => dispatch(selectPrimaryT2(id)),

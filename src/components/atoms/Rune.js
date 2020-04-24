@@ -20,7 +20,7 @@ S.pull = keyframes`
     transform: rotate(0deg);
   }
   100% {
-    transform: rotate(3239deg);
+    transform: rotate(-3239deg);
   }
 `
 
@@ -150,7 +150,6 @@ function Rune({ color, keystone, active, onClick, img, slotMachine, triggerSlot,
         {img ? (
           <img
             className={triggerSlot && slotMachine && !active ? 'animation' : 'graphic'}
-            // id={slotMachine ? 'slotMachine' : 'graphic'}
             alt={keystone ? 'keystone' : 'rune'}
             src={img}
             onAnimationEnd={() => (triggerSlot ? triggerSlot() : console.log('no trigger'))}

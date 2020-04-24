@@ -21,10 +21,10 @@ export const triggerSlot = () => {
 }
 
 //Primary Comp
-export const selectPrimaryFlavor = (id) => {
+export const selectPrimaryFlavor = (id, mobile) => {
   return {
     type: ActionTypes.SELECT_PRIMARY_FLAVOR,
-    payload: id,
+    payload: { id: id, mobile: mobile ? true : false },
   }
 }
 export const selectKeystone = (id) => {
@@ -178,7 +178,6 @@ export const makePermalink = () => {
     '_' +
     (SECONDARY_T2_ID === null ? 'n' : SECONDARY_T2_ID)
   // console.log(navigator)
-  alert('www.rune-stone.com/' + pathID)
 
   // navigator.clipboard.writeText(pathID).then(alert('copied www.rune-stone.com/' + pathID + ' to clipboard!'), (err) => {
   //   console.error('Async: Could not copy text: ', err)

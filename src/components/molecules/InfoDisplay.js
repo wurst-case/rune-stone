@@ -3,6 +3,7 @@ import styled from '@emotion/styled'
 import ReactMarkdown from 'react-markdown/with-html'
 
 import CloseIcon from '@material-ui/icons/Close'
+import CheckCircleIcon from '@material-ui/icons/CheckCircle'
 
 import Layout from '../../constants/layoutConstants'
 import Rune from '../atoms/Rune'
@@ -27,7 +28,7 @@ S.Display = styled.div`
   background-color: ${Layout.DARK};
   padding: 16px;
 
-  #close {
+  #icon {
     margin: 16px;
   }
 
@@ -48,32 +49,36 @@ S.Display = styled.div`
   }
 
   .iconWrapper {
-    align-self: flex-end;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgba(255, 255, 255, 0.05);
+    background-color: rgba(255, 255, 255, 0.01);
     height: 64px;
     width: 64px;
   }
-`
-//not working
-S.ClickPreventer = styled.div`
-  /* pointer-events: none; */
-  width: 100vw;
-  height: 100vh;
-  color: red;
-  position: fixed;
-  top: 0;
-  /* z-index: 999; */
+
+  .buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
 `
 
-const InfoDisplay = ({ color, rune, onClose, open }) => {
+const InfoDisplay = ({ runeInfo, onClose, onPick, open }) => {
+  var rune = runeInfo && runeInfo.rune
+  var color = runeInfo && runeInfo.color
   return (
     <S.Display open={open} color={color}>
-      <S.ClickPreventer onClick={onClose} />
-      <div className="iconWrapper">
-        <CloseIcon id="close" onClick={onClose} />
+      <div onClick={onClose} />
+      <div className="buttons">
+        <div className="iconWrapper" id="close">
+          <CloseIcon id="icon" onClick={onClose} />
+        </div>
+        <div className="iconWrapper" id="pick">
+          <CheckCircleIcon id="icon" onClick={() => onPick(runeInfo.primary, runeInfo.tier, runeInfo.id)} />
+        </div>
       </div>
       <Rune keystone color={color} img={rune && rune.img} />
       <h2>{rune && rune.name}</h2>

@@ -49,8 +49,8 @@ function PrimaryTree({ color, t1, t2, onToggle, openMenus, slotMachine, triggerS
         active={openMenus.RUNES}
         slotMachine={t2 && t2.name === 'Zim’s Magical Rune Randomization Machine'}
         triggerSlot={triggerSlot}
-        title={t1 && t1.name}
-        description={t1 && t1.detail}
+        title={t2 && t2.name}
+        description={t2 && t2.detail}
       />
     </S.Tree>
   )

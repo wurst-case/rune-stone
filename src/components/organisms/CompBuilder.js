@@ -89,7 +89,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  onSelectPrimaryFlavor: (id) => dispatch(selectPrimaryFlavor(id)),
+  onSelectPrimaryFlavor: (id) => dispatch(selectPrimaryFlavor(id, false)),
   onSelectKeystone: (id) => dispatch(selectKeystone(id)),
   onSelectPrimaryT1: (id) => dispatch(selectPrimaryT1(id)),
   onSelectPrimaryT2: (id) => dispatch(selectPrimaryT2(id)),

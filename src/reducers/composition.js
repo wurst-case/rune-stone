@@ -34,16 +34,43 @@ export const initialState = {
 export function composition(state = initialState, action) {
   switch (action.type) {
     case ActionTypes.RESET:
-      return { ...initialState, PRIMARY_FLAVOR: state.PRIMARY_FLAVOR, paths: state.paths }
+      return {
+        ...initialState,
+        PRIMARY_FLAVOR: state.PRIMARY_FLAVOR,
+        paths: state.paths,
+        OPEN: {
+          PRIMARY: {
+            FLAVOR: null,
+            KEYSTONE: null,
+            T1: null,
+            T2: null,
+            T3: null,
+          },
+          SECONDARY: {
+            FLAVOR: null,
+            RUNES: null,
+          },
+        },
+      }
     case ActionTypes.SELECT_PRIMARY_FLAVOR:
+      // If on mobile, close all menus and open keystone
+      if (action.payload.mobile) {
+        state.OPEN.PRIMARY.T1 = false
+        state.OPEN.PRIMARY.T2 = false
+        state.OPEN.PRIMARY.T3 = false
+      }
       // Close menu, open next menu
       state.OPEN.PRIMARY.FLAVOR = false
-      if (state.KEYSTONE === null) state.OPEN.PRIMARY.KEYSTONE = true
+      state.OPEN.PRIMARY.KEYSTONE = true
       state.SECONDARY_FLAVOR =
-        state.SECONDARY_FLAVOR === 0 ? 0 : action.payload === state.SECONDARY_FLAVOR ? 0 : state.SECONDARY_FLAVOR
+        state.SECONDARY_FLAVOR === 0 // IS the second flavor in the empty state?
+          ? 0 // Yes? keep it there.
+          : action.payload.id === state.SECONDARY_FLAVOR //No? Is it the same as the path we picked for primary?
+          ? 0 // Yes? Switch secondary to empty state.
+          : state.SECONDARY_FLAVOR // No? Keep it as it is.
       return {
         ...state,
-        PRIMARY_FLAVOR: action.payload,
+        PRIMARY_FLAVOR: action.payload.id,
         KEYSTONE: null,
         PRIMARY_T1: null,
         PRIMARY_T2: null,
@@ -70,8 +97,9 @@ export function composition(state = initialState, action) {
       state.OPEN.PRIMARY.T3 = false
       if (state.SECONDARY_FLAVOR === 0) state.OPEN.SECONDARY.FLAVOR = true
       // Bandle Slot machine
-      if (action.payload === 2 && state.PRIMARY_FLAVOR === 1) return { ...state, PRIMARY_T3: action.payload }
-      return { ...state, PRIMARY_T3: action.payload, slotMachine: null }
+      if (action.payload === 2 && state.PRIMARY_FLAVOR === 1)
+        return { ...state, PRIMARY_T3: action.payload, slotMachine: null }
+      return { ...state, PRIMARY_T3: action.payload }
     case ActionTypes.TRIGGER_SLOT:
       if (state.paths) {
         var possibleRunes = state.paths.map((rune, i) => ({
@@ -113,6 +141,7 @@ export function composition(state = initialState, action) {
         SECONDARY_T1_ID: null,
         SECONDARY_T2_ROW: null,
         SECONDARY_T2_ID: null,
+        slotMachine: state.slotMachine && action.payload === state.slotMachine.flavor ? null : state.slotMachine,
       }
 
     case ActionTypes.SELECT_SECONDARY_RUNES:
@@ -143,13 +172,18 @@ export function composition(state = initialState, action) {
       } else return { ...state }
 
     case ActionTypes.TOGGLE_MENU:
-      if (action.payload.tier === 'T3') state.fresh = false
+      if (action.payload.tier === 'T3') {
+        state.fresh = false
+        if (state.PRIMARY_FLAVOR === 1 && state.PRIMARY_T3 === 2) state.slotMachine = null
+      }
       if (action.payload.tree === 'SECONDARY') {
         // Normal toggle for flavor
         if (action.payload.tier === 'FLAVOR') state.OPEN.SECONDARY.FLAVOR = action.payload.value
         //Logic for default flavor in second menu
-        else if (state.SECONDARY_FLAVOR === 0) state.OPEN.SECONDARY.RUNES = false
-        else if (state.SECONDARY_T1_ROW === null || state.SECONDARY_T2_ROW === null) {
+        else if (state.SECONDARY_FLAVOR === 0) {
+          state.OPEN.SECONDARY.FLAVOR = true
+          state.OPEN.SECONDARY.RUNES = false
+        } else if (state.SECONDARY_T1_ROW === null || state.SECONDARY_T2_ROW === null) {
           // If either secondary runes are null forbid closing the menu otherwise open and close on command
           state.OPEN.SECONDARY.RUNES = true
         } else {

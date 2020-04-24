@@ -86,6 +86,7 @@ S.Drawer = styled.div`
     justify-content: stretch;
     padding-bottom: 8px;
     padding-top: 8px;
+    padding-right: 16px;
     height: 100%;
     width: 100%;
     box-sizing: border-box;
@@ -113,6 +114,10 @@ S.Drawer = styled.div`
     align-items: center;
 
     box-sizing: border-box;
+  }
+
+  .chevron {
+    padding-left: 16px;
   }
 `
 
@@ -164,16 +169,19 @@ export const Drawer = ({
           </h4>
           <p>
             {selected
-              ? (selected.name === 'Zim’s Magical Rune Randomization Machine' &&
-                  slotMachine &&
-                  slotMachine.detail.replace(/<\/?[^>]+(>|$)/g, '')) ||
-                selected.detail.replace(/<\/?[^>]+(>|$)/g, '')
+              ? isFlavor
+                ? selected && selected.subtitle && selected.subtitle.replace(/<\/?[^>]+(>|$)/g, '')
+                : (selected.name === 'Zim’s Magical Rune Randomization Machine' &&
+                    slotMachine &&
+                    slotMachine.tooltip &&
+                    slotMachine.tooltip.replace(/<\/?[^>]+(>|$)/g, '')) ||
+                  (selected.tooltip && selected.tooltip.replace(/<\/?[^>]+(>|$)/g, ''))
               : isFlavor
               ? `Select a path`
               : `Select a rune`}
           </p>
         </ListItemText>
-        {open ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+        {open ? <ExpandLessIcon className="chevron" /> : <ExpandMoreIcon className="chevron" />}
       </ListItem>
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding id="runeMenu">
@@ -206,13 +214,18 @@ export const Drawer = ({
                         )}
                       </div>
                       <ListItemText>
-                        <h4>{rune.name}</h4>
+                        <h4 style={{ color: 'rgba(' + rune.colorRGB + ',1)' }}>{rune.name}</h4>
                         {/* Strip away all html tags from description */}
-                        <p>{rune ? rune.detail.replace(/<\/?[^>]+(>|$)/g, '') : `Select a rune`}</p>
+                        <p>
+                          {rune
+                            ? (isFlavor ? rune.subtitle : rune.tooltip) &&
+                              (isFlavor ? rune.subtitle : rune.tooltip).replace(/<\/?[^>]+(>|$)/g, '')
+                            : `Select a rune`}
+                        </p>
                       </ListItemText>
                     </div>
                     {isFlavor || (
-                      <div className="iconWrapper" onClick={() => moreInfo({ rune: rune, color: color })}>
+                      <div className="iconWrapper" onClick={() => moreInfo({ rune: rune, color: color, id: id })}>
                         <InfoIcon htmlColor="white" key={rune.name + id + 'INFO'} />
                       </div>
                     )}

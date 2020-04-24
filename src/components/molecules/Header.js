@@ -74,6 +74,13 @@ S.Header = styled.div`
       fill: rgba(${Layout.GOLD}, 1);
       height: 100%;
     }
+
+    #permalinkHiddenInput {
+      position: 'absolute';
+      left: '-1000px';
+      top: '-1000px';
+      opacity: 0;
+    }
   }
 `
 
@@ -87,16 +94,36 @@ function WrappedLogo() {
 }
 
 export class Header extends Component {
+  componentDidUpdate() {
+    var copyText = document.getElementById('permalinkHiddenInput')
+    console.log(copyText.select())
+    copyText.select()
+    copyText.setSelectionRange(0, 99999)
+    document.execCommand('copy')
+    alert('Copied the link: www.rune-stone.com/' + this.props.pathID)
+  }
   render() {
     return (
       <S.Header>
         <div>
           <WrappedLogo />
-          <h5 onClick={() => this.props.makePermalink()}>Share</h5>
+          <h5
+            onClick={() => {
+              this.props.makePermalink()
+            }}
+          >
+            Share
+          </h5>
           <h5 onClick={() => this.props.reset()}>Reset</h5>
           <Link to="/ecs">Create</Link>
           <Link to="/about">About</Link>
         </div>
+        <input
+          type="text"
+          value={this.props.pathID ? 'www.rune-stone.com/' + this.props.pathID : ''}
+          id="permalinkHiddenInput"
+          readOnly
+        />
       </S.Header>
     )
   }
