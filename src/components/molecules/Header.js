@@ -96,6 +96,7 @@ function WrappedLogo() {
 
 export class Header extends Component {
   componentDidUpdate() {
+    // Component only updates when input changes and when share btn is clicked
     var copyText = document.getElementById('permalinkHiddenInput')
     console.log(copyText.select())
     copyText.select()

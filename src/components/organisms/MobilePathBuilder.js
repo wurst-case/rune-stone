@@ -153,7 +153,7 @@ class MobilePathBuilder extends Component {
         <picture>
           <source srcSet={this.props.bgChrome} type="image/webp" />
           <source srcSet={this.props.bgSafari} type="image/jpeg" />
-          <img src={bgImage} alt="background" />
+          <img src={bgImage} alt="loading..." />
         </picture>
 
         <List component="nav" aria-label="primary tree">
