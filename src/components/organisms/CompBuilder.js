@@ -20,6 +20,7 @@ import {
   loadPathsFromFirestore,
   loadFromPermalink,
   triggerSlot,
+  resetSlotMachine,
 } from '../../actions/composition'
 // import { restoreFromBackup } from '../../actions/editor'
 
@@ -55,6 +56,7 @@ const mapStateToProps = (state) => {
       paths[state.composition.slotMachine.flavor]['tier' + (state.composition.slotMachine.tier + 1)][
         state.composition.slotMachine.id
       ]
+    var slotColor = state.composition.slotMachine && paths[state.composition.slotMachine.flavor].colorRGB
   }
   return {
     primeFlavor: primeFlavor || null,
@@ -80,6 +82,7 @@ const mapStateToProps = (state) => {
       },
     },
     slotMachine: slotMachine || null,
+    slotColor: slotColor || null,
     fresh: state.composition.fresh,
     paths: state.composition.paths,
   }
@@ -100,13 +103,11 @@ const mapDispatchToProps = (dispatch) => ({
   // restoreFromBackup: () => dispatch(restoreFromBackup(flavors[6], 'inspiration')),
   loadFromPermalink: (pathID) => dispatch(loadFromPermalink(pathID)),
   triggerSlot: () => dispatch(triggerSlot()),
+  resetSlotMachine: () => dispatch(resetSlotMachine()),
 })
 
 class CompBuilder extends Component {
   componentDidMount() {
-    // console.log(this.props.pathID)
-
-    // let pathID = this.props.match.params.pathID
     // this.props.restoreFromBackup()
     this.props.pathID && this.props.loadFromPermalink(this.props.pathID)
     this.props.loadPathsFromFirestore()
@@ -137,6 +138,8 @@ class CompBuilder extends Component {
       fresh,
       pathID,
       paths,
+      resetSlotMachine,
+      slotColor,
     } = this.props
 
     return (
@@ -153,7 +156,9 @@ class CompBuilder extends Component {
           openMenus={open.PRIMARY}
           slotMachine={slotMachine}
           triggerSlot={(!pathID || !fresh) && secondT2 ? () => triggerSlot() : console.log()}
+          resetSlotMachine={resetSlotMachine}
           icon={primeFlavor && primeFlavor.img}
+          slotColor={slotColor}
         />
         <PrimaryMenu
           color={primeFlavor && primeFlavor.colorRGB}
@@ -179,6 +184,7 @@ class CompBuilder extends Component {
           }}
           openMenus={open.PRIMARY}
           slotMachine={slotMachine}
+          slotColor={slotColor}
           paths={paths}
         />
         <SecondaryTree
@@ -190,8 +196,9 @@ class CompBuilder extends Component {
           }}
           openMenus={open.SECONDARY}
           slotMachine={slotMachine}
-          triggerSlot={!pathID || !fresh ? () => triggerSlot() : console.log()}
+          triggerSlot={!fresh ? () => triggerSlot() : console.log()}
           icon={secondFlavor && secondFlavor.img}
+          slotColor={slotColor}
         />
         <SecondaryMenu
           color={secondFlavor && secondFlavor.colorRGB}
@@ -209,6 +216,7 @@ class CompBuilder extends Component {
           t2={secondT2}
           index={runeMatrixIndex}
           slotMachine={slotMachine}
+          slotColor={slotColor}
           paths={paths}
         />
       </S.CompBuilder>

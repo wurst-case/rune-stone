@@ -81,8 +81,8 @@ export class ComingSoon extends Component {
     return (
       <S.Container>
         <Link to="/learnmore">Learn More About the Bandle Path</Link>
-        <h3>Our Team</h3>
         <h3>•</h3>
+        <h3>Our Team</h3>
         <h4>Brian H. Bookman</h4>
         <h5>Game Design</h5>
         <h5>Project Director</h5>
@@ -92,7 +92,6 @@ export class ComingSoon extends Component {
         <h5>Art Director</h5>
         <h3>•</h3>
         <h3>Special Thanks To</h3>
-        <h3>•</h3>
         <div className="noSelect">
           <h4>Alina Quiñones</h4>
           <h4>Brittney Hoglund</h4>
@@ -107,6 +106,7 @@ export class ComingSoon extends Component {
           <h4>Shane McDonald</h4>
           <h4>Stern</h4>
         </div>
+        <h3>•</h3>
       </S.Container>
     )
   }

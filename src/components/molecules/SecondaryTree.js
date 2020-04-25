@@ -13,7 +13,18 @@ S.Tree = styled.div`
   margin: 24px;
 `
 
-function PrimaryTree({ color, t1, t2, onToggle, openMenus, slotMachine, triggerSlot, icon }) {
+function PrimaryTree({
+  color,
+  t1,
+  t2,
+  onToggle,
+  openMenus,
+  slotMachine,
+  triggerSlot,
+  icon,
+  resetSlotMachine,
+  slotColor,
+}) {
   if (document.getElementById('swirl' + color)) {
     document.getElementById('swirl' + color).style.stopColor = 'rgba(' + color + ',1)'
     console.log(document.getElementById('swirl' + color).style.stopColor)
@@ -37,7 +48,7 @@ function PrimaryTree({ color, t1, t2, onToggle, openMenus, slotMachine, triggerS
       />
       <Branch color={color} active={openMenus.RUNES} />
       <Rune
-        color={color}
+        color={t2 && t2.name === 'Zim’s Magical Rune Randomization Machine' && slotMachine ? slotColor : color}
         img={
           t2 && t2.name === 'Zim’s Magical Rune Randomization Machine' && slotMachine
             ? slotMachine.img
@@ -49,8 +60,15 @@ function PrimaryTree({ color, t1, t2, onToggle, openMenus, slotMachine, triggerS
         active={openMenus.RUNES}
         slotMachine={t2 && t2.name === 'Zim’s Magical Rune Randomization Machine'}
         triggerSlot={triggerSlot}
-        title={t2 && t2.name}
-        description={t2 && t2.detail}
+        resetSlotMachine={resetSlotMachine}
+        title={
+          t2 && t2.name === 'Zim’s Magical Rune Randomization Machine' && slotMachine ? slotMachine.name : t2 && t2.name
+        }
+        description={
+          t2 && t2.name === 'Zim’s Magical Rune Randomization Machine' && slotMachine
+            ? slotMachine.detail
+            : t2 && t2.detail
+        }
       />
     </S.Tree>
   )

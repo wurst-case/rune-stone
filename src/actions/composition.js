@@ -14,6 +14,11 @@ export const toggleMenu = (menu) => {
     payload: { ...menu, value: menu.value ? null : !composition['OPEN'][menu.tree][menu.tier] },
   }
 }
+export const resetSlotMachine = () => {
+  return {
+    type: ActionTypes.RESET_SLOT_MACHINE,
+  }
+}
 export const triggerSlot = () => {
   return {
     type: ActionTypes.TRIGGER_SLOT,

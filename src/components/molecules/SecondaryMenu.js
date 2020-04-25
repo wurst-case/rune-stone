@@ -19,11 +19,11 @@ S.Menu = styled.div`
   align-items: center;
 
   margin: 2px;
-  height: 80px;
-  width: 300px;
+  height: 110px;
+  width: 400px;
 
   &.flavors {
-    padding-top: 10px;
+    /* padding-top: 10px; */
   }
 `
 
@@ -77,6 +77,7 @@ function SecondaryMenu({
   primeFlavor,
   index,
   slotMachine,
+  slotColor,
   paths,
 }) {
   var runeMatrix = []
@@ -104,10 +105,12 @@ function SecondaryMenu({
         </S.Menu>,
       ),
     )
+  var altColor = null
+  altColor = t2 && t2.name === 'Zim’s Magical Rune Randomization Machine' && slotMachine ? slotColor : color
   t2 = t2 && t2.name === 'Zim’s Magical Rune Randomization Machine' && slotMachine ? slotMachine : t2
   return (
     <S.Menus>
-      <S.Menu open={openMenus.FLAVOR} className="flavors">
+      <S.Menu open={openMenus.FLAVOR} className="first">
         {paths &&
           paths.map((rune, id) => {
             if (rune.name !== primeFlavor.name && id !== 0)
@@ -122,7 +125,7 @@ function SecondaryMenu({
             else return <div key={'secondflavors' + id}></div>
           })}
       </S.Menu>
-      <S.Description open={openMenus.FLAVOR} color={color}>
+      <S.Description open={openMenus.FLAVOR} color={color} className="first">
         <h4>{(flavor && flavor.name) || 'Choose a path.'}</h4>
         {flavor !== 0 && flavor && flavor.subtitle ? (
           <p>
@@ -135,7 +138,7 @@ function SecondaryMenu({
         )}
       </S.Description>
       {runeMatrix}
-      <S.Description open={openMenus.RUNES} color={color} className="first">
+      <S.Description open={openMenus.RUNES} color={color}>
         <h4>{(t1 && t1.name) || 'Secondary'}</h4>
         {t1 && t1.name ? (
           <ReactMarkdown source={t1.tooltip} escapeHtml={false} skipHtml={false} className="simpleTT" />
@@ -143,7 +146,7 @@ function SecondaryMenu({
           <p>Select two runes from your secondary path</p>
         )}
       </S.Description>
-      <S.Description open={openMenus.RUNES} color={color}>
+      <S.Description open={openMenus.RUNES} color={altColor || color}>
         <h4>{(t2 && t2.name) || 'Secondary'}</h4>
         {t2 && t2.name ? (
           <ReactMarkdown source={t2.tooltip} escapeHtml={false} skipHtml={false} className="simpleTT" />

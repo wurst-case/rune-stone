@@ -23,7 +23,7 @@ export class MobilePathContainer extends Component {
   render() {
     return (
       <S.Container>
-        <MobilePathBuilder />
+        <MobilePathBuilder pathID={this.props.match.params.pathID} />
       </S.Container>
     )
   }

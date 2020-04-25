@@ -82,10 +82,12 @@ function PrimaryMenu({
   onSelectT3,
   t3,
   slotMachine,
+  slotColor,
   paths,
 }) {
+  var altColor = null
+  altColor = t3 && t3.name === 'Zim’s Magical Rune Randomization Machine' && slotMachine ? slotColor : color
   t3 = t3 && t3.name === 'Zim’s Magical Rune Randomization Machine' && slotMachine ? slotMachine : t3
-
   return (
     <S.Menus>
       <S.Menu open={openMenus.FLAVOR} className="flavors">
@@ -203,7 +205,7 @@ function PrimaryMenu({
             />
           ))}
       </S.Menu>
-      <S.Description open={openMenus.T3} color={color}>
+      <S.Description open={openMenus.T3} color={altColor || color}>
         <h4>{(t3 && t3.name) || (flavor && flavor.tierNames && flavor.tierNames[2]) || '3rd Tier'}</h4>
         {/* Strip away all html tags from description */}
         {t3 && t3.tooltip ? (

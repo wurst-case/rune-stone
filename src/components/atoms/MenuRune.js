@@ -44,25 +44,29 @@ S.Rune = styled.div`
     -webkit-filter: ${(props) => (props.disabled ? 'grayscale(1) brightness(0.5) contrast(75%)' : 'none')};
     filter: ${(props) => (props.disabled ? 'grayscale(1) brightness(0.5) contrast(75%)' : 'none')};
   }
-`
-S.Highlighter = styled.div`
-  content: ' ';
-  position: absolute;
-  top: ${Layout.RUNE_BORDER_WIDTH * -6}px;
-  left: ${Layout.RUNE_BORDER_WIDTH * -6}px;
-  right: ${Layout.RUNE_BORDER_WIDTH * -6}px;
-  bottom: ${Layout.RUNE_BORDER_WIDTH * -6}px;
-  border-radius: ${Layout.RUNE_SIZE_MENU}px;
-  border: ${Layout.RUNE_BORDER_WIDTH * 1.5}px solid rgba(${(props) => props.color}, 0);
-  transition: border ${Layout.ATTACK}, top ${Layout.ATTACK}, left ${Layout.ATTACK}, right ${Layout.ATTACK},
-    bottom ${Layout.ATTACK};
+
+  .highlighter {
+    content: ' ';
+    position: absolute;
+    pointer-events: none;
+    top: ${Layout.RUNE_BORDER_WIDTH * -6}px;
+    left: ${Layout.RUNE_BORDER_WIDTH * -6}px;
+    right: ${Layout.RUNE_BORDER_WIDTH * -6}px;
+    bottom: ${Layout.RUNE_BORDER_WIDTH * -6}px;
+    border-radius: ${Layout.RUNE_SIZE_MENU}px;
+    border: ${Layout.RUNE_BORDER_WIDTH * 1.5}px solid rgba(${(props) => props.color}, 0);
+    transition: border ${Layout.ATTACK}, top ${Layout.ATTACK}, left ${Layout.ATTACK}, right ${Layout.ATTACK},
+      bottom ${Layout.ATTACK};
+  }
 
   &:hover {
-    top: ${Layout.RUNE_BORDER_WIDTH * -4}px;
-    left: ${Layout.RUNE_BORDER_WIDTH * -4}px;
-    right: ${Layout.RUNE_BORDER_WIDTH * -4}px;
-    bottom: ${Layout.RUNE_BORDER_WIDTH * -4}px;
-    border: ${Layout.RUNE_BORDER_WIDTH * 1.5}px solid rgba(${(props) => props.color}, 0.5);
+    .highlighter {
+      top: ${Layout.RUNE_BORDER_WIDTH * -4}px;
+      left: ${Layout.RUNE_BORDER_WIDTH * -4}px;
+      right: ${Layout.RUNE_BORDER_WIDTH * -4}px;
+      bottom: ${Layout.RUNE_BORDER_WIDTH * -4}px;
+      border: ${Layout.RUNE_BORDER_WIDTH * 1.5}px solid rgba(${(props) => props.color}, 0.5);
+    }
   }
 `
 
@@ -122,7 +126,7 @@ function Rune({ color, keystone, disabled, onClick, img, title, description }) {
     <S.Tooltip>
       <S.Rune color={color} keystone={keystone} disabled={disabled} onClick={(_) => onClick()}>
         <img alt="rune" src={img} />
-        <S.Highlighter color={color} />
+        <div className="highlighter" />
       </S.Rune>
       <div className="tooltiptext">
         <h4>{title}</h4>

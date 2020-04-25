@@ -100,6 +100,8 @@ export function composition(state = initialState, action) {
       if (action.payload === 2 && state.PRIMARY_FLAVOR === 1)
         return { ...state, PRIMARY_T3: action.payload, slotMachine: null }
       return { ...state, PRIMARY_T3: action.payload }
+    case ActionTypes.RESET_SLOT_MACHINE:
+      return { ...state, slotMachine: null }
     case ActionTypes.TRIGGER_SLOT:
       if (state.paths) {
         var possibleRunes = state.paths.map((rune, i) => ({
@@ -195,7 +197,10 @@ export function composition(state = initialState, action) {
             SECONDARY_T1_ID: null,
             SECONDARY_T2_ROW: null,
             SECONDARY_T2_ID: null,
-            slotMachine: null,
+            pathID: null,
+            fresh: false,
+            slotMachine:
+              state.slotMachine && state.slotMachine.flavor === state.PRIMARY_FLAVOR ? state.slotMachine : null,
           }
         }
       } else state['OPEN']['PRIMARY'][action.payload.tier] = action.payload.value

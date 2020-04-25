@@ -142,7 +142,18 @@ S.Tooltip = styled.div`
   }
 `
 
-function Rune({ color, keystone, active, onClick, img, slotMachine, triggerSlot, title, description }) {
+function Rune({
+  color,
+  keystone,
+  active,
+  onClick,
+  img,
+  slotMachine,
+  triggerSlot,
+  title,
+  description,
+  resetSlotMachine,
+}) {
   return (
     <S.Tooltip empty={!title && !description && true}>
       <S.Rune color={color} keystone={keystone} active={active} onClick={onClick}>
@@ -153,6 +164,7 @@ function Rune({ color, keystone, active, onClick, img, slotMachine, triggerSlot,
             alt={keystone ? 'keystone' : 'rune'}
             src={img}
             onAnimationEnd={() => (triggerSlot ? triggerSlot() : console.log('no trigger'))}
+            onAnimationStart={() => (resetSlotMachine ? resetSlotMachine() : console.log(''))}
           />
         ) : (
           <div />
