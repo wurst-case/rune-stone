@@ -201,7 +201,7 @@ export const Drawer = ({
                       </p>
                     </ListItemText>
                   </div>
-                  {isFlavor ? (
+                  {!isFlavor ? (
                     <div className="iconWrapper" onClick={() => moreInfo({ rune: rune, color: color, id: id })}>
                       <InfoIcon htmlColor="white" key={rune.name + id + 'INFO'} />
                     </div>
