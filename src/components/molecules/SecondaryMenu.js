@@ -22,8 +22,8 @@ S.Menu = styled.div`
   height: 110px;
   width: 400px;
 
-  &.flavors {
-    /* padding-top: 10px; */
+  &.first {
+    padding-bottom: 40px;
   }
 `
 
@@ -31,13 +31,14 @@ S.Description = styled.div`
   display: ${(props) => (props.open ? 'none' : '')};
 
   margin: 2px;
-  height: 100px;
-  width: 300px;
+  height: 110px;
+  width: 400px;
 
   text-align: left;
 
   &.first {
-    padding-top: 30px;
+    padding-top: 24px;
+    padding-bottom: 16px;
   }
 
   & > h4 {
