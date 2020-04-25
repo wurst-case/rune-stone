@@ -42,7 +42,7 @@ S.FlavorMenuRune = styled.div`
 
 function FlavorMenuRune({ color, picked, onClick, img }) {
   return (
-    <S.FlavorMenuRune color={color} picked={picked} onClick={(_) => onClick()}>
+    <S.FlavorMenuRune color={color} picked={picked} onClick={(_) => (onClick ? onClick() : console.log())}>
       <img alt="flavor" src={img} />
     </S.FlavorMenuRune>
   )

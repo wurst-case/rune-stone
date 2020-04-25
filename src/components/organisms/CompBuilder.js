@@ -39,14 +39,20 @@ const mapStateToProps = (state) => {
     let paths = state.composition.paths
 
     var primeFlavor = paths[state.composition.PRIMARY_FLAVOR]
-    var keystone = primeFlavor.keystones[state.composition.KEYSTONE]
-    var primeT1 = primeFlavor.tier1[state.composition.PRIMARY_T1]
-    var primeT2 = primeFlavor.tier2[state.composition.PRIMARY_T2]
-    var primeT3 = primeFlavor.tier3[state.composition.PRIMARY_T3]
+    var keystone = primeFlavor && primeFlavor.keystones && primeFlavor.keystones[state.composition.KEYSTONE]
+    var primeT1 = primeFlavor && primeFlavor.tier1 && primeFlavor.tier1[state.composition.PRIMARY_T1]
+    var primeT2 = primeFlavor && primeFlavor.tier2 && primeFlavor.tier2[state.composition.PRIMARY_T2]
+    var primeT3 = primeFlavor && primeFlavor.tier3 && primeFlavor.tier3[state.composition.PRIMARY_T3]
 
     var secondFlavor = paths[state.composition.SECONDARY_FLAVOR || 0]
-    var secondT1 = secondFlavor['tier' + (state.composition.SECONDARY_T1_ROW + 1)][state.composition.SECONDARY_T1_ID]
-    var secondT2 = secondFlavor['tier' + (state.composition.SECONDARY_T2_ROW + 1)][state.composition.SECONDARY_T2_ID]
+    var secondT1 =
+      secondFlavor &&
+      secondFlavor['tier' + (state.composition.SECONDARY_T1_ROW + 1)] &&
+      secondFlavor['tier' + (state.composition.SECONDARY_T1_ROW + 1)][state.composition.SECONDARY_T1_ID]
+    var secondT2 =
+      secondFlavor &&
+      secondFlavor['tier' + (state.composition.SECONDARY_T2_ROW + 1)] &&
+      secondFlavor['tier' + (state.composition.SECONDARY_T2_ROW + 1)][state.composition.SECONDARY_T2_ID]
     var runeMatrixIndex = [
       [state.composition.SECONDARY_T1_ROW, state.composition.SECONDARY_T1_ID],
       [state.composition.SECONDARY_T2_ROW, state.composition.SECONDARY_T2_ID],

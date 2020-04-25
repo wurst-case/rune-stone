@@ -28,6 +28,8 @@ S.Display = styled.div`
   background-color: ${Layout.DARK};
   padding: 16px;
 
+  overflow-y: scroll;
+
   #icon {
     margin: 16px;
   }
@@ -35,7 +37,7 @@ S.Display = styled.div`
   h2 {
     text-transform: uppercase;
     font-family: 'Beaufort W01 Bold1339640';
-    font-size: 2rem;
+    font-size: 1.5rem;
     margin: 24px 0;
     color: rgba(${(props) => props.color}, 1);
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);

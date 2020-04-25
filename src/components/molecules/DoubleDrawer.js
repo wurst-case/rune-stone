@@ -81,6 +81,7 @@ S.Drawer = styled.div`
     justify-content: space-between;
     align-items: center;
     width: 100%;
+    min-height: 108px;
     padding-right: 16px;
     box-sizing: border-box;
   }
@@ -170,13 +171,7 @@ export const DoubleDrawer = ({
                   <ListItem button key={rune.name + id + 'LI'}>
                     <div className="listItemWrapper" onClick={() => onSelect(row, id)}>
                       <div className="runeWrap">
-                        <MenuRune
-                          img={rune.img}
-                          onClick={() => {}}
-                          // picked={selected1 || selected2 ? rune.name === selected1.name || rune.name === selected2.name : false}
-                          key={rune.name + id + 'RUNE'}
-                          color={color}
-                        />
+                        <MenuRune img={rune.img} key={rune.name + id + 'RUNE'} color={color} />
                       </div>
                       <ListItemText>
                         <h4>{rune ? rune.name : flavor.tierNames[0]}</h4>
@@ -184,10 +179,7 @@ export const DoubleDrawer = ({
                         <p>{rune ? rune.tooltip && rune.tooltip.replace(/<\/?[^>]+(>|$)/g, '') : `Select a rune`}</p>
                       </ListItemText>
                     </div>
-                    <div
-                      className="iconWrapper"
-                      onClick={() => moreInfo({ rune: rune, color: color, id: id, tier: row })}
-                    >
+                    <div onClick={() => moreInfo({ rune: rune, color: color, id: id, tier: row })}>
                       <InfoIcon htmlColor="white" key={rune.name + id + 'INFO'} />
                     </div>
                   </ListItem>

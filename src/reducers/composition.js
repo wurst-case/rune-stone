@@ -182,7 +182,7 @@ export function composition(state = initialState, action) {
         // Normal toggle for flavor
         if (action.payload.tier === 'FLAVOR') state.OPEN.SECONDARY.FLAVOR = action.payload.value
         //Logic for default flavor in second menu
-        else if (state.SECONDARY_FLAVOR === 0) {
+        else if (state.SECONDARY_FLAVOR === 0 || state.SECONDARY_FLAVOR === null) {
           state.OPEN.SECONDARY.FLAVOR = true
           state.OPEN.SECONDARY.RUNES = false
         } else if (state.SECONDARY_T1_ROW === null || state.SECONDARY_T2_ROW === null) {

@@ -76,35 +76,16 @@ S.Drawer = styled.div`
     align-items: center;
     width: 100%;
     min-height: 108px;
-
-    box-sizing: border-box;
-  }
-
-  .listItemWrapper > div {
-    display: flex;
-    flex-direction: row;
-    justify-content: stretch;
-    padding-bottom: 8px;
-    padding-top: 8px;
     padding-right: 16px;
-    height: 100%;
-    width: 100%;
     box-sizing: border-box;
   }
 
   .iconWrapper {
+    min-height: 108px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
-    /* background-color: rgba(255, 255, 255, 0.05); */
-    height: 80px;
-    width: 100%;
-    max-width: 44px;
-    padding-bottom: 8px;
-    padding-top: 8px;
-    /* padding-left: 8px; */
-    box-sizing: border-box;
   }
 
   .runeWrap {
@@ -112,7 +93,6 @@ S.Drawer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-
     box-sizing: border-box;
   }
 
@@ -193,43 +173,41 @@ export const Drawer = ({
                 true
               )) ? (
                 <ListItem button key={rune.name + id + 'LI'} className="subMenu">
-                  <div className="listItemWrapper">
-                    <div onClick={() => onSelect(id)}>
-                      <div className="runeWrap">
-                        {isFlavor ? (
-                          <FlavorMenuRune
-                            img={rune.img}
-                            picked={selected ? rune.name === selected.name : false}
-                            key={rune.name + id + 'RUNE'}
-                            onClick={() => onSelect(id)}
-                          />
-                        ) : (
-                          <MenuRune
-                            img={rune.img}
-                            onClick={() => onSelect(id)}
-                            disabled={selected ? rune.name !== selected.name : false}
-                            key={rune.name + id + 'RUNE'}
-                            color={color}
-                          />
-                        )}
-                      </div>
-                      <ListItemText>
-                        <h4 style={{ color: 'rgba(' + rune.colorRGB + ',1)' }}>{rune.name}</h4>
-                        {/* Strip away all html tags from description */}
-                        <p>
-                          {rune
-                            ? (isFlavor ? rune.subtitle : rune.tooltip) &&
-                              (isFlavor ? rune.subtitle : rune.tooltip).replace(/<\/?[^>]+(>|$)/g, '')
-                            : `Select a rune`}
-                        </p>
-                      </ListItemText>
+                  <div className="listItemWrapper" onClick={() => onSelect(id)}>
+                    <div className="runeWrap">
+                      {isFlavor ? (
+                        <FlavorMenuRune
+                          img={rune.img}
+                          picked={selected && rune.name === selected.name}
+                          key={rune.name + id + 'RUNE'}
+                        />
+                      ) : (
+                        <MenuRune
+                          img={rune.img}
+                          disabled={selected ? rune.name !== selected.name : false}
+                          color={color}
+                          key={rune.name + id + 'RUNE'}
+                        />
+                      )}
                     </div>
-                    {isFlavor || (
-                      <div className="iconWrapper" onClick={() => moreInfo({ rune: rune, color: color, id: id })}>
-                        <InfoIcon htmlColor="white" key={rune.name + id + 'INFO'} />
-                      </div>
-                    )}
+                    <ListItemText>
+                      <h4 style={{ color: 'rgba(' + rune.colorRGB + ',1)' }}>{rune.name}</h4>
+                      {/* Strip away all html tags from description */}
+                      <p>
+                        {rune
+                          ? (isFlavor ? rune.subtitle : rune.tooltip) &&
+                            (isFlavor ? rune.subtitle : rune.tooltip).replace(/<\/?[^>]+(>|$)/g, '')
+                          : `Select a rune`}
+                      </p>
+                    </ListItemText>
                   </div>
+                  {isFlavor ? (
+                    <div className="iconWrapper" onClick={() => moreInfo({ rune: rune, color: color, id: id })}>
+                      <InfoIcon htmlColor="white" key={rune.name + id + 'INFO'} />
+                    </div>
+                  ) : (
+                    <div key={rune.name + id + 'INFO'} />
+                  )}
                 </ListItem>
               ) : (
                 []

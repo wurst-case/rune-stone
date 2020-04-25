@@ -75,18 +75,20 @@ S.Tooltip = styled.div`
 
   & .tooltiptext {
     visibility: hidden;
-    width: 300px;
+    width: 400px;
     background-color: ${Layout.DARK};
     text-align: left;
     border-radius: 6px;
     padding: 16px;
-    margin-bottom: 8px;
+    margin-bottom: ${(props) => (props.keystone ? '' : '8px')};
+    margin-top: ${(props) => (props.keystone ? '8px' : '')};
     box-sizing: border-box;
     position: absolute;
     z-index: 100;
-    bottom: 150%;
+    bottom: ${(props) => (props.keystone ? '' : '150%')};
+    top: ${(props) => (props.keystone ? '150%' : '')};
     left: 50%;
-    margin-left: -150px;
+    margin-left: -200px;
     border: 2px solid ${Layout.BRONZE};
 
     h4 {
@@ -107,12 +109,14 @@ S.Tooltip = styled.div`
   & .tooltiptext::after {
     content: '';
     position: absolute;
-    top: 100%;
+    bottom: ${(props) => (props.keystone ? '100%' : '')};
+    top: ${(props) => (props.keystone ? '' : '100%')};
     left: 50%;
     margin-left: -8px;
     border-width: 8px;
     border-style: solid;
-    border-color: ${Layout.BRONZE} transparent transparent transparent;
+    border-color: ${(props) => (props.keystone ? 'transparent' : Layout.BRONZE)} transparent
+      ${(props) => (props.keystone ? Layout.BRONZE : 'transparent')} transparent;
   }
   @media only screen and (min-width: 1100px) {
     &:hover .tooltiptext {
@@ -123,8 +127,13 @@ S.Tooltip = styled.div`
 
 function Rune({ color, keystone, disabled, onClick, img, title, description }) {
   return (
-    <S.Tooltip>
-      <S.Rune color={color} keystone={keystone} disabled={disabled} onClick={(_) => onClick()}>
+    <S.Tooltip keystone={keystone}>
+      <S.Rune
+        color={color}
+        keystone={keystone}
+        disabled={disabled}
+        onClick={(_) => (onClick ? onClick() : console.log())}
+      >
         <img alt="rune" src={img} />
         <div className="highlighter" />
       </S.Rune>
