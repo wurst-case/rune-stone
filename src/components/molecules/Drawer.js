@@ -115,12 +115,15 @@ export const Drawer = ({
   moreInfo,
   slotMachine,
   triggerSlot,
+  slotColor,
 }) => {
+  var altColor = null
+  altColor = selected && selected.name === 'Zim’s Magical Rune Randomization Machine' && slotMachine ? slotColor : color
   selected =
     selected && selected.name === 'Zim’s Magical Rune Randomization Machine' && slotMachine ? slotMachine : selected
 
   return (
-    <S.Drawer color={color}>
+    <S.Drawer color={altColor || color}>
       <ListItem button onClick={onToggle}>
         <div className="runeWrap">
           <Rune
@@ -130,7 +133,7 @@ export const Drawer = ({
                 ? slotMachine.img
                 : selected && selected.img
             }
-            color={color}
+            color={altColor || color}
             slotMachine={selected && selected.name === 'Zim’s Magical Rune Randomization Machine'}
             triggerSlot={triggerSlot}
             keystone={keystone}
@@ -185,7 +188,7 @@ export const Drawer = ({
                         <MenuRune
                           img={rune.img}
                           disabled={selected ? rune.name !== selected.name : false}
-                          color={color}
+                          color={altColor || color}
                           key={rune.name + id + 'RUNE'}
                         />
                       )}

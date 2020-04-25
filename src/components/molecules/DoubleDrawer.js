@@ -89,7 +89,7 @@ S.Drawer = styled.div`
   .listItems {
     display: grid;
     grid-template-columns: 1fr auto;
-    grid-template-rows: 80px 80px;
+    grid-template-rows: 100px 100px;
     grid-template-areas:
       'item1 chevron'
       'item2 chevron';
@@ -97,7 +97,7 @@ S.Drawer = styled.div`
   }
 
   .chevron {
-    min-height: 160px;
+    min-height: 200px;
     grid-area: 'chevron';
     padding-right: 16px;
     /* margin-top: 40px; */
@@ -116,7 +116,11 @@ export const DoubleDrawer = ({
   moreInfo,
   slotMachine,
   triggerSlot,
+  slotColor,
 }) => {
+  var altColor = null
+  altColor =
+    selected2 && selected2.name === 'Zim’s Magical Rune Randomization Machine' && slotMachine ? slotColor : color
   selected2 =
     selected2 && selected2.name === 'Zim’s Magical Rune Randomization Machine' && slotMachine ? slotMachine : selected2
   return (
@@ -146,13 +150,13 @@ export const DoubleDrawer = ({
             <Rune
               active={open}
               img={selected2 ? selected2.img : null}
-              color={color}
+              color={altColor || color}
               slotMachine={selected2 && selected2.name === 'Zim’s Magical Rune Randomization Machine'}
               triggerSlot={triggerSlot}
             />
           </div>
           <ListItemText>
-            <h4>{selected2 && selected2.name}</h4>
+            <h4 style={{ color: 'rgba(' + altColor || color + ',1)' }}>{selected2 && selected2.name}</h4>
             <p>
               {selected2
                 ? selected2.tooltip && selected2.tooltip.replace(/<\/?[^>]+(>|$)/g, '')

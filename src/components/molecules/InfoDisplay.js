@@ -17,10 +17,10 @@ S.Display = styled.div`
   justify-content: flex-start;
   align-items: center;
 
-  width: Calc(100vw - 12vw);
-  height: Calc(100vh - 12vh);
+  width: Calc(100vw - 4vw);
+  height: Calc(100vh - 4vh);
   outline: 8vh solid rgba(0, 0, 0, 0.5);
-  margin: 6vh 6vw;
+  margin: 2vh 2vw;
   border: 1px solid ${Layout.BRONZE};
   z-index: 1000;
   box-sizing: border-box;
@@ -44,7 +44,9 @@ S.Display = styled.div`
   }
 
   #detail,
-  p {
+  p,
+  li,
+  ul {
     text-align: left;
     align-self: flex-start;
     font-size: 0.8rem;

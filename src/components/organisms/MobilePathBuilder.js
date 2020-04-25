@@ -92,6 +92,7 @@ class MobilePathBuilder extends Component {
       pathID,
       fresh,
       paths,
+      slotColor,
     } = this.props
 
     function closeInfoDisplay() {
@@ -207,6 +208,7 @@ class MobilePathBuilder extends Component {
             moreInfo={(runeInfo) => openInfoDisplay({ ...runeInfo, primary: true, tier: 3 })}
             slotMachine={slotMachine}
             triggerSlot={(!pathID || !fresh) && secondT2 ? () => triggerSlot() : null}
+            slotColor={slotColor}
           />
         </List>
         <List component="nav" aria-label="secondary tree">
@@ -235,6 +237,7 @@ class MobilePathBuilder extends Component {
             moreInfo={(runeInfo) => openInfoDisplay({ ...runeInfo, primary: false })}
             slotMachine={slotMachine}
             triggerSlot={(!pathID || !fresh) && secondT2 ? () => triggerSlot() : null}
+            slotColor={slotColor}
           />
         </List>
       </S.Path>
@@ -270,6 +273,7 @@ const mapStateToProps = (state) => {
       paths[state.composition.slotMachine.flavor]['tier' + (state.composition.slotMachine.tier + 1)][
         state.composition.slotMachine.id
       ]
+    var slotColor = state.composition.slotMachine && paths[state.composition.slotMachine.flavor].colorRGB
     var bgImage = paths[state.composition.PRIMARY_FLAVOR].bgMobile
     var bgChrome = paths[state.composition.PRIMARY_FLAVOR].bgMobileChrome
     var bgSafari = paths[state.composition.PRIMARY_FLAVOR].bgMobileSafari
@@ -304,6 +308,7 @@ const mapStateToProps = (state) => {
     slotMachine: slotMachine || null,
     fresh: state.composition.fresh,
     paths: state.composition.paths,
+    slotColor: slotColor || null,
   }
 }
 
