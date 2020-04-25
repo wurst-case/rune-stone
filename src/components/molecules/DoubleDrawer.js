@@ -88,7 +88,7 @@ S.Drawer = styled.div`
   .listItems {
     display: grid;
     grid-template-columns: 1fr auto;
-    grid-template-rows: 1fr 1fr;
+    grid-template-rows: 80px 80px;
     grid-template-areas:
       'item1 chevron'
       'item2 chevron';
@@ -96,10 +96,10 @@ S.Drawer = styled.div`
   }
 
   .chevron {
-    height: 100%;
+    min-height: 160px;
     grid-area: 'chevron';
     padding-right: 16px;
-    padding-top: 40px;
+    /* margin-top: 40px; */
   }
 `
 
