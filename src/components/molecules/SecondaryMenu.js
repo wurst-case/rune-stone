@@ -19,11 +19,16 @@ S.Menu = styled.div`
   align-items: center;
 
   margin: 2px;
-  height: 110px;
+  height: 80px;
   width: 400px;
 
+  &.flavor {
+    padding-top: 15px;
+    padding-bottom: 55px;
+  }
+
   &.first {
-    padding-bottom: 40px;
+    margin-top: -36px;
   }
 `
 
@@ -36,7 +41,7 @@ S.Description = styled.div`
 
   text-align: left;
 
-  &.first {
+  &.flavor {
     padding-top: 24px;
     padding-bottom: 16px;
   }
@@ -85,7 +90,11 @@ function SecondaryMenu({
   runes &&
     runes.forEach((row, rowNumber) =>
       runeMatrix.push(
-        <S.Menu open={openMenus.RUNES} key={'secondaryRuneMenuRow' + rowNumber}>
+        <S.Menu
+          open={openMenus.RUNES}
+          key={'secondaryRuneMenuRow' + rowNumber}
+          className={rowNumber === 0 ? 'first' : ''}
+        >
           {row &&
             row.map((rune, id) => {
               var disabled =
@@ -111,7 +120,7 @@ function SecondaryMenu({
   t2 = t2 && t2.name === 'Zim’s Magical Rune Randomization Machine' && slotMachine ? slotMachine : t2
   return (
     <S.Menus>
-      <S.Menu open={openMenus.FLAVOR} className="first">
+      <S.Menu open={openMenus.FLAVOR} className="flavor">
         {paths &&
           paths.map((rune, id) => {
             if (rune.name !== primeFlavor.name && id !== 0)
@@ -126,7 +135,7 @@ function SecondaryMenu({
             else return <div key={'secondflavors' + id}></div>
           })}
       </S.Menu>
-      <S.Description open={openMenus.FLAVOR} color={color} className="first">
+      <S.Description open={openMenus.FLAVOR} color={color} className="flavor">
         <h4>{(flavor && flavor.name) || 'Choose a path.'}</h4>
         {flavor !== 0 && flavor && flavor.subtitle ? (
           <p>
