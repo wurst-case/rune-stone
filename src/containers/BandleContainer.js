@@ -1,10 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import styled from '@emotion/styled'
-// import { useFirebase } from 'react-redux-firebase'
 import Layout from '../constants/layoutConstants'
 import CompBuilder from '../components/organisms/CompBuilder'
-import MobilePathBuilder from '../components/organisms/MobilePathBuilder'
 import { loadImgFromStorage } from '../actions/composition'
 
 const S = {}
@@ -23,31 +21,14 @@ S.Container = styled.div`
   justify-content: flex-start;
   align-items: center;
   padding: 16px;
-
-  @media only screen and (max-width: 1100px) {
-    background: ${Layout.DARK};
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
-    min-height: 100vh;
-    height: 100%;
-    width: 100vw;
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-  }
 `
 
 export class BandleContainer extends Component {
-  componentDidMount() {
-    // this.props.loadImgFromStorage(this.props.bgImage)
-  }
   render() {
     const { bgImage } = this.props
     return (
       <S.Container bg={bgImage ? bgImage : null}>
         <CompBuilder pathID={this.props.match.params.pathID} />
-        <MobilePathBuilder />
       </S.Container>
     )
   }

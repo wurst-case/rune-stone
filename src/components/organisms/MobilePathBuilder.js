@@ -27,10 +27,6 @@ import InfoDisplay from '../molecules/InfoDisplay'
 
 const S = {}
 S.Path = styled.div`
-  @media only screen and (min-width: 1100px) {
-    display: none;
-  }
-
   background: ${Layout.DARK};
   display: flex;
   flex-direction: column;

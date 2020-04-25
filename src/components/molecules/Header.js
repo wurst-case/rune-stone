@@ -57,6 +57,18 @@ S.Header = styled.div`
     cursor: pointer;
   }
 
+  input#permalinkHiddenInput {
+    position: 'absolute';
+    left: '-1000px';
+    top: '-1000px';
+    opacity: 0;
+    max-width: 1px;
+    color: transparent;
+    background-color: transparent;
+    z-index: -100000;
+    padding: 0;
+  }
+
   @media only screen and (max-width: 1100px) {
     width: 100vw;
     height: 60px;
@@ -74,14 +86,6 @@ S.Header = styled.div`
       fill: rgba(${Layout.GOLD}, 1);
       height: 100%;
     }
-
-    #permalinkHiddenInput {
-      position: 'absolute';
-      left: '-1000px';
-      top: '-1000px';
-      opacity: 0;
-      color: transparent;
-    }
   }
 `
 
@@ -98,7 +102,6 @@ export class Header extends Component {
   componentDidUpdate() {
     // Component only updates when input changes and when share btn is clicked
     var copyText = document.getElementById('permalinkHiddenInput')
-    console.log(copyText.select())
     copyText.select()
     copyText.setSelectionRange(0, 99999)
     document.execCommand('copy')
@@ -120,13 +123,14 @@ export class Header extends Component {
           <h5 onClick={() => this.props.reset()}>Reset</h5>
           <Link to="/ecs">Create</Link>
           <Link to="/about">About</Link>
+
+          <input
+            type="text"
+            value={this.props.pathID ? 'www.rune-stone.com/' + this.props.pathID : ''}
+            id="permalinkHiddenInput"
+            readOnly
+          />
         </div>
-        <input
-          type="text"
-          value={this.props.pathID ? 'www.rune-stone.com/' + this.props.pathID : ''}
-          id="permalinkHiddenInput"
-          readOnly
-        />
       </S.Header>
     )
   }
