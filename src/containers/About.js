@@ -1,3 +1,4 @@
+/* eslint-disable react/prefer-stateless-function */
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import styled from '@emotion/styled'
@@ -112,7 +113,7 @@ export class ComingSoon extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({})
+const mapStateToProps = () => ({})
 
 const mapDispatchToProps = {}
 

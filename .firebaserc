@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "custom-rune-pages"
+    "default": "custom-rune-pages",
+    "staging": "rune-stone-staging"
   }
 }

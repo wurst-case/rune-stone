@@ -3,7 +3,7 @@ import 'firebase/firestore'
 import 'firebase/auth'
 import 'firebase/storage'
 
-var config = {
+const config = {
   apiKey: 'AIzaSyCt3sfiLtu_lFg5tDlMtWwgaJr0sPMrSCk',
   authDomain: 'custom-rune-pages.firebaseapp.com',
   databaseURL: 'https://custom-rune-pages.firebaseio.com',
