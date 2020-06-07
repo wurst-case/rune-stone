@@ -5,7 +5,7 @@ export default {
   RUNE_SIZE_REG: 46 * 1.3,
   RUNE_SIZE_MENU: 36 * 1.3,
   RUNE_SIZE_FLAVOR: 46 * 1.3,
-  RUNE_SIZE_FLAVOR_MENU: 44 * 1.3,
+  RUNE_SIZE_FLAVOR_MENU: 30 * 1.3,
   RUNE_BORDER_WIDTH: 2,
   //Animations
   ATTACK: '200ms',

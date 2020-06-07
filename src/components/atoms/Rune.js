@@ -93,14 +93,15 @@ S.Spark = styled.img`
 
 S.Tooltip = styled.div`
   position: relative;
+  list-style-position: inside;
 
   & .tooltiptext {
     visibility: hidden;
-    width: 350px;
+    width: 250px;
     background-color: ${Layout.DARK};
     text-align: left;
     border-radius: 6px;
-    padding: 16px;
+    padding: 16px 24px;
     margin-bottom: ${(props) => (props.keystone ? '' : '-8px')};
     margin-top: ${(props) => (props.keystone ? '-8px' : '')};
     box-sizing: border-box;
@@ -109,7 +110,7 @@ S.Tooltip = styled.div`
     bottom: ${(props) => (props.keystone ? '' : '150%')};
     top: ${(props) => (props.keystone ? '150%' : '')};
     left: 50%;
-    margin-left: -175px;
+    margin-left: -125px;
     border: 2px solid ${Layout.BRONZE};
 
     h4 {
@@ -117,6 +118,10 @@ S.Tooltip = styled.div`
       margin: 0;
       text-transform: uppercase;
       font-size: 0.9rem;
+    }
+
+    ul {
+      list-style-position: inside;
     }
 
     p,

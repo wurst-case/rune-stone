@@ -31,7 +31,7 @@ S.FlavorMenuRune = styled.div`
   }
 
   & > img {
-    width: ${Layout.RUNE_SIZE_FLAVOR_MENU - 12}px;
+    width: ${Layout.RUNE_SIZE_FLAVOR_MENU - 8}px;
     filter: brightness(50%);
 
     @media only screen and (max-width: 1100px) {

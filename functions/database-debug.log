@@ -1,0 +1,7 @@
+13:29:59.385 [NamespaceSystem-akka.actor.default-dispatcher-5] INFO akka.event.slf4j.Slf4jLogger - Slf4jLogger started
+13:29:59.590 [main] INFO com.firebase.server.forge.App$ - Listening at localhost:9000
+13:31:54.113 [Thread-1] INFO com.firebase.server.forge.App$ - Attempting graceful shutdown.
+13:31:54.122 [NamespaceSystem-akka.actor.default-dispatcher-9] INFO com.firebase.core.namespace.Terminator$Terminator - 1 actors left to terminate: custom-rune-pages
+13:31:54.129 [NamespaceSystem-akka.actor.default-dispatcher-10] INFO com.firebase.core.namespace.NamespaceActor - Stopping namespace actor for custom-rune-pages
+13:31:54.130 [NamespaceSystem-akka.actor.default-dispatcher-10] INFO com.firebase.core.namespace.NamespaceActor - Gauges removed for custom-rune-pages
+13:31:54.136 [Thread-1] INFO com.firebase.server.forge.App$ - Graceful shutdown complete.

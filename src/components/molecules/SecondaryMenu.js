@@ -20,7 +20,7 @@ S.Menu = styled.div`
 
   margin: 2px;
   height: 80px;
-  width: 400px;
+  min-width: 260px;
 
   &.flavor {
     padding-top: 15px;
@@ -37,7 +37,7 @@ S.Description = styled.div`
 
   margin: 2px;
   height: 110px;
-  width: 400px;
+  min-width: 260px;
 
   text-align: left;
 
@@ -53,6 +53,7 @@ S.Description = styled.div`
     margin-top: 0;
     color: rgba(${(props) => props.color}, 1);
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+    max-width: 250px;
   }
 
   & > p,
@@ -64,6 +65,8 @@ S.Description = styled.div`
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+    max-width: 250px;
+    line-height: 1.2rem;
   }
 
   & > .simpleTT > p {

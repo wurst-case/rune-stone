@@ -24,7 +24,7 @@ S.Menu = styled.div`
 
   margin: 2px;
   height: 110px;
-  width: 400px;
+  min-width: 260px;
 `
 
 S.Description = styled.div`
@@ -35,7 +35,7 @@ S.Description = styled.div`
 
   margin: 2px;
   height: 110px;
-  width: 400px;
+  min-width: 260px;
 
   text-align: left;
 
@@ -50,6 +50,7 @@ S.Description = styled.div`
     margin-top: 0;
     color: rgba(${(props) => props.color}, 1);
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+    max-width: 250px;
   }
 
   & > p,
@@ -61,6 +62,8 @@ S.Description = styled.div`
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+    max-width: 250px;
+    line-height: 1.2rem;
   }
 
   & > .simpleTT > p {
@@ -118,20 +121,33 @@ function PrimaryMenu({
         )}
       </S.Description>
       <S.Menu open={openMenus.KEYSTONE} className="keystones">
-        {flavor &&
-          flavor.keystones &&
-          flavor.keystones.map((rune, id) => (
-            <MenuRune
-              keystone
-              color={color}
-              img={rune.img}
-              title={rune.name}
-              description={rune.detail}
-              onClick={() => onSelectKeystone(id)}
-              key={'keystone' + id + rune.name}
-              disabled={keystone ? rune.name !== keystone.name : false}
-            />
-          ))}
+        {flavor && flavor.slots
+          ? flavor.slots[0].map((rune, id) => (
+              <MenuRune
+                keystone
+                color={color}
+                img={rune.img}
+                title={rune.name}
+                description={rune.detail}
+                onClick={() => onSelectKeystone(id)}
+                key={'keystone' + id + rune.name}
+                disabled={keystone ? rune.name !== keystone.name : false}
+              />
+            ))
+          : flavor &&
+            flavor.keystones &&
+            flavor.keystones.map((rune, id) => (
+              <MenuRune
+                keystone
+                color={color}
+                img={rune.img}
+                title={rune.name}
+                description={rune.detail}
+                onClick={() => onSelectKeystone(id)}
+                key={'keystone' + id + rune.name}
+                disabled={keystone ? rune.name !== keystone.name : false}
+              />
+            ))}
       </S.Menu>
       <S.Description open={openMenus.KEYSTONE} color={color} className="keystones">
         <h4>{(keystone && keystone.name) || 'Keystone'}</h4>

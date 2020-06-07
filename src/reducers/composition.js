@@ -29,6 +29,7 @@ export const initialState = {
   slotMachine: null,
   fresh: true,
   pathID: null,
+  perks: null,
 }
 
 export function composition(state = initialState, action) {
@@ -210,7 +211,31 @@ export function composition(state = initialState, action) {
       // Either will be a rune object if open or null if closed
       return { ...state, RUNE_INFO: action.payload }
     case ActionTypes.LOAD_ALL_PATHS:
-      return { ...state, paths: action.payload }
+      const riotAssetUrl = 'https://ddragon.leagueoflegends.com/cdn/img/'
+      let paths = action.payload.map((path) => {
+        if (path.slots) {
+          return {
+            ...path,
+            slots: path.slots.map((slot) => {
+              return slot.runes.map((rune) => {
+                let img = riotAssetUrl + rune.icon
+                let detail = rune.longDesc
+                let tooltip = rune.shortDesc
+                  .replace(/(<lol-uikit(\s|\S)*?>)/gm, '<b style="color:white;">')
+                  .replace(/(<\/lol-uikit(\s|\S)*?>)/gm, '</b>')
+                // Replaces Riot's custom html tags with standard tags and styling
+                return { ...rune, img, detail, tooltip }
+              })
+            }),
+          }
+        } else return path
+      })
+      console.log(paths)
+
+      return {
+        ...state,
+        paths: paths,
+      }
     case ActionTypes.MAKE_PERMALINK:
       return { ...state, pathID: action.payload }
     case ActionTypes.LOAD_FROM_PERMALINK:
