@@ -91,6 +91,17 @@ S.Spark = styled.img`
   animation: ${S.spin} 2s linear infinite;
 `
 
+S.Glow = styled.img`
+  display: ${(props) => (props.active ? '' : 'none')};
+  z-index: -100;
+  position: absolute;
+  bottom: 0;
+  border-radius: 50px;
+  width: ${Layout.RUNE_SIZE_REG}px;
+  height: ${Layout.RUNE_SIZE_REG}px;
+  box-shadow: 0 0 20px 20px rgba(${(props) => props.color}, 0.25);
+`
+
 S.Tooltip = styled.div`
   position: relative;
   list-style-position: inside;
@@ -179,6 +190,7 @@ function Rune({
           <div />
         )}
         <div className="highlighter" />
+        <S.Glow active={triggerSlot && slotMachine && !active ? true : false} color={color} />
       </S.Rune>
       <div className="tooltiptext">
         <h4>{title}</h4>

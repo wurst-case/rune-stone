@@ -24,7 +24,7 @@ S.FlavorRune = styled.div`
 function FlavorRune({ color, onClick, icon }) {
   return (
     <S.FlavorRune color={color} onClick={(_) => onClick()}>
-      <img src={icon} alt="path icon" />
+      {icon ? <img src={icon} alt="path icon" /> : <div></div>}
       <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" viewBox="0 0 61 60.55">
         <defs>
           <linearGradient

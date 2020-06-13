@@ -53,7 +53,7 @@ function Routes() {
         <Header />
         <Switch>
           <Route path="/ecs" component={ComingSoon} />
-          <Route path="/learnmore" component={ComingSoon} />
+          <Route path="/bandle" component={ComingSoon} />
           <Route path="/about" component={About} />
           <Route path="/editor" component={EditorContainer} />
           <Route path="/:pathID" component={CompBuilder} />

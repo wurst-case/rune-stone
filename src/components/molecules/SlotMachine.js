@@ -23,6 +23,8 @@ S.SlotMachine = styled.div`
   & > #smRune img {
     animation: ${S.pull} 2s ease-out;
   }
+
+  box-shadow: 0 0 20 rgba(0, 255, 0, 0.5);
 `
 
 function SlotMachineRune({ targetRune, color, active, onClick }) {

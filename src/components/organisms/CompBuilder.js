@@ -154,7 +154,6 @@ class CompBuilder extends Component {
       resetSlotMachine,
       slotColor,
     } = this.props
-    // console.log(keystone)
 
     return (
       <S.CompBuilder>

@@ -21,6 +21,8 @@ S.Container = styled.div`
   justify-content: flex-start;
   align-items: center;
   padding: 16px;
+  margin-left: 64px;
+  padding-left: 64px;
 `
 
 export class BandleContainer extends Component {

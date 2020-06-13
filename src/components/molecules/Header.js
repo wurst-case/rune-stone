@@ -1,24 +1,34 @@
 import React, { Component } from 'react'
-import { Link, useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { connect } from 'react-redux'
 import styled from '@emotion/styled'
 import Layout from '../../constants/layoutConstants'
-import { ReactComponent as Logo } from '../../assets/runestonelogo.svg'
+import Logo from '../../assets/logo.png'
 import { makePermalink, reset } from '../../actions/composition'
+import InfoIcon from '@material-ui/icons/Info'
+import ShareIcon from '@material-ui/icons/Share'
+import RotateLeftIcon from '@material-ui/icons/RotateLeft'
+import CreateIcon from '@material-ui/icons/Create'
+import DomainIcon from '@material-ui/icons/Domain'
+import BetaBanner from '../../assets/betabanner.png'
 
 const S = {}
 S.Header = styled.div`
-  min-width: 8vw;
-  height: 100%;
-  margin-right: 16px;
-
+  img.banner {
+    width: 120px;
+    position: absolute;
+    top: 15px;
+    left: -35px;
+    z-index: 1000;
+    transform: rotate(-45deg);
+  }
   & > div {
     position: fixed;
     background-color: ${Layout.DARK};
-    padding: 16px;
+    /* padding: 16px; */
     color: rgba(${Layout.GOLD}, 1);
     text-align: center;
-    width: 10vw;
+    width: 64px;
     height: 100vh;
     box-sizing: border-box;
     border: solid 1px ${Layout.BRONZE};
@@ -28,6 +38,15 @@ S.Header = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    transition: width 100ms;
+  }
+
+  & > div:hover {
+    width: 128px;
+    transition: width 100ms;
+    h5 {
+      display: inline;
+    }
   }
 
   a,
@@ -42,19 +61,17 @@ S.Header = styled.div`
     font-family: 'Beaufort W01 Bold1339640';
     cursor: pointer;
     font-size: 1rem;
-  }
-
-  .logo,
-  a,
-  h5 {
-    margin: 54px 0;
+    display: none;
+    margin: 0;
+    margin-left: 16px;
   }
 
   .logo {
-    fill: rgba(${Layout.GOLD}, 1);
-    min-height: 60px;
-    max-height: 60px;
+    width: 80%;
     cursor: pointer;
+    margin: 0;
+    margin-bottom: 54px;
+    margin-top: 20px;
   }
 
   input#permalinkHiddenInput {
@@ -85,7 +102,45 @@ S.Header = styled.div`
     .logo {
       fill: rgba(${Layout.GOLD}, 1);
       height: 100%;
+      width: auto;
+      margin: 0 56px;
     }
+  }
+
+  .navbutton {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    cursor: pointer;
+    width: 100%;
+    padding: 32px 0 32px 1vw;
+    background-color: rgba(255, 255, 255, 0);
+    transition: background-color 100ms;
+    box-sizing: border-box;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+      transition: background-color 100ms;
+    }
+  }
+`
+
+S.NavButton = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  cursor: pointer;
+  width: 100%;
+  padding: 32px 0 32px 1vw;
+  background-color: rgba(255, 255, 255, 0);
+  transition: background-color 100ms;
+  box-sizing: border-box;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    transition: background-color 100ms;
   }
 `
 
@@ -95,7 +150,69 @@ function WrappedLogo() {
     history.push('/')
   }
 
-  return <Logo className="logo" onClick={handleClick} />
+  return <img className="logo" onClick={handleClick} src={Logo} />
+}
+
+function AboutButton() {
+  var history = useHistory()
+  function handleClick() {
+    history.push('/about')
+  }
+
+  return (
+    <S.NavButton onClick={handleClick}>
+      <DomainIcon />
+      <h5>About</h5>
+    </S.NavButton>
+  )
+}
+function CreateButton() {
+  var history = useHistory()
+  function handleClick() {
+    history.push('/ecs')
+  }
+
+  return (
+    <S.NavButton onClick={handleClick}>
+      <CreateIcon />
+      <h5>Create</h5>
+    </S.NavButton>
+  )
+}
+function BandleButton() {
+  var history = useHistory()
+  function handleClick() {
+    history.push('/bandle')
+  }
+
+  return (
+    <S.NavButton onClick={handleClick}>
+      <InfoIcon />
+      <h5>Bandle</h5>
+    </S.NavButton>
+  )
+}
+function ShareButton({ shareCallback }) {
+  return (
+    <S.NavButton onClick={shareCallback}>
+      <ShareIcon />
+      <h5>Share</h5>
+    </S.NavButton>
+  )
+}
+function ResetButton({ resetCallback }) {
+  var history = useHistory()
+  function handleClick() {
+    resetCallback()
+    history.push('/')
+  }
+
+  return (
+    <S.NavButton onClick={handleClick}>
+      <RotateLeftIcon />
+      <h5>Reset</h5>
+    </S.NavButton>
+  )
 }
 
 export class Header extends Component {
@@ -107,22 +224,23 @@ export class Header extends Component {
     document.execCommand('copy')
     alert('Copied the link: www.rune-stone.com/' + this.props.pathID)
   }
+
   render() {
     return (
       <S.Header>
+        <img src={BetaBanner} alt="Beta" className="banner" />
         <div>
           <WrappedLogo />
-          <h5
-            onClick={() => {
+          <ShareButton
+            shareCallback={() => {
               this.forceUpdate()
               this.props.makePermalink()
             }}
-          >
-            Share
-          </h5>
-          <h5 onClick={() => this.props.reset()}>Reset</h5>
-          <Link to="/ecs">Create</Link>
-          <Link to="/about">About</Link>
+          />
+          <ResetButton resetCallback={this.props.reset} />
+          <CreateButton />
+          <AboutButton />
+          <BandleButton />
 
           <input
             type="text"
