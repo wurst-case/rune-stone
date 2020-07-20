@@ -11,7 +11,7 @@
     "@react-firebase/auth": "^0.2.10",
     "@react-firebase/firestore": "^0.5.5",
     "firebase": "^7.14.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "prop-types": "^15.7.2",
     "react": "^16.12.0",
     "react-color": "^2.18.0",
