@@ -230,7 +230,6 @@ export function composition(state = initialState, action) {
           }
         } else return path
       })
-      console.log(paths)
 
       return {
         ...state,

@@ -41,14 +41,6 @@ S.Header = styled.div`
     transition: width 100ms;
   }
 
-  & > div:hover {
-    width: 128px;
-    transition: width 100ms;
-    h5 {
-      display: inline;
-    }
-  }
-
   a,
   h5 {
     color: transparent;
@@ -86,6 +78,16 @@ S.Header = styled.div`
     padding: 0;
   }
 
+  @media only screen and (min-width: 1100px) {
+    & > div:hover {
+      width: 128px;
+      transition: width 100ms;
+      h5 {
+        display: inline;
+      }
+    }
+  }
+
   @media only screen and (max-width: 1100px) {
     width: 100vw;
     height: 60px;
@@ -106,24 +108,6 @@ S.Header = styled.div`
       margin: 0 56px;
     }
   }
-
-  .navbutton {
-    display: flex;
-    flex-direction: row;
-    justify-content: start;
-    align-items: center;
-    cursor: pointer;
-    width: 100%;
-    padding: 32px 0 32px 1vw;
-    background-color: rgba(255, 255, 255, 0);
-    transition: background-color 100ms;
-    box-sizing: border-box;
-
-    &:hover {
-      background-color: rgba(255, 255, 255, 0.1);
-      transition: background-color 100ms;
-    }
-  }
 `
 
 S.NavButton = styled.div`
@@ -138,9 +122,11 @@ S.NavButton = styled.div`
   transition: background-color 100ms;
   box-sizing: border-box;
 
-  &:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-    transition: background-color 100ms;
+  @media only screen and (min-width: 1100px) {
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+      transition: background-color 100ms;
+    }
   }
 `
 
@@ -150,7 +136,7 @@ function WrappedLogo() {
     history.push('/')
   }
 
-  return <img className="logo" onClick={handleClick} src={Logo} />
+  return <img className="logo" onClick={handleClick} src={Logo} alt="logo" />
 }
 
 function AboutButton() {
@@ -222,7 +208,7 @@ export class Header extends Component {
     copyText.select()
     copyText.setSelectionRange(0, 99999)
     document.execCommand('copy')
-    alert('Copied the link: www.rune-stone.com/' + this.props.pathID)
+    alert('Copied the link: www.rune-stone.com/comp/' + this.props.pathID)
   }
 
   render() {

@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import styled from '@emotion/styled'
 import Layout from '../constants/layoutConstants'
 import Editor from '../components/organisms/Editor'
+import firebase from '../constants/firebaseConfig'
 
 const S = {}
 S.Container = styled.div`
@@ -26,6 +27,19 @@ S.Container = styled.div`
 `
 
 export class EditorContainer extends Component {
+  componentDidMount() {
+    if (firebase.auth() && firebase.auth().currentUser && true)
+      firebase
+        .auth()
+        .currentUser.getIdTokenResult()
+        .then((idTokenResult) => {
+          if (!idTokenResult.claims.admin) this.props.history.push('/')
+        })
+    var updateRiotTrees = firebase.functions().httpsCallable('updateRiotTrees')
+    updateRiotTrees().then(function(result) {
+      console.log(result)
+    })
+  }
   render() {
     return (
       <S.Container>

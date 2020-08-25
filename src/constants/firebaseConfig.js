@@ -1,7 +1,8 @@
 import firebase from 'firebase/app'
 import 'firebase/firestore'
 import 'firebase/auth'
-import 'firebase/storage'
+import 'firebase/functions' // <- needed if using httpsCallable
+// import 'firebase/database'
 
 const config = {
   apiKey: 'AIzaSyCt3sfiLtu_lFg5tDlMtWwgaJr0sPMrSCk',
@@ -14,7 +15,15 @@ const config = {
   measurementId: 'G-SQK32ZWTFF',
 }
 
+export const rrfConfig = {
+  userProfile: 'users',
+  useFirestoreForProfile: true, // Firestore for Profile instead of Realtime DB
+  // enableClaims: true // Get custom claims along with the profile
+}
+
 firebase.initializeApp(config)
-firebase.firestore().settings({})
+// Initialize other services on firebase instance
+firebase.firestore() // <- needed if using firestore
+firebase.functions() // <- needed if using httpsCallable
 
 export default firebase

@@ -6,7 +6,25 @@ admin.initializeApp({
   credential: admin.credential.cert(require('../key/serviceAccountKey.json')),
 })
 
-export const updateRiotTrees = functions.https.onRequest((request, response) => {
+// Custom Claims
+exports.addAdminRole = functions.https.onCall((data, context) => {
+  // get user and add custom claim (admin)
+  return admin
+    .auth()
+    .getUserByEmail(data.email)
+    .then((user) => {
+      return admin.auth().setCustomUserClaims(user.uid, {
+        admin: true,
+      })
+    })
+    .then(() => {
+      return { message: `Success! ${data.email} has been made an admin` }
+    })
+    .catch((err) => err)
+})
+
+// Updating Data to Current Riot Version
+exports.updateRiotTrees = functions.https.onCall((data, context) => {
   // Get perks object from riot api
   const versionsUrl = 'https://ddragon.leagueoflegends.com/api/versions.json'
   const url = ['https://ddragon.leagueoflegends.com/cdn/', '/data/en_US/runesReforged.json']
@@ -32,14 +50,61 @@ export const updateRiotTrees = functions.https.onRequest((request, response) => 
                 })
                 .then((snapshot) => {
                   console.log('version: ', version, 'json fetched from: ', url[0] + version + url[1], 'json: ', perks)
-                  response.send(snapshot.writeTime)
+                  data.send(snapshot.writeTime)
                 })
-                .catch((e) => {
-                  console.log(e)
-                  response.status(500).send(e)
-                })
+                .catch((e) => console.log(e))
         })
-        .catch((e) => response.status(500).send(e))
+        .then(() => {
+          admin
+            .firestore()
+            .collection('version_data')
+            .doc('version')
+            .update({ live: version })
+            .then((_r) => console.log(_r))
+            .catch((_err) => console.log(_err))
+        })
+        .catch((e) => console.log(e))
     })
-    .catch()
+    .catch((e) => console.log(e))
+})
+
+exports.rollbackToSafeVersion = functions.https.onCall((data, context) => {
+  // Get perks object from riot api
+  const version = '10.14.1'
+  const staticUrl = `https://ddragon.leagueoflegends.com/cdn/${version}/data/en_US/runesReforged.json`
+  const riotAssetUrl = 'https://ddragon.leagueoflegends.com/cdn/img/'
+  fetch(staticUrl)
+    .then((_response) => _response.json())
+    .then((perks) => {
+      // Update paths with new perk values
+      if (perks)
+        for (let i = 0; i < 5; i++)
+          admin
+            .firestore()
+            .doc('paths/' + perks[i].name.toLowerCase())
+            .update({
+              name: perks[i].name, // Set name from perks object
+              img: riotAssetUrl + perks[i].icon, // Set icon from perks object
+              slots: perks[i].slots, // Set all updated slots
+              version: version,
+            })
+            .then((snapshot) => {
+              console.log('version: ', version, 'json fetched from: ', staticUrl, 'json: ', perks)
+              data.send(snapshot.writeTime)
+            })
+            .catch((e) => {
+              console.log(e)
+              data.status(500).send(e)
+            })
+    })
+    .then(() => {
+      admin
+        .firestore()
+        .collection('version_data')
+        .doc('version')
+        .update({ live: version })
+        .then((_r) => console.log(_r))
+        .catch((_err) => console.log(_err))
+    })
+    .catch((e) => data.status(500).send(e))
 })

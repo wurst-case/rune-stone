@@ -10,7 +10,7 @@ export const initialState = {
 }
 
 export const rootReducer = combineReducers({
-  firebase: firebaseReducer,
+  firebaseReducer: firebaseReducer,
   firestore: firestoreReducer,
   composition: composition,
   editor: editor,
