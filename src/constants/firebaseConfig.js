@@ -5,14 +5,14 @@ import 'firebase/functions' // <- needed if using httpsCallable
 // import 'firebase/database'
 
 const config = {
-  apiKey: 'YOUR_API_KEY',
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
   authDomain: 'custom-rune-pages.firebaseapp.com',
   databaseURL: 'https://custom-rune-pages.firebaseio.com',
   projectId: 'custom-rune-pages',
   storageBucket: 'custom-rune-pages.appspot.com',
-  messagingSenderId: 'YOUR_ID',
-  appId: 'YOUR_APP_ID',
-  measurementId: 'YOUR_MEASUREMENT_ID',
+  messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID,
+  measurementId: process.env.REACT_APP_MEASUREMENT_ID,
 }
 
 export const rrfConfig = {

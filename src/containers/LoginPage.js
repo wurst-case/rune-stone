@@ -45,7 +45,7 @@ class LoginPage extends Component {
 
   async redirect(msDelay) {
     await new Promise((resolve) => setTimeout(resolve, msDelay))
-    this.props.history.push('/edit')
+    this.props.history.push('/editor')
   }
 
   render() {
