@@ -35,10 +35,6 @@ export class EditorContainer extends Component {
         .then((idTokenResult) => {
           if (!idTokenResult.claims.admin) this.props.history.push('/')
         })
-    var updateRiotTrees = firebase.functions().httpsCallable('updateRiotTrees')
-    updateRiotTrees().then(function(result) {
-      console.log(result)
-    })
   }
   render() {
     return (

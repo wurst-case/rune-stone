@@ -23,8 +23,8 @@ exports.addAdminRole = functions.https.onCall((data, context) => {
     .catch((err) => err)
 })
 
-// Updating Data to Current Riot Version
-exports.updateRiotTrees = functions.https.onCall((data, context) => {
+// Updating Data to Current Riot Version every minute
+exports.scheduledUpdateRiotTrees = functions.pubsub.schedule('* * * * *').onRun((_context) => {
   // Get perks object from riot api
   const versionsUrl = 'https://ddragon.leagueoflegends.com/api/versions.json'
   const url = ['https://ddragon.leagueoflegends.com/cdn/', '/data/en_US/runesReforged.json']
@@ -50,7 +50,6 @@ exports.updateRiotTrees = functions.https.onCall((data, context) => {
                 })
                 .then((snapshot) => {
                   console.log('version: ', version, 'json fetched from: ', url[0] + version + url[1], 'json: ', perks)
-                  data.send(snapshot.writeTime)
                 })
                 .catch((e) => console.log(e))
         })
@@ -59,7 +58,7 @@ exports.updateRiotTrees = functions.https.onCall((data, context) => {
             .firestore()
             .collection('version_data')
             .doc('version')
-            .update({ live: version })
+            .update({ live: version, lastUpdate: Date() })
             .then((_r) => console.log(_r))
             .catch((_err) => console.log(_err))
         })
@@ -68,7 +67,7 @@ exports.updateRiotTrees = functions.https.onCall((data, context) => {
     .catch((e) => console.log(e))
 })
 
-exports.rollbackToSafeVersion = functions.https.onCall((data, context) => {
+exports.rollbackToSafeVersion = functions.https.onCall((data, _context) => {
   // Get perks object from riot api
   const version = '10.14.1'
   const staticUrl = `https://ddragon.leagueoflegends.com/cdn/${version}/data/en_US/runesReforged.json`
