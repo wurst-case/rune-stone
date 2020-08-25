@@ -121,8 +121,8 @@ function PrimaryMenu({
         )}
       </S.Description>
       <S.Menu open={openMenus.KEYSTONE} className="keystones">
-        {flavor && flavor.slots
-          ? flavor.slots[0].map((rune, id) => (
+        {flavor && flavor.keystones
+          ? flavor.keystones.map((rune, id) => (
               <MenuRune
                 keystone
                 color={color}

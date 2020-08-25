@@ -214,23 +214,27 @@ export function composition(state = initialState, action) {
       const riotAssetUrl = 'https://ddragon.leagueoflegends.com/cdn/img/'
       let paths = action.payload.map((path) => {
         if (path.slots) {
+          var slots = path.slots.map((slot) => {
+            return slot.runes.map((rune) => {
+              let img = riotAssetUrl + rune.icon
+              let detail = rune.longDesc
+              let tooltip = rune.shortDesc
+                .replace(/(<lol-uikit(\s|\S)*?>)/gm, '<b style="color:white;">')
+                .replace(/(<\/lol-uikit(\s|\S)*?>)/gm, '</b>')
+              // Replaces Riot's custom html tags with standard tags and styling
+              return { ...rune, img, detail, tooltip }
+            })
+          })
           return {
             ...path,
-            slots: path.slots.map((slot) => {
-              return slot.runes.map((rune) => {
-                let img = riotAssetUrl + rune.icon
-                let detail = rune.longDesc
-                let tooltip = rune.shortDesc
-                  .replace(/(<lol-uikit(\s|\S)*?>)/gm, '<b style="color:white;">')
-                  .replace(/(<\/lol-uikit(\s|\S)*?>)/gm, '</b>')
-                // Replaces Riot's custom html tags with standard tags and styling
-                return { ...rune, img, detail, tooltip }
-              })
-            }),
+            keystones: slots[0],
+            tier1: slots[1],
+            tier2: slots[2],
+            tier3: slots[3],
           }
-        } else return path
+        } else return path // If this is a custom path without the riot api slots, return it without mutation
       })
-
+      // Retrun the state with the mapped paths
       return {
         ...state,
         paths: paths,
