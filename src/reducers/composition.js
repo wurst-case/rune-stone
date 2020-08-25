@@ -218,6 +218,11 @@ export function composition(state = initialState, action) {
             return slot.runes.map((rune) => {
               let img = riotAssetUrl + rune.icon
               let detail = rune.longDesc
+                .replace(/(<\/?scaleAD>)/gm, '')
+                .replace(/(<\/?scaleAP>)/gm, '')
+                .replace(/(<\/?hr>)/gm, '')
+                .replace(/(<\/?rules>)/gm, '')
+              // Remove Riot's custom html tags
               let tooltip = rune.shortDesc
                 .replace(/(<lol-uikit(\s|\S)*?>)/gm, '<b style="color:white;">')
                 .replace(/(<\/lol-uikit(\s|\S)*?>)/gm, '</b>')
