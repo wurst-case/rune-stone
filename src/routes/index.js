@@ -19,6 +19,11 @@ const CompBuilder = lazy(() => {
     ? import('../containers/BandleContainer')
     : import('../containers/MobilePathContainer')
 })
+const Resume = lazy(() => {
+  return document.documentElement.clientWidth >= 1100
+    ? import('../containers/ResumeContainer')
+    : import('../containers/ResumeMobileContainer')
+})
 
 export const history = createBrowserHistory()
 
@@ -72,6 +77,7 @@ function Routes() {
               <Route exact path="/ecs" component={ComingSoon} />
               <Route exact path="/bandle" component={ComingSoon} />
               <Route exact path="/about" component={About} />
+              <Route exact path="/resume" component={Resume} />
               <Route path="/comp/:pathID" component={CompBuilder} />
               <Route exact path="/" component={CompBuilder} />
               <PrivateRoute>

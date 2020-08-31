@@ -168,13 +168,13 @@ function CreateButton() {
 function BandleButton() {
   var history = useHistory()
   function handleClick() {
-    history.push('/bandle')
+    history.push('/resume')
   }
 
   return (
     <S.NavButton onClick={handleClick}>
       <InfoIcon />
-      <h5>Bandle</h5>
+      <h5>Resumé</h5>
     </S.NavButton>
   )
 }

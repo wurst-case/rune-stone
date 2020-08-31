@@ -175,41 +175,41 @@ export const Drawer = ({
               ) : (
                 true
               )) ? (
-                <ListItem button key={rune.name + id + 'LI'} className="subMenu">
+                <ListItem button key={rune && rune.name + id + 'LI'} className="subMenu">
                   <div className="listItemWrapper" onClick={() => onSelect(id)}>
                     <div className="runeWrap">
                       {isFlavor ? (
                         <FlavorMenuRune
-                          img={rune.img}
-                          picked={selected && rune.name === selected.name}
-                          key={rune.name + id + 'RUNE'}
+                          img={rune && rune.img}
+                          picked={selected && rune && rune.name === selected.name}
+                          key={rune && rune.name + id + 'RUNE'}
                         />
                       ) : (
                         <MenuRune
-                          img={rune.img}
-                          disabled={selected ? rune.name !== selected.name : false}
+                          img={rune && rune.img}
+                          disabled={selected ? rune && rune.name !== selected.name : false}
                           color={altColor || color}
-                          key={rune.name + id + 'RUNE'}
+                          key={rune && rune.name + id + 'RUNE'}
                         />
                       )}
                     </div>
                     <ListItemText>
-                      <h4 style={{ color: 'rgba(' + rune.colorRGB + ',1)' }}>{rune.name}</h4>
+                      <h4 style={{ color: 'rgba(' + (rune && rune.colorRGB) + ',1)' }}>{rune && rune.name}</h4>
                       {/* Strip away all html tags from description */}
                       <p>
                         {rune
-                          ? (isFlavor ? rune.subtitle : rune.tooltip) &&
-                            (isFlavor ? rune.subtitle : rune.tooltip).replace(/<\/?[^>]+(>|$)/g, '')
+                          ? (isFlavor ? rune && rune.subtitle : rune && rune.tooltip) &&
+                            (isFlavor ? rune && rune.subtitle : rune && rune.tooltip).replace(/<\/?[^>]+(>|$)/g, '')
                           : `Select a rune`}
                       </p>
                     </ListItemText>
                   </div>
                   {!isFlavor ? (
                     <div className="iconWrapper" onClick={() => moreInfo({ rune: rune, color: color, id: id })}>
-                      <InfoIcon htmlColor="white" key={rune.name + id + 'INFO'} />
+                      <InfoIcon htmlColor="white" key={rune && rune.name + id + 'INFO'} />
                     </div>
                   ) : (
-                    <div key={rune.name + id + 'INFO'} />
+                    <div key={rune && rune.name + id + 'INFO'} />
                   )}
                 </ListItem>
               ) : (

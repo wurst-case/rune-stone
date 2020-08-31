@@ -2,9 +2,10 @@ import { createStore, applyMiddleware } from 'redux'
 import ReduxThunk from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import rootReducer from '../reducers'
+import { getFirebase } from 'react-redux-firebase'
 
 export default function configureStore(initialState = {}) {
-  const middlewares = [ReduxThunk]
+  const middlewares = [ReduxThunk.withExtraArgument(getFirebase)]
   const enhancers = [
     applyMiddleware(...middlewares),
     // other store enhancers if any
