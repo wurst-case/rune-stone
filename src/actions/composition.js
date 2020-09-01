@@ -81,10 +81,10 @@ export const toggleInfoDisplay = (rune) => {
 
 //Firestore
 export const loadPathsFromFirestore = () => {
-  return (dispatch, getState, { getFirestore }) => {
-    const firestore = getFirestore()
-    firestore
-      .get({ collection: 'paths' })
+  return (dispatch, getState, getFirebase) => {
+    const db = getFirebase().firestore()
+    db.collection('paths')
+      .get()
       .then((col) => {
         let paths = []
         col.docs.forEach((doc) => {

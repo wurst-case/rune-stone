@@ -97,10 +97,9 @@ export const setChosenPath = (path) => {
 //FIRESTORE
 
 export const saveNewPath = (path) => {
-  return (dispatch, getState, { getFirebase, getFirestore }) => {
-    const firestore = getFirestore()
-    firestore
-      .collection('paths')
+  return (dispatch, getState, getFirebase) => {
+    const db = getFirebase().firestore()
+    db.collection('paths')
       .add({
         ...path,
         authorFirstName: 'Dylan',
@@ -116,10 +115,9 @@ export const saveNewPath = (path) => {
 }
 
 export const loadPathNamesFromFirestore = () => {
-  return (dispatch, getState, { getFirebase, getFirestore }) => {
-    const firestore = getFirestore()
-    firestore
-      .get({ collection: 'paths' })
+  return (dispatch, getState, getFirebase) => {
+    const db = getFirebase().firestore()
+    db.get({ collection: 'paths' })
       .then((col) => {
         let pathList = col.docs.map((d) => ({ id: d.id, name: d.data().name })).filter((p) => p.id !== 'empty')
         // console.log(pathList)
@@ -133,10 +131,9 @@ export const loadPathNamesFromFirestore = () => {
 }
 
 export const loadPathFromFirestore = (pathId) => {
-  return (dispatch, getState, { getFirebase, getFirestore }) => {
-    const firestore = getFirestore()
-    firestore
-      .get({ collection: 'paths', doc: pathId })
+  return (dispatch, getState, getFirebase) => {
+    const db = getFirebase().firestore()
+    db.get({ collection: 'paths', doc: pathId })
       .then((doc) => {
         let d = doc.data()
         dispatch(resetEditor())
@@ -166,13 +163,12 @@ export const loadPathFromFirestore = (pathId) => {
 }
 
 export const saveEditedPath = (path) => {
-  return (dispatch, getState, { getFirebase, getFirestore }) => {
+  return (dispatch, getState, getFirebase) => {
     const state = getState().editor
-    const firestore = getFirestore()
+    const db = getFirebase().firestore()
     console.log(path)
     // uploadIcon(path.icon, state.chosenPath)
-    firestore
-      .collection('paths')
+    db.collection('paths')
       .doc(state.chosenPath)
       .update({
         colorHex: path.path.color,
@@ -205,19 +201,15 @@ export const saveEditedPath = (path) => {
         })),
         tierNames: [path.tiers[0].title, path.tiers[1].title, path.tiers[2].title],
       })
-      .then((res) => {
-        console.log(res)
-        dispatch({ type: 'ActionTypes.SAVE_EDITED_PATH', path })
-      })
-      .catch({ type: ActionTypes.SAVE_PATH_ERROR })
+      .then((res) => dispatch({ type: 'ActionTypes.SAVE_EDITED_PATH', path }))
+      .catch((err) => dispatch({ type: ActionTypes.SAVE_PATH_ERROR, err: err }))
   }
 }
 
 export const restoreFromBackup = (assetMap, name) => {
-  return (dispatch, getState, { getFirebase, getFirestore }) => {
-    const firestore = getFirestore()
-    firestore
-      .collection('paths')
+  return (dispatch, getState, getFirebase) => {
+    const db = getFirebase().firestore()
+    db.collection('paths')
       .doc(name)
       .set({
         ...assetMap,
@@ -242,20 +234,14 @@ export const selectImage = (img, tier, id) => {
 }
 
 export const uploadIcon = (img, path) => {
-  console.log('actioning upload')
-
-  return (dispatch, getState, { getFirebase, getFirestore }) => {
+  return (dispatch, getState, getFirebase) => {
     // Get access to firebase services
-    // const firestore = getFirestore()
     const firebase = getFirebase()
     // Upload image and get path to storage location
     // Create a root reference
     var storageRef = firebase.storage().ref()
-    console.log('aquired storage ref', storageRef)
-
     // File or Blob named mountains.jpg
     var file = img
-
     // Create the file metadata
     var metadata = {
       contentType: 'image/jpeg',
@@ -263,8 +249,6 @@ export const uploadIcon = (img, path) => {
 
     // Upload file and metadata to the object 'images/mountains.jpg'
     var uploadTask = storageRef.child('images/' + file.name).put(file, metadata)
-    console.log('uplaod task: ', uploadTask)
-
     // Listen for state changes, errors, and completion of the upload.
     uploadTask.on(
       firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
@@ -324,10 +308,10 @@ export const uploadIcon = (img, path) => {
 }
 
 export const uploadImage = (img, path, tier, rune) => {
-  return (dispatch, getState, { getFirebase, getFirestore }) => {
+  return (dispatch, getState, getFirebase) => {
     // Get access to firebase services
-    const firestore = getFirestore()
     const firebase = getFirebase()
+    const db = firebase.firestore()
     // Upload image and get path to storage location
     var imgStorePath
 
@@ -395,8 +379,7 @@ export const uploadImage = (img, path, tier, rune) => {
 
     // Get a copy of the current path data
     var pathCopy
-    firestore
-      .get({ collection: 'paths', doc: path })
+    db.get({ collection: 'paths', doc: path })
       .then((doc) => {
         pathCopy = doc.data()
       })
@@ -447,8 +430,7 @@ export const uploadImage = (img, path, tier, rune) => {
         break
     }
     // Update the proper path data to include the new image location and dispatch
-    firestore
-      .collection('paths')
+    db.collection('paths')
       .doc(path)
       .update(imgPathToUpdate)
       .then((res) => {
