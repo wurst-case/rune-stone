@@ -17,10 +17,10 @@ import {
   setColor,
   toggleColorPicker,
   saveNewPath,
-  saveEditedPath,
+  saveEditedResume,
   restoreFromBackup,
   setChosenPath,
-  loadPathNamesFromFirestore,
+  loadResumeFromFirestore,
   selectImage,
   uploadIcon,
 } from '../../actions/editor'
@@ -38,8 +38,7 @@ S.Editor = styled.div`
 
 class Editor extends Component {
   componentDidMount() {
-    // this.props.restoreFromBackup(assetMap[6], 'inspiration')
-    this.props.loadPathNamesFromFirestore()
+    this.props.loadResumeFromFirestore()
   }
 
   render() {
@@ -65,40 +64,15 @@ class Editor extends Component {
       toggleColorPicker,
       colorPickerOpen,
       saveNewPath,
-      saveEditedPath,
-      pathList,
-      chosenPath,
-      setChosenPath,
+      saveEditedResume,
       selectImage,
     } = this.props
 
-    function createPathList() {
-      var optionArray = []
-      if (pathList.length > 0)
-        pathList.forEach((path) =>
-          optionArray.push(
-            <option value={path.id} key={path.id + 'option'}>
-              {path.name}
-            </option>,
-          ),
-        )
-      return optionArray
-    }
-
     return (
       <S.Editor>
-        {false ? ( //If new path, false indicates editing existing path
-          <h1>Build Your Own Custom Path</h1>
-        ) : (
-          <div className="center">
-            <h1>Edit your custom paths</h1>
-            <label>Choose The Path To Edit: </label>
-            <select id="paths" value={chosenPath} onChange={(e) => setChosenPath(e.target.value)}>
-              <option value="default">Choose a path</option>
-              {createPathList()}
-            </select>
-          </div>
-        )}
+        <div className="center">
+          <h1>Edit the bandle paths</h1>
+        </div>
         <PathEditor
           color={color}
           setTitle={setPathTitle}
@@ -160,7 +134,7 @@ class Editor extends Component {
           onClick={() => {
             return false // this.props.new check
               ? saveNewPath(this.props.editor)
-              : saveEditedPath(this.props.editor)
+              : saveEditedResume(this.props.editor)
           }}
         />
       </S.Editor>
@@ -169,18 +143,18 @@ class Editor extends Component {
 }
 
 const mapStateToProps = (state) => {
+  const editor = state.editor
   return {
-    fsData: state.firestore.ordered.paths,
-    editor: state.editor,
-    path: state.editor.path,
-    keystones: state.editor.keystones,
-    tier1: state.editor.tiers[0],
-    tier2: state.editor.tiers[1],
-    tier3: state.editor.tiers[2],
-    color: state.editor.path.color,
-    colorPickerOpen: state.editor.colorPickerOpen,
-    chosenPath: state.editor.chosenPath,
-    pathList: state.editor.pathList,
+    editor: editor,
+    path: editor && editor.path,
+    keystones: editor && editor.keystones,
+    tier1: editor && editor.tiers[0],
+    tier2: editor && editor.tiers[1],
+    tier3: editor && editor.tiers[2],
+    color: editor && editor.path.color,
+    colorPickerOpen: editor && editor.colorPickerOpen,
+    chosenPath: editor && editor.chosenPath,
+    pathList: editor && editor.pathList,
   }
 }
 
@@ -200,10 +174,10 @@ const mapDispatchToProps = (dispatch) => {
     setColor: (colorHex, colorRgb) => dispatch(setColor(colorHex, colorRgb)),
     toggleColorPicker: () => dispatch(toggleColorPicker()),
     saveNewPath: (path) => dispatch(saveNewPath(path)),
-    saveEditedPath: (path) => dispatch(saveEditedPath(path)),
+    saveEditedResume: (path) => dispatch(saveEditedResume(path)),
     restoreFromBackup: (paths, name) => dispatch(restoreFromBackup(paths, name)),
     setChosenPath: (path) => dispatch(setChosenPath(path)),
-    loadPathNamesFromFirestore: () => dispatch(loadPathNamesFromFirestore()),
+    loadResumeFromFirestore: () => dispatch(loadResumeFromFirestore()),
     selectImage: (img, tier, id) => dispatch(selectImage(img, tier, id)),
     uploadIcon: (img, path) => dispatch(uploadIcon(img, path)),
   }

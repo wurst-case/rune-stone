@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import styled from '@emotion/styled'
 import Layout from '../constants/layoutConstants'
-import Editor from '../components/organisms/ResumeEditor'
+import ResumeEditor from '../components/organisms/ResumeEditor'
 import firebase from '../constants/firebaseConfig'
 
 const S = {}
@@ -39,7 +39,7 @@ export class ResumeEditorContainer extends Component {
   render() {
     return (
       <S.Container>
-        <Editor />
+        <ResumeEditor />
       </S.Container>
     )
   }

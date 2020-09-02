@@ -8,6 +8,7 @@ import styled from '@emotion/styled'
 import Loading from '../containers/Loading'
 import Header from '../components/molecules/Header'
 import Footer from '../components/molecules/Footer'
+import ResumeEditorContainer from '../containers/ResumeEditorContainer'
 
 const EditorContainer = lazy(() => import('../containers/EditorContainer'))
 const ComingSoon = lazy(() => import('../containers/ComingSoon'))
@@ -78,6 +79,7 @@ function Routes() {
               <Route exact path="/bandle" component={ComingSoon} />
               <Route exact path="/about" component={About} />
               <Route exact path="/resume" component={Resume} />
+              <Route exact path="/resumeeditor" component={ResumeEditorContainer} />
               <Route path="/comp/:pathID" component={CompBuilder} />
               <Route exact path="/" component={CompBuilder} />
               <PrivateRoute>

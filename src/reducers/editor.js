@@ -53,7 +53,7 @@ export const initialState = {
   ],
   colorPickerOpen: false,
   pathList: [],
-  chosenPath: '',
+  chosenPath: 'bandle',
 }
 
 export function editor(state = initialState, action) {
@@ -94,8 +94,6 @@ export function editor(state = initialState, action) {
         ),
       }
     case ActionTypes.SET_KEYSTONE_IMAGE:
-      console.log(action.payload.value)
-
       return {
         ...state,
         keystones: state.keystones.map((keystone, id) =>

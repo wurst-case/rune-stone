@@ -83,8 +83,6 @@ export const toggleColorPicker = () => ({
 })
 
 export const setChosenPath = (path) => {
-  console.log(path)
-
   return (dispatch) => {
     dispatch(loadPathFromFirestore(path))
     dispatch({
@@ -117,7 +115,8 @@ export const saveNewPath = (path) => {
 export const loadPathNamesFromFirestore = () => {
   return (dispatch, getState, getFirebase) => {
     const db = getFirebase().firestore()
-    db.get({ collection: 'paths' })
+    db.collection('paths')
+      .get()
       .then((col) => {
         let pathList = col.docs.map((d) => ({ id: d.id, name: d.data().name })).filter((p) => p.id !== 'empty')
         // console.log(pathList)
@@ -130,10 +129,46 @@ export const loadPathNamesFromFirestore = () => {
   }
 }
 
-export const loadPathFromFirestore = (pathId) => {
+export const loadPathFromFirestore = () => {
   return (dispatch, getState, getFirebase) => {
     const db = getFirebase().firestore()
-    db.get({ collection: 'paths', doc: pathId })
+    db.collection('paths')
+      .doc('bandle')
+      .get()
+      .then((doc) => {
+        let d = doc.data()
+        dispatch(resetEditor())
+        dispatch(setColor(d.colorHex, d.colorRGB))
+        dispatch(setPathTitle(d.name))
+        dispatch(setPathSubtitle(d.subtitle))
+        d.keystones.forEach((keystone, id) => {
+          if (id !== 0) dispatch(addKeystone())
+          dispatch(setKeystoneName(id, keystone.name))
+          dispatch(setKeystoneDetails(id, keystone.detail))
+          dispatch(setKeystoneTooltip(id, keystone.tooltip))
+          dispatch(setKeystoneImage(id, keystone.img))
+        })
+        d.tierNames.forEach((name, tier) => {
+          dispatch(setTierTitle(tier, name))
+          d['tier' + (tier + 1)].forEach((rune, id) => {
+            if (id !== 0) dispatch(addRune(tier))
+            dispatch(setRuneName(tier, id, rune.name))
+            dispatch(setRuneDetails(tier, id, rune.detail))
+            dispatch(setRuneTooltip(tier, id, rune.tooltip))
+            dispatch(setRuneImage(tier, id, rune.img))
+          })
+        })
+      })
+      .catch({ type: ActionTypes.LOAD_PATH_ERROR })
+  }
+}
+
+export const loadResumeFromFirestore = () => {
+  return (dispatch, getState, getFirebase) => {
+    const db = getFirebase().firestore()
+    db.collection('resume')
+      .doc('brian')
+      .get()
       .then((doc) => {
         let d = doc.data()
         dispatch(resetEditor())
@@ -166,7 +201,6 @@ export const saveEditedPath = (path) => {
   return (dispatch, getState, getFirebase) => {
     const state = getState().editor
     const db = getFirebase().firestore()
-    console.log(path)
     // uploadIcon(path.icon, state.chosenPath)
     db.collection('paths')
       .doc(state.chosenPath)
@@ -203,6 +237,47 @@ export const saveEditedPath = (path) => {
       })
       .then((res) => dispatch({ type: 'ActionTypes.SAVE_EDITED_PATH', path }))
       .catch((err) => dispatch({ type: ActionTypes.SAVE_PATH_ERROR, err: err }))
+  }
+}
+
+export const saveEditedResume = (path) => {
+  return (dispatch, getState, getFirebase) => {
+    const db = getFirebase().firestore()
+    db.collection('resume')
+      .doc('brian')
+      .update({
+        colorHex: path.path.color,
+        colorRGB: path.path.colorRgb,
+        name: path.path.title,
+        subtitle: path.path.subtitle,
+        keystones: path.keystones.map((rune, i) => ({
+          name: rune.name,
+          detail: rune.detail,
+          tooltip: rune.tooltip,
+          img: rune.img,
+        })),
+        tier1: path.tiers[0].runes.map((rune, i) => ({
+          name: rune.name,
+          detail: rune.detail,
+          tooltip: rune.tooltip,
+          img: rune.img,
+        })),
+        tier2: path.tiers[1].runes.map((rune, i) => ({
+          name: rune.name,
+          detail: rune.detail,
+          tooltip: rune.tooltip,
+          img: rune.img,
+        })),
+        tier3: path.tiers[2].runes.map((rune, i) => ({
+          name: rune.name,
+          detail: rune.detail,
+          tooltip: rune.tooltip,
+          img: rune.img,
+        })),
+        tierNames: [path.tiers[0].title, path.tiers[1].title, path.tiers[2].title],
+      })
+      .then((res) => dispatch({ type: ActionTypes.SAVE_NEW_PATH, path }))
+      .catch((err) => dispatch({ type: ActionTypes.NEW_PATH_ERROR, err: err }))
   }
 }
 
