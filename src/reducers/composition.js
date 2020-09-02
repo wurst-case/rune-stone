@@ -82,25 +82,34 @@ export function composition(state = initialState, action) {
       // Close menu, open next menu
       state.OPEN.PRIMARY.KEYSTONE = false
       if (state.PRIMARY_T1 === null) state.OPEN.PRIMARY.T1 = true
-      return { ...state, KEYSTONE: action.payload }
+      return {
+        ...state,
+        KEYSTONE: action.payload,
+        slotMachine: state.KEYSTONE === action.payload ? state.slotMachine : null,
+      }
     case ActionTypes.SELECT_PRIMARY_T1:
       // Close menu, open next menu
       state.OPEN.PRIMARY.T1 = false
       if (state.PRIMARY_T2 === null) state.OPEN.PRIMARY.T2 = true
-      return { ...state, PRIMARY_T1: action.payload }
+      return {
+        ...state,
+        PRIMARY_T1: action.payload,
+        slotMachine: state.PRIMARY_T1 === action.payload ? state.slotMachine : null,
+      }
     case ActionTypes.SELECT_PRIMARY_T2:
       // Close menu, open next menu
       state.OPEN.PRIMARY.T2 = false
       if (state.PRIMARY_T3 === null) state.OPEN.PRIMARY.T3 = true
-      return { ...state, PRIMARY_T2: action.payload }
+      return {
+        ...state,
+        PRIMARY_T2: action.payload,
+        slotMachine: state.PRIMARY_T2 === action.payload ? state.slotMachine : null,
+      }
     case ActionTypes.SELECT_PRIMARY_T3:
       // Close menu, open next menu
       state.OPEN.PRIMARY.T3 = false
       if (state.SECONDARY_FLAVOR === 0) state.OPEN.SECONDARY.FLAVOR = true
-      // Bandle Slot machine
-      if (action.payload === 2 && state.PRIMARY_FLAVOR === 1)
-        return { ...state, PRIMARY_T3: action.payload, slotMachine: null }
-      return { ...state, PRIMARY_T3: action.payload }
+      return { ...state, PRIMARY_T3: action.payload, slotMachine: null }
     case ActionTypes.RESET_SLOT_MACHINE:
       return { ...state, slotMachine: null }
     case ActionTypes.TRIGGER_SLOT:
@@ -120,8 +129,12 @@ export function composition(state = initialState, action) {
         possibleRunes.splice(state.PRIMARY_FLAVOR, 1)
         // remove empty path
         possibleRunes.splice(0, 1)
+        console.log(possibleRunes)
+        // Random number 1 - 5
         var rand1 = Math.floor(Math.random() * possibleRunes.length)
+        // Random number 1 - 3 except for the path that is in the secondary tree, tree selected is equal to rand 1
         var rand2 = Math.floor(Math.random() * possibleRunes[rand1].tiers.length)
+        // Random numner 1-3 or 1-4 depending on how many runes on the tier equal to rand2 and tree equal to rand 1
         var rand3 = Math.floor(Math.random() * possibleRunes[rand1].tiers[rand2].runes.length)
         // None from 1 aka bandle, none from other
         return {
@@ -136,7 +149,7 @@ export function composition(state = initialState, action) {
     case ActionTypes.SELECT_SECONDARY_FLAVOR:
       // Close menu, open next menu
       state.OPEN.SECONDARY.FLAVOR = false
-      if (state.SECONDARY_T1_ROW === null) state.OPEN.SECONDARY.RUNES = true
+      state.OPEN.SECONDARY.RUNES = true
       return {
         ...state,
         SECONDARY_FLAVOR: action.payload,
@@ -144,7 +157,7 @@ export function composition(state = initialState, action) {
         SECONDARY_T1_ID: null,
         SECONDARY_T2_ROW: null,
         SECONDARY_T2_ID: null,
-        slotMachine: state.slotMachine && action.payload === state.slotMachine.flavor ? null : state.slotMachine,
+        slotMachine: action.payload !== state.SECONDARY_FLAVOR ? null : state.slotMachine,
       }
 
     case ActionTypes.SELECT_SECONDARY_RUNES:
@@ -218,14 +231,14 @@ export function composition(state = initialState, action) {
             return slot.runes.map((rune) => {
               let img = riotAssetUrl + rune.icon
               let detail = rune.longDesc
-                .replace(/(<\/?scaleAD>)/gm, '')
-                .replace(/(<\/?scaleAP>)/gm, '')
+                .replace(/(<\/?scale\w*>)/gm, '')
+                .replace(/(<\/?stat\w*>)/gm, '')
                 .replace(/(<\/?hr>)/gm, '')
                 .replace(/(<\/?rules>)/gm, '')
               // Remove Riot's custom html tags
               let tooltip = rune.shortDesc
-                .replace(/(<lol-uikit(\s|\S)*?>)/gm, '<b style="color:white;">')
-                .replace(/(<\/lol-uikit(\s|\S)*?>)/gm, '</b>')
+                .replace(/(<lol-uikit[^>]*>)/gm, '<strong style="color:white;">')
+                .replace(/(<\/lol-uikit[^>]*>)/gm, '</strong>')
               // Replaces Riot's custom html tags with standard tags and styling
               return { ...rune, img, detail, tooltip }
             })

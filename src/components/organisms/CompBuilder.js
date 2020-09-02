@@ -155,12 +155,10 @@ class CompBuilder extends Component {
           t1={primeT1}
           t2={primeT2}
           t3={primeT3}
-          onToggle={(menu) => {
-            toggleMenu({ tree: 'PRIMARY', ...menu })
-          }}
+          onToggle={(menu) => toggleMenu({ tree: 'PRIMARY', ...menu })}
           openMenus={open.PRIMARY}
           slotMachine={slotMachine}
-          triggerSlot={(!pathID || !fresh) && secondT2 ? () => triggerSlot() : console.log()}
+          triggerSlot={(!pathID || !fresh) && secondT2 !== null && !slotMachine ? triggerSlot : console.log()}
           resetSlotMachine={resetSlotMachine}
           icon={primeFlavor && primeFlavor.img}
           slotColor={slotColor}
@@ -172,21 +170,11 @@ class CompBuilder extends Component {
           t2={primeT2}
           t3={primeT3}
           flavor={primeFlavor}
-          onSelectFlavor={(id) => {
-            onSelectPrimaryFlavor(id)
-          }}
-          onSelectKeystone={(id) => {
-            onSelectKeystone(id)
-          }}
-          onSelectT1={(id) => {
-            onSelectPrimaryT1(id)
-          }}
-          onSelectT2={(id) => {
-            onSelectPrimaryT2(id)
-          }}
-          onSelectT3={(id) => {
-            onSelectPrimaryT3(id)
-          }}
+          onSelectFlavor={(id) => onSelectPrimaryFlavor(id)}
+          onSelectKeystone={(id) => onSelectKeystone(id)}
+          onSelectT1={(id) => onSelectPrimaryT1(id)}
+          onSelectT2={(id) => onSelectPrimaryT2(id)}
+          onSelectT3={(id) => onSelectPrimaryT3(id)}
           openMenus={open.PRIMARY}
           slotMachine={slotMachine}
           slotColor={slotColor}
@@ -196,12 +184,10 @@ class CompBuilder extends Component {
           color={secondFlavor && secondFlavor.colorRGB}
           t1={secondT1}
           t2={secondT2}
-          onToggle={(menu) => {
-            toggleMenu({ tree: 'SECONDARY', ...menu })
-          }}
+          onToggle={(menu) => toggleMenu({ tree: 'SECONDARY', ...menu })}
           openMenus={open.SECONDARY}
           slotMachine={slotMachine}
-          triggerSlot={!fresh ? () => triggerSlot() : console.log()}
+          triggerSlot={!fresh ? triggerSlot : console.log()}
           icon={secondFlavor && secondFlavor.img}
           slotColor={slotColor}
         />

@@ -33,9 +33,11 @@ export const selectPrimaryFlavor = (id, mobile) => {
   }
 }
 export const selectKeystone = (id) => {
-  return {
-    type: ActionTypes.SELECT_KEYSTONE,
-    payload: id,
+  return (dispatch) => {
+    dispatch({
+      type: ActionTypes.SELECT_KEYSTONE,
+      payload: id,
+    })
   }
 }
 export const selectPrimaryT1 = (id) => {
