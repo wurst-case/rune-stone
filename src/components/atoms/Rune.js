@@ -39,13 +39,14 @@ S.Rune = styled.div`
 
   cursor: pointer;
 
-  border-radius: ${(props) => (props.keystone ? Layout.RUNE_SIZE_KS : Layout.RUNE_SIZE_REG)}px;
+  border-radius: 1000px;
   border: ${Layout.RUNE_BORDER_WIDTH}px solid rgba(${(props) => props.color}, 1);
 
   & > img.graphic {
     /* Image size larger proportionally if keystone rune by 75% and active runes decrease image sixe by 20%*/
     width: ${(props) =>
       (props.keystone ? Layout.RUNE_SIZE_KS * 1.75 : Layout.RUNE_SIZE_REG) * (props.active ? 0.8 : 1)}px;
+    border-radius: 1000px;
   }
 
   .animation {
@@ -53,6 +54,7 @@ S.Rune = styled.div`
     width: ${(props) =>
       (props.keystone ? Layout.RUNE_SIZE_KS * 1.75 : Layout.RUNE_SIZE_REG) * (props.active ? 0.8 : 1)}px;
     animation: ${S.pull} 5s ease-out;
+    border-radius: 1000px;
   }
 
   .highlighter{
@@ -91,15 +93,20 @@ S.Spark = styled.img`
   animation: ${S.spin} 2s linear infinite;
 `
 
-S.Glow = styled.img`
-  display: ${(props) => (props.active ? '' : 'none')};
-  z-index: -100;
+S.Glow = styled.div`
+  display: ${(props) => (props.glow ? 'flex' : 'none')};
+  z-index: 1001;
   position: absolute;
   bottom: 0;
-  border-radius: 50px;
+  right: 0;
+  top: 0;
+  left: 0;
+  border-radius: 1000px;
   width: ${Layout.RUNE_SIZE_REG}px;
   height: ${Layout.RUNE_SIZE_REG}px;
   box-shadow: 0 0 20px 20px rgba(${(props) => props.color}, 0.25);
+  box-sizing: border-box;
+  background: transparent;
 `
 
 S.Tooltip = styled.div`
@@ -165,6 +172,7 @@ S.Tooltip = styled.div`
 function Rune({
   color,
   keystone,
+  glow,
   active,
   onClick,
   img,
@@ -190,7 +198,7 @@ function Rune({
           <div />
         )}
         <div className="highlighter" />
-        <S.Glow active={triggerSlot && slotMachine && !active ? true : false} color={color} />
+        <S.Glow glow={glow} color={color} />
       </S.Rune>
       <div className="tooltiptext">
         <h4>{title}</h4>

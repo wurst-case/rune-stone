@@ -118,11 +118,10 @@ export const DoubleDrawer = ({
   triggerSlot,
   slotColor,
 }) => {
+  const zim = selected2 && selected2.name === 'Zim’s Magical Rune Randomization Machine'
   var altColor = null
-  altColor =
-    selected2 && selected2.name === 'Zim’s Magical Rune Randomization Machine' && slotMachine ? slotColor : color
-  selected2 =
-    selected2 && selected2.name === 'Zim’s Magical Rune Randomization Machine' && slotMachine ? slotMachine : selected2
+  altColor = zim && slotMachine ? slotColor : color
+  selected2 = zim && slotMachine ? slotMachine : selected2
   return (
     <S.Drawer color={color}>
       <div className="listItems">
@@ -151,8 +150,9 @@ export const DoubleDrawer = ({
               active={open}
               img={selected2 ? selected2.img : null}
               color={altColor || color}
-              slotMachine={selected2 && selected2.name === 'Zim’s Magical Rune Randomization Machine'}
+              slotMachine={zim}
               triggerSlot={triggerSlot}
+              glow={zim}
             />
           </div>
           <ListItemText>

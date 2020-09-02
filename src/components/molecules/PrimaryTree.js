@@ -81,6 +81,7 @@ function PrimaryTree({
             ? slotMachine.detail
             : t3 && t3.detail
         }
+        glow={t3 && t3.name === 'Zim’s Magical Rune Randomization Machine'}
       />
     </S.Tree>
   )
