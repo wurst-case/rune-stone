@@ -8,7 +8,6 @@ import styled from '@emotion/styled'
 import Loading from '../containers/Loading'
 import Header from '../components/molecules/Header'
 import Footer from '../components/molecules/Footer'
-import ResumeEditorContainer from '../containers/ResumeEditorContainer'
 
 const EditorContainer = lazy(() => import('../containers/EditorContainer'))
 const ComingSoon = lazy(() => import('../containers/ComingSoon'))
@@ -25,6 +24,7 @@ const Resume = lazy(() => {
     ? import('../containers/ResumeContainer')
     : import('../containers/ResumeMobileContainer')
 })
+const ResumeEditorContainer = lazy(() => import('../containers/ResumeEditorContainer'))
 
 export const history = createBrowserHistory()
 

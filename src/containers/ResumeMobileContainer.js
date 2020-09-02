@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import styled from '@emotion/styled'
 import { connect } from 'react-redux'
 import List from '@material-ui/core/List'
+import FilledButton from '../components/atoms/FilledButton'
 
 import {
   loadResume,
@@ -179,6 +180,15 @@ class ResumeMobileContainer extends Component {
             color={path && path.colorRGB}
             tier={3}
             moreInfo={(runeInfo) => openInfoDisplay({ ...runeInfo, tier: 3 })}
+          />
+          <FilledButton
+            bg={path && path.colorHex}
+            color={'#000'}
+            label="Download PDF of Resumé"
+            onClick={() => {
+              window.open(path && path.pdf, '_blank')
+              return null
+            }}
           />
         </List>
       </S.Path>
