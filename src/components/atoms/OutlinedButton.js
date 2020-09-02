@@ -20,6 +20,8 @@ S.OutlinedButton = styled.div`
   margin: 16px 16px;
   box-sizing: border-box;
 
+  cursor: pointer;
+
   &:hover {
     color: white;
     border-color: white;

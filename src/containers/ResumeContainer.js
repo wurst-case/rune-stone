@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
-import { compose } from 'redux'
 import { connect } from 'react-redux'
-import { firestoreConnect } from 'react-redux-firebase'
 import styled from '@emotion/styled'
+import { withRouter } from 'react-router-dom'
 import PrimaryTree from '../components/molecules/PrimaryTree'
 import PrimaryMenu from '../components/molecules/PrimaryMenu'
 import Layout from '../constants/layoutConstants'
+import FilledButton from '../components/atoms/FilledButton'
 import {
   loadResume,
   selectResumeKeystone,
@@ -125,12 +125,18 @@ class ResumeContainer extends Component {
             paths={[path]}
           />
         </div>
+        <FilledButton
+          bg={path && path.colorHex}
+          color={'#000'}
+          label="Download PDF of Resumé"
+          onClick={() => {
+            window.open(path && path.pdf, '_blank')
+            return null
+          }}
+        />
       </S.ResumeContainer>
     )
   }
 }
 
-export default compose(
-  connect(mapStateToProps, mapDispatchToProps),
-  firestoreConnect([{ collection: 'paths' }]),
-)(ResumeContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(ResumeContainer))

@@ -515,3 +515,21 @@ export const uploadImage = (img, path, tier, rune) => {
       .catch({ type: ActionTypes.SAVE_PATH_ERROR })
   }
 }
+
+export function savePDF() {
+  return (dispatch, getState, getFirebase) => {
+    const pdf = getState().editor.path.pdf
+    const db = getFirebase().firestore()
+    db.collection('resume')
+      .doc('brian')
+      .update({
+        pdf: pdf,
+      })
+      .then(() => dispatch({ type: ActionTypes.SAVE_PDF }))
+      .catch((e) => console.log(e))
+  }
+}
+
+export function setPDF(pdf) {
+  return (dispatch) => dispatch({ type: ActionTypes.SET_PDF, payload: pdf })
+}

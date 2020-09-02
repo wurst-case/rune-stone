@@ -9,6 +9,7 @@ export const initialState = {
     bg: null,
     emblem: null,
     icon: null,
+    pdf: '',
   },
   keystones: [
     {
@@ -234,6 +235,8 @@ export function editor(state = initialState, action) {
         default:
           return state
       }
+    case ActionTypes.SET_PDF:
+      return { ...state, path: { ...state.path, pdf: action.payload } }
     default:
       return state
   }

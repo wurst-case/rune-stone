@@ -23,6 +23,8 @@ import {
   loadResumeFromFirestore,
   selectImage,
   uploadIcon,
+  setPDF,
+  savePDF,
 } from '../../actions/editor'
 import TierEditor from '../molecules/TierEditor'
 import KeystoneEditor from '../molecules/KeystoneEditor'
@@ -66,12 +68,17 @@ class Editor extends Component {
       saveNewPath,
       saveEditedResume,
       selectImage,
+      setPDF,
+      savePDF,
     } = this.props
 
     return (
       <S.Editor>
         <div className="center">
-          <h1>Edit the bandle paths</h1>
+          <h1>Edit the Resume</h1>
+          <p>PDF Download link</p>
+          <input value={path && path.pdf} onChange={(e) => setPDF(e.target.value)} />
+          <button onClick={savePDF}>Save PDF Download Link</button>
         </div>
         <PathEditor
           color={color}
@@ -180,6 +187,8 @@ const mapDispatchToProps = (dispatch) => {
     loadResumeFromFirestore: () => dispatch(loadResumeFromFirestore()),
     selectImage: (img, tier, id) => dispatch(selectImage(img, tier, id)),
     uploadIcon: (img, path) => dispatch(uploadIcon(img, path)),
+    setPDF: (pdf) => dispatch(setPDF(pdf)),
+    savePDF: () => dispatch(savePDF()),
   }
 }
 

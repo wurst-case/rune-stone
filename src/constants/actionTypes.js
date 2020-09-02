@@ -57,4 +57,6 @@ export default {
   // Resume Editor
   LOAD_RESUME_EDITOR: 'LOAD_RESUME_EDITOR',
   SAVE_RESUME_EDITOR: 'SAVE_RESUME_EDITOR',
+  SET_PDF: 'SET_PDF',
+  SAVE_PDF: 'SAVE_PDF',
 }

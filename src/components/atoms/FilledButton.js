@@ -17,6 +17,8 @@ S.FilledButton = styled.div`
   justify-content: center;
   align-items: center;
 
+  cursor: pointer;
+
   &:hover {
     outline-color: ${(props) => props.color};
     outline-width: 6px;
