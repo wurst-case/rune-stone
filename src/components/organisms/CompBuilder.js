@@ -146,7 +146,6 @@ class CompBuilder extends Component {
       resetSlotMachine,
       slotColor,
     } = this.props
-    console.log(JSON.stringify(paths))
     return (
       <S.CompBuilder>
         <PrimaryTree

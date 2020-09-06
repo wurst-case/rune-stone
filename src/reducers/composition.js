@@ -235,6 +235,7 @@ export function composition(state = initialState, action) {
                 .replace(/(<\/?stat\w*>)/gm, '')
                 .replace(/(<\/?hr>)/gm, '')
                 .replace(/(<\/?rules>)/gm, '')
+                .replace(/(<p>\s?<\/p>)/gm, '')
               // Remove Riot's custom html tags
               let tooltip = rune.shortDesc
                 .replace(/(<lol-uikit[^>]*>)/gm, '<strong style="color:white;">')
@@ -250,7 +251,27 @@ export function composition(state = initialState, action) {
             tier2: slots[2],
             tier3: slots[3],
           }
-        } else return path // If this is a custom path without the riot api slots, return it without mutation
+        } else {
+          let mutatedKeystones = path.keystones.map((rune) => {
+            return { ...rune, detail: rune.detail.replace(/(<p>\s?<\/p>)/gm, '').replace(/(\n\n)/gm, '\n') }
+          })
+          let mutatedTier1 = path.tier1.map((rune) => {
+            return { ...rune, detail: rune.detail.replace(/(<p>\s?<\/p>)/gm, '').replace(/(\n\n)/gm, '\n') }
+          })
+          let mutatedTier2 = path.tier2.map((rune) => {
+            return { ...rune, detail: rune.detail.replace(/(<p>\s?<\/p>)/gm, '').replace(/(\n\n)/gm, '\n') }
+          })
+          let mutatedTier3 = path.tier3.map((rune) => {
+            return { ...rune, detail: rune.detail.replace(/(<p>\s?<\/p>)/gm, '').replace(/(\n\n)/gm, '\n') }
+          })
+          return {
+            ...path,
+            keystones: mutatedKeystones,
+            tier1: mutatedTier1,
+            tier2: mutatedTier2,
+            tier3: mutatedTier3,
+          }
+        } // If this is a custom path without the riot api slots, return it with p tag bug mutation
       })
       // Retrun the state with the mapped paths
       return {
