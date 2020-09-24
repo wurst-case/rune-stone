@@ -16,7 +16,7 @@ const S = {}
 S.Header = styled.div`
   img.banner {
     width: 120px;
-    position: absolute;
+    position: fixed;
     top: 15px;
     left: -35px;
     z-index: 1000;
