@@ -226,7 +226,7 @@ export class Header extends Component {
           <ResetButton resetCallback={this.props.reset} />
           <CreateButton />
           <AboutButton />
-          <BandleButton />
+          {/* <BandleButton /> */}
 
           <input
             type="text"
