@@ -186,7 +186,11 @@ class CompBuilder extends Component {
           onToggle={(menu) => toggleMenu({ tree: 'SECONDARY', ...menu })}
           openMenus={open.SECONDARY}
           slotMachine={slotMachine}
-          triggerSlot={!fresh ? triggerSlot : console.log()}
+          triggerSlot={
+            !fresh && !slotMachine && primeT1 !== null && primeT2 !== null && primeT3 !== null && keystone !== null
+              ? triggerSlot
+              : null
+          }
           icon={secondFlavor && secondFlavor.img}
           slotColor={slotColor}
         />

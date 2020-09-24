@@ -236,7 +236,7 @@ class MobilePathBuilder extends Component {
             index={runeMatrixIndex}
             moreInfo={(runeInfo) => openInfoDisplay({ ...runeInfo, primary: false })}
             slotMachine={slotMachine}
-            triggerSlot={(!pathID || !fresh) && secondT2 ? () => triggerSlot() : null}
+            triggerSlot={(!pathID || !fresh) && !slotMachine ? triggerSlot : null}
             slotColor={slotColor}
           />
         </List>

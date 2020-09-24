@@ -109,7 +109,11 @@ export function composition(state = initialState, action) {
       // Close menu, open next menu
       state.OPEN.PRIMARY.T3 = false
       if (state.SECONDARY_FLAVOR === 0) state.OPEN.SECONDARY.FLAVOR = true
-      return { ...state, PRIMARY_T3: action.payload, slotMachine: null }
+      return {
+        ...state,
+        PRIMARY_T3: action.payload,
+        slotMachine: state.PRIMARY_T3 === action.payload ? state.slotMachine : null,
+      }
     case ActionTypes.RESET_SLOT_MACHINE:
       return { ...state, slotMachine: null }
     case ActionTypes.TRIGGER_SLOT:
@@ -129,7 +133,6 @@ export function composition(state = initialState, action) {
         possibleRunes.splice(state.PRIMARY_FLAVOR, 1)
         // remove empty path
         possibleRunes.splice(0, 1)
-        console.log(possibleRunes)
         // Random number 1 - 5
         var rand1 = Math.floor(Math.random() * possibleRunes.length)
         // Random number 1 - 3 except for the path that is in the secondary tree, tree selected is equal to rand 1
@@ -157,7 +160,7 @@ export function composition(state = initialState, action) {
         SECONDARY_T1_ID: null,
         SECONDARY_T2_ROW: null,
         SECONDARY_T2_ID: null,
-        slotMachine: action.payload !== state.SECONDARY_FLAVOR ? null : state.slotMachine,
+        slotMachine: null,
       }
 
     case ActionTypes.SELECT_SECONDARY_RUNES:
@@ -189,7 +192,6 @@ export function composition(state = initialState, action) {
 
     case ActionTypes.TOGGLE_MENU:
       if (action.payload.tier === 'T3') {
-        state.fresh = false
         if (state.PRIMARY_FLAVOR === 1 && state.PRIMARY_T3 === 2) state.slotMachine = null
       }
       if (action.payload.tree === 'SECONDARY') {
@@ -213,8 +215,7 @@ export function composition(state = initialState, action) {
             SECONDARY_T2_ID: null,
             pathID: null,
             fresh: false,
-            slotMachine:
-              state.slotMachine && state.slotMachine.flavor === state.PRIMARY_FLAVOR ? state.slotMachine : null,
+            slotMachine: null,
           }
         }
       } else state['OPEN']['PRIMARY'][action.payload.tier] = action.payload.value
