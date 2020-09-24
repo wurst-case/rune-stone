@@ -150,6 +150,7 @@ export function composition(state = initialState, action) {
         }
       } else return state
     case ActionTypes.SELECT_SECONDARY_FLAVOR:
+      if (state.SECONDARY_FLAVOR !== null) state.fresh = false
       // Close menu, open next menu
       state.OPEN.SECONDARY.FLAVOR = false
       state.OPEN.SECONDARY.RUNES = true

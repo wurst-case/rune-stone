@@ -55,7 +55,7 @@ S.Drawer = styled.div`
     box-sizing: border-box;
   }
 
-  #runeMenu {
+  .runeMenu {
     background-color: rgba(255, 255, 255, 0.05);
   }
   .MuiList-padding .MuiList-root {
@@ -122,9 +122,25 @@ export const Drawer = ({
   altColor = zim && slotMachine ? slotColor : color
   selected = zim && slotMachine ? slotMachine : selected
 
+  var title = selected
+    ? (selected.name === 'Zim’s Magical Rune Randomization Machine' && slotMachine && slotMachine.name) || selected.name
+    : flavor
+    ? keystone
+      ? 'Keystone'
+      : flavor.tierNames[tier - 1]
+    : ''
+  var next = null //TODO: !flavor ? null : keystone ? flavor.tierNames[0] : tier !== 3 ? flavor.tierNames[tier] : null
+
   return (
-    <S.Drawer color={altColor || color}>
-      <ListItem button onClick={onToggle}>
+    <S.Drawer color={altColor || color} id={title}>
+      <ListItem
+        button
+        onClick={() => {
+          onToggle()
+          var elmnt = document.getElementById(next)
+          elmnt && elmnt.scrollIntoView()
+        }}
+      >
         <div className="runeWrap">
           <Rune
             active={open}
@@ -137,16 +153,7 @@ export const Drawer = ({
           />
         </div>
         <ListItemText>
-          <h4>
-            {selected
-              ? (selected.name === 'Zim’s Magical Rune Randomization Machine' && slotMachine && slotMachine.name) ||
-                selected.name
-              : flavor
-              ? keystone
-                ? 'Keystone'
-                : flavor.tierNames[tier - 1]
-              : ''}
-          </h4>
+          <h4>{title}</h4>
           <p>
             {selected
               ? isFlavor
@@ -164,7 +171,7 @@ export const Drawer = ({
         {open ? <ExpandLessIcon className="chevron" /> : <ExpandMoreIcon className="chevron" />}
       </ListItem>
       <Collapse in={open} timeout="auto" unmountOnExit>
-        <List component="div" disablePadding id="runeMenu">
+        <List component="div" disablePadding className="runeMenu">
           {runes &&
             runes.map((rune, id) =>
               (flavor ? (
