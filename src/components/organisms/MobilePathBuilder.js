@@ -138,7 +138,6 @@ class MobilePathBuilder extends Component {
     window.addEventListener('scroll', () => {
       document.documentElement.style.setProperty('--scroll-y', `${window.scrollY}px`)
     })
-
     return (
       <S.Path>
         <InfoDisplay
@@ -207,7 +206,7 @@ class MobilePathBuilder extends Component {
             tier={3}
             moreInfo={(runeInfo) => openInfoDisplay({ ...runeInfo, primary: true, tier: 3 })}
             slotMachine={slotMachine}
-            triggerSlot={(!pathID || !fresh) && secondT2 ? () => triggerSlot() : null}
+            triggerSlot={(!pathID || !fresh) && secondT2 !== null && !slotMachine ? triggerSlot : console.log()}
             slotColor={slotColor}
           />
         </List>

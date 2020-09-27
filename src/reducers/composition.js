@@ -79,6 +79,7 @@ export function composition(state = initialState, action) {
         slotMachine: null,
       }
     case ActionTypes.SELECT_KEYSTONE:
+      if (state.SECONDARY_FLAVOR !== null) state.fresh = false
       // Close menu, open next menu
       state.OPEN.PRIMARY.KEYSTONE = false
       if (state.PRIMARY_T1 === null) state.OPEN.PRIMARY.T1 = true
@@ -88,6 +89,7 @@ export function composition(state = initialState, action) {
         slotMachine: state.KEYSTONE === action.payload ? state.slotMachine : null,
       }
     case ActionTypes.SELECT_PRIMARY_T1:
+      if (state.SECONDARY_FLAVOR !== null) state.fresh = false
       // Close menu, open next menu
       state.OPEN.PRIMARY.T1 = false
       if (state.PRIMARY_T2 === null) state.OPEN.PRIMARY.T2 = true
@@ -97,6 +99,7 @@ export function composition(state = initialState, action) {
         slotMachine: state.PRIMARY_T1 === action.payload ? state.slotMachine : null,
       }
     case ActionTypes.SELECT_PRIMARY_T2:
+      if (state.SECONDARY_FLAVOR !== null) state.fresh = false
       // Close menu, open next menu
       state.OPEN.PRIMARY.T2 = false
       if (state.PRIMARY_T3 === null) state.OPEN.PRIMARY.T3 = true
@@ -106,6 +109,7 @@ export function composition(state = initialState, action) {
         slotMachine: state.PRIMARY_T2 === action.payload ? state.slotMachine : null,
       }
     case ActionTypes.SELECT_PRIMARY_T3:
+      if (state.SECONDARY_FLAVOR !== null) state.fresh = false
       // Close menu, open next menu
       state.OPEN.PRIMARY.T3 = false
       if (state.SECONDARY_FLAVOR === 0) state.OPEN.SECONDARY.FLAVOR = true
@@ -194,6 +198,7 @@ export function composition(state = initialState, action) {
     case ActionTypes.TOGGLE_MENU:
       if (action.payload.tier === 'T3') {
         if (state.PRIMARY_FLAVOR === 1 && state.PRIMARY_T3 === 2) state.slotMachine = null
+        if (state.SECONDARY_FLAVOR !== null) state.fresh = false
       }
       if (action.payload.tree === 'SECONDARY') {
         // Normal toggle for flavor
