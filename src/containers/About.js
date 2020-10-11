@@ -85,8 +85,7 @@ export class ComingSoon extends Component {
         <h3>•</h3>
         <h3>Our Team</h3>
         <h4>Brian H. Bookman</h4>
-        <h5>Game Design</h5>
-        <h5>Project Director</h5>
+        <h5>Creative Director</h5>
         <h4>Dylan Cortez-Modell</h4>
         <h5>Software Engineer</h5>
         <h4>James Ellis</h4>
