@@ -230,7 +230,7 @@ export class Header extends Component {
 
           <input
             type="text"
-            value={this.props.pathID ? 'www.rune-stone.com/comp/' + this.props.pathID : ''}
+            value={this.props.pathID ? 'https://www.rune-stone.com/comp/' + this.props.pathID : ''}
             id="permalinkHiddenInput"
             readOnly
           />
